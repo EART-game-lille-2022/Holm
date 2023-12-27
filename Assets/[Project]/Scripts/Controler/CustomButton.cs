@@ -5,12 +5,12 @@ using UnityEngine.EventSystems;
 
 public class CustomButton : MonoBehaviour
 {
-    [SerializeField] private PlayerControler _playerControler;
+    [SerializeField] private PlayerGroundControler _playerControler;
     [SerializeField] private RectTransform _buttonRect;
     [SerializeField] private Vector2 _position;
     [SerializeField] private float _distance;
     [SerializeField] private Vector2 _direction;
-    private bool _isMouseTracking = false;
+    private bool _isTracking = false;
     private RectTransform _rectTransform;
 
     void Start()
@@ -23,7 +23,7 @@ public class CustomButton : MonoBehaviour
         _distance = Vector2.Distance(_position,  transform.position);
         _direction = _position - (Vector2)_rectTransform.position;
 
-        if(_isMouseTracking)
+        if(_isTracking)
         {
             _buttonRect.position = _position;
 
@@ -31,7 +31,7 @@ public class CustomButton : MonoBehaviour
                 _buttonRect.localPosition = _direction.normalized * _rectTransform.rect.width / 2;
         }
 
-        if(!_isMouseTracking)
+        if(!_isTracking)
         {
             _direction = Vector2.zero;
             _buttonRect.localPosition = Vector3.zero;
@@ -43,12 +43,12 @@ public class CustomButton : MonoBehaviour
 
     public void OnPointerUp(PointerEventData eventData)
     {        
-        _isMouseTracking = false;
+        _isTracking = false;
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        _isMouseTracking = true;
+        _isTracking = true;
     }
 
     public void OnPointerMove(PointerEventData eventData)
