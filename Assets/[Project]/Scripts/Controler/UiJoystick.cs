@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class CustomButton : MonoBehaviour
+public class UiJoystick : MonoBehaviour
 {
-    [SerializeField] private PlayerGroundControler _playerControler;
     [SerializeField] private RectTransform _buttonRect;
     [SerializeField] private Vector2 _position;
     [SerializeField] private float _distance;
@@ -38,7 +37,11 @@ public class CustomButton : MonoBehaviour
         }
 
         _direction = _direction.normalized;
-        _playerControler.SetMoveAxis(new Vector3(_direction.x, 0, _direction.y));
+    }
+
+    public Vector2 GetAxis()
+    {
+        return _direction;
     }
 
     public void OnPointerUp(PointerEventData eventData)

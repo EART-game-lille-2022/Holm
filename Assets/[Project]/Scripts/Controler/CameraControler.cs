@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -33,7 +31,7 @@ public class CameraControler : MonoBehaviour
 
     void SetCameraRotation(Vector3 value)
     {
-        _camera.rotation = Quaternion.Euler(value * _sensivity);
+        _camera.localRotation = Quaternion.Euler(value * _sensivity);
     }
 
     void ComputeDelta()
