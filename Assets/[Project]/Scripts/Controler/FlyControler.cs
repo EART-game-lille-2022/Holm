@@ -21,10 +21,12 @@ public class FlyControler : MonoBehaviour
     public float _pitch;
 
     private Rigidbody _rigidbody;
+    private CameraControler _camControler;
 
     void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        _camControler = GetComponentInChildren<CameraControler>();
     }
 
     void Update()
@@ -35,8 +37,8 @@ public class FlyControler : MonoBehaviour
     void FixedUpdate()
     {
         _rigidbody.AddForce(transform.forward * _throttle * _maxTrust);
-        _rigidbody.AddTorque(Vector3.right * _pitch * _responsivness);
-        _rigidbody.AddTorque(Vector3.up * _yaw * _responsivness);
+        _rigidbody.AddTorque(transform.right * -_pitch * _responsivness);
+        _rigidbody.AddTorque(transform.up * _yaw * _responsivness);
     }
 
     void HandleInput()
@@ -62,11 +64,22 @@ public class FlyControler : MonoBehaviour
         _rigidbody.freezeRotation = false;
         _rigidbody.useGravity = false;
         _rigidbody.velocity = Vector3.zero;
+
+        _camControler.IsPlayerflying = true;
+
+        transform.forward = _meshRoot.forward;
+
         _meshRoot.localRotation = Quaternion.Euler(new Vector3(90, 0, 0));
+        _meshRoot.transform.localPosition = Vector3.zero;
+
+        _throttle = .5f;
     }
 
     public void Disable()
     {
         enabled = false;
+        _camControler.IsPlayerflying = false;
+
+        _throttle = 0;
     }
 }

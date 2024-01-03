@@ -41,9 +41,14 @@ public class UiJoystick : MonoBehaviour
         // print(_direction);
     }
 
-    public Vector2 GetDirection()
+    public Vector2 GetNormalizeDirection()
     {
         return _direction;
+    }
+
+    public Vector2 GetDirection()
+    {
+        return _direction * Mathf.InverseLerp(0, _rectTransform.rect.width, _distance);
     }
 
     public float GetRatioDistance()

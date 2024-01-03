@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1819533472033459452}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.00021512038, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.00021815034, z: 0, w: 1}
   m_LocalPosition: {x: 0.92, y: -0.04, z: 0.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -51,6 +51,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isPlayerFlying: 0
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &3823274208412180019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,8 +86,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _joystick: {fileID: 0}
   _meshRoot: {fileID: 1909522748409726056}
-  _throttleIncrement: 0.2
-  _maxTrust: 50
+  _throttleIncrement: 0.5
+  _maxTrust: 300
   _responsivness: 15
   _throttle: 0
   _throttleDirection: 0
@@ -99,8 +102,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1819533472033459452}
   serializedVersion: 4
-  m_Mass: 60
-  m_Drag: 0
+  m_Mass: 5
+  m_Drag: 5
   m_AngularDrag: 2
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -391,14 +394,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4913785731816480583}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.17691602, z: -0, w: -0.9842259}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2279568002887730219}
   m_Father: {fileID: 4988027451975784929}
-  m_LocalEulerAnglesHint: {x: 0, y: 380.405, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5122438758070273707
 GameObject:
   m_ObjectHideFlags: 0
@@ -443,6 +446,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8de9f2ea49104ee44a415bb2f949386b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _virtualCam: {fileID: 0}
   _cameraRoot: {fileID: 1049894344671721522}
   _sensivity: 0.5
 --- !u!1 &5225557151786440960

@@ -22,4 +22,9 @@ public class GyroscopeControler : MonoBehaviour
 
         _lastFrameGyroOrientation = _gyro.attitude;
     }
+
+    public Quaternion GetOrientation()
+    {
+        return _gyroOrientation;
+    }
 }

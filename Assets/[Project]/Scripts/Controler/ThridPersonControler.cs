@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TreeEditor;
 using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 
@@ -25,7 +26,7 @@ public class ThridPersonControler : MonoBehaviour
         Vector3 viewDirection = transform.position - new Vector3(_camera.position.x, transform.position.y, _camera.position.z);
         _orientation.forward = viewDirection.normalized;
 
-        Vector3 inputDirection = _joystick.GetDirection();
+        Vector3 inputDirection = _joystick.GetNormalizeDirection();
 
         Vector3 moveDirection = _orientation.forward * inputDirection.y + _orientation.right * inputDirection.x;
 
@@ -39,9 +40,15 @@ public class ThridPersonControler : MonoBehaviour
     public void Activate()
     {
         enabled = true;
+        transform.rotation = Quaternion.Euler(Vector3.zero);
+
         _rigidbody.freezeRotation = true;
         _rigidbody.useGravity = true;
+
         _meshRoot.localRotation = Quaternion.Euler(new Vector3(0, 0, 0));
+        _meshRoot.transform.localPosition = Vector3.up;
+
+        _rigidbody.velocity = Vector3.down * 15;
     }
 
     public void Disable()
