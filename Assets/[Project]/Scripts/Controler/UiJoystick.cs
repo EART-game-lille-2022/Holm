@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,14 +21,14 @@ public class UiJoystick : MonoBehaviour
     void Update()
     {
         _distance = Vector2.Distance(_position,  transform.position);
-        _direction = _position - (Vector2)_rectTransform.position;
+        _direction = (_position - (Vector2)_rectTransform.position).normalized;
 
         if(_isTracking)
         {
             _buttonRect.position = _position;
 
             if(_distance > _rectTransform.rect.width)
-                _buttonRect.localPosition = _direction.normalized * _rectTransform.rect.width / 2;
+                _buttonRect.localPosition = _direction * _rectTransform.rect.width / 2;
         }
 
         if(!_isTracking)
@@ -36,12 +37,18 @@ public class UiJoystick : MonoBehaviour
             _buttonRect.localPosition = Vector3.zero;
         }
 
-        _direction = _direction.normalized;
+        _direction = _direction * Mathf.InverseLerp(0, _rectTransform.rect.width, _distance);
+        // print(_direction);
     }
 
-    public Vector2 GetAxis()
+    public Vector2 GetDirection()
     {
         return _direction;
+    }
+
+    public float GetRatioDistance()
+    {
+        return Mathf.InverseLerp(0, _rectTransform.rect.width, _distance);
     }
 
     public void OnPointerUp(PointerEventData eventData)
