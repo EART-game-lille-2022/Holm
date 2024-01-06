@@ -42,13 +42,12 @@ public class PlayerState : MonoBehaviour
 
         if (_hit.collider)
         {
-            print("Ground : " + _hit.collider.name);
+            // print("Ground : " + _hit.collider.name);
             SetPlayerFlystate(false);
         }
 
         if (!_hit.collider)
         {
-            print("Nothing");
             SetPlayerFlystate(true);
         }
     }

@@ -2,8 +2,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Cinemachine;
-using UnityEngine.Animations;
-using UnityEditor.ShaderGraph;
 
 public class CameraControler : MonoBehaviour
 {
@@ -15,7 +13,6 @@ public class CameraControler : MonoBehaviour
     private Vector2 _lastFrameTracking;
     private Vector2 _currentFrameTracking;
     private Vector2 _deltaVector;
-    private bool _isTracking;
     private Vector2 _inputVector;
     private bool _isPlayerFlying;
     public bool IsPlayerflying
@@ -23,14 +20,12 @@ public class CameraControler : MonoBehaviour
         set
         {
             var thirdPerson = _virtualCam.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
-
             _isPlayerFlying = value;
             if(_isPlayerFlying)
             {
-                thirdPerson.ShoulderOffset.y = 0;
+                thirdPerson.ShoulderOffset.y = .5f;
                 Camera.main.transform.parent = transform.parent;
                 Camera.main.GetComponent<CinemachineBrain>().enabled = false;
-
                 _deltaVector = Vector2.zero;
             }
             else
@@ -39,7 +34,6 @@ public class CameraControler : MonoBehaviour
                 Camera.main.transform.parent = null;
                 Camera.main.GetComponent<CinemachineBrain>().enabled = true;
             }
-                
         }
     }
 
@@ -63,16 +57,10 @@ public class CameraControler : MonoBehaviour
 
     void GroundControl()
     {
-        if (_isTracking)
-        {
-            _currentFrameTracking = _inputVector;
-            ComputeDelta();
-            SetCameraRotation(new Vector3(-_deltaVector.y, _deltaVector.x, 0));
-        }
-        else
-        {
-            ResetTrackingValue();
-        }
+        _currentFrameTracking = _inputVector;
+
+        ComputeDelta();
+        SetCameraRotation(new Vector3(-_deltaVector.y, _deltaVector.x, 0));
 
         _lastFrameTracking = _currentFrameTracking;
     }
@@ -82,29 +70,28 @@ public class CameraControler : MonoBehaviour
         _deltaVector += _currentFrameTracking - _lastFrameTracking;
     }
 
+    public void ComputeDeltaWithOrientation(Vector2 value, Vector2 lastframeValue)
+    {
+        print("Value : " + value + "  LastFrameValue : " + lastframeValue);
+        _deltaVector += value - lastframeValue;
+    }
+
     void SetCameraRotation(Vector3 value)
     {
         // print("Cam set rotation : " + value);
         _cameraRoot.localRotation = Quaternion.Euler(value * _sensivity);
     }
 
-    void ResetTrackingValue()
+    public void ResetDelta()
     {
-        _currentFrameTracking = Vector2.zero;
-        _lastFrameTracking = Vector2.zero;
+        _deltaVector = Vector2.zero;
+        _cameraRoot.localRotation = Quaternion.Euler(Vector2.zero);
     }
 
     //! Call by Panel Event
     public void OnPointerDown(PointerEventData eventData)
     {
-        _isTracking = true;
         _lastFrameTracking = eventData.position;
-    }
-
-    //! Call by Panel Event
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        _isTracking = false;
     }
 
     //! Call by Panel Event

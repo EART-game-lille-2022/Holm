@@ -4,27 +4,47 @@ using UnityEngine;
 
 public class GyroscopeControler : MonoBehaviour
 {
-    Gyroscope _gyro;
-    Quaternion _gyroOrientation;
-    Quaternion _lastFrameGyroOrientation;
-
-    void Start()
-    {
-        _gyro = Input.gyro;
-        _gyro.enabled = true;
-    }
+    [Header("Reference :")]
+    [SerializeField] private CameraControler _cameraControler;
+    [Space]
+    public Vector3 _currentAccelerometre;
+    [Space]
+    [Space]
+    [Space]
+    [Space]
+    [Space]
+    [Space]
+    [Space]
+    [Space]
+    [Space]
+    [Space]
+    [Space]
+    [Space]
+    [Space]
+    [Space]
+    [Space]
+    [Space]
+    [Space]
+    public Vector3 _deltaAccelerometre;
+    Vector3 _lastFrameAccelerometre;
 
     void Update()
     {
-        // print(_gyro.attitude.eulerAngles);
-        _gyroOrientation *= _lastFrameGyroOrientation * Quaternion.Inverse(_gyroOrientation);
-        transform.rotation = _gyroOrientation;
+        _currentAccelerometre = Input.acceleration;
 
-        _lastFrameGyroOrientation = _gyro.attitude;
+        _deltaAccelerometre += _currentAccelerometre - _lastFrameAccelerometre;
+
+        _lastFrameAccelerometre = _currentAccelerometre;
     }
 
-    public Quaternion GetOrientation()
+    public Vector3 GetRotationRate()
     {
-        return _gyroOrientation;
+        return _deltaAccelerometre;
+    }
+
+    //! Call by reset button
+    public void ResetDelta()
+    {
+        _deltaAccelerometre = Vector3.zero;
     }
 }

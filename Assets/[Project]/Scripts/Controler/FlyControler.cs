@@ -9,6 +9,7 @@ public class FlyControler : MonoBehaviour
     [Header("Reference :")]
     [SerializeField] private UiJoystick _joystick;
     [SerializeField] private Transform _meshRoot;
+    [SerializeField] private GyroscopeControler _gyroControler;
     [Header("Parametre :")]
     [SerializeField] private float _throttleIncrement = .1F;
     [SerializeField] private float _maxTrust = 100f;
@@ -22,6 +23,7 @@ public class FlyControler : MonoBehaviour
 
     private Rigidbody _rigidbody;
     private CameraControler _camControler;
+    private bool _useGyro;
 
     void Awake()
     {
@@ -39,13 +41,34 @@ public class FlyControler : MonoBehaviour
         _rigidbody.AddForce(transform.forward * _throttle * _maxTrust);
         _rigidbody.AddTorque(transform.right * -_pitch * _responsivness);
         _rigidbody.AddTorque(transform.up * _yaw * _responsivness);
+        AjustRoll();
+    }
+
+    void AjustRoll()
+    {
+        if(transform.eulerAngles.z > 0f && transform.eulerAngles.z < 180f)
+        {
+            print("euler z : " + transform.eulerAngles.z + " / so -_roll");
+            _rigidbody.AddTorque(transform.forward * -_roll * _responsivness);
+        }
+        
+        if(transform.eulerAngles.z < 360f && transform.eulerAngles.z > 180f)
+        {
+            print("euler z : " + transform.eulerAngles.z + " / so _roll");
+            _rigidbody.AddTorque(transform.forward * _roll * _responsivness);
+        }
     }
 
     void HandleInput()
     {
         // print(_joystick.GetDirection());
-        _pitch = _joystick.GetDirection().y;
-        _yaw = _joystick.GetDirection().x;
+        // _pitch = _joystick.GetDirection().y;
+        // _yaw = _joystick.GetDirection().x;
+
+        _pitch = _gyroControler.GetRotationRate().z;
+        _yaw = _gyroControler.GetRotationRate().x;
+
+        // _roll = -_gyroControler.GetRotationRate().x * .5f;
 
         if(_throttleDirection != 0)
             _throttle += Time.deltaTime * _throttleIncrement * _throttleDirection;

@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using TreeEditor;
-using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 
 public class ThridPersonControler : MonoBehaviour
