@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,12 +37,37 @@ public class FlyControler : MonoBehaviour
         HandleInput();
     }
 
+    public Transform gyroValues;
+
+    public float forwardForce = 10;
+
+    public float liftForce = 5;
+    public float liftDist = 1;
+    public float windResistance = 2;
+
     void FixedUpdate()
     {
-        _rigidbody.AddForce(transform.forward * _throttle * _maxTrust);
-        _rigidbody.AddTorque(transform.right * -_pitch * _responsivness);
-        _rigidbody.AddTorque(transform.up * _yaw * _responsivness);
-        AjustRoll();
+        // _rigidbody.AddForce(transform.forward * _throttle * _maxTrust);
+        // _rigidbody.AddTorque(transform.right * -_pitch * _responsivness);
+        // _rigidbody.AddTorque(transform.up * _yaw * _responsivness);
+        // AjustRoll();
+
+        // _rigidbody.rotation = transform.rotation = Quaternion.Slerp(transform.rotation, gyroValues.rotation, .1f);
+        // Vector3 localpos = gyroValues.localRotation * Vector3.forward;
+        Vector3 localInputs = new Vector3( -Input.GetAxis("Horizontal"), 0, -Input.GetAxis("Vertical") ) * liftDist;
+
+
+        float a = Vector3.Angle(transform.forward, Vector3.down) - 90;
+        Vector3 velocityXZ = _rigidbody.velocity;
+        velocityXZ.y = 0;
+        float vel = velocityXZ.magnitude;
+        
+        _rigidbody.AddForceAtPosition(transform.up * liftForce * localInputs.magnitude, transform.TransformPoint( localInputs ), ForceMode.Acceleration );
+
+        _rigidbody.AddForce(Vector3.up * a/90 * windResistance * vel, ForceMode.Acceleration);
+
+        _rigidbody.AddForce(transform.forward * forwardForce * Math.Max(-a, 0)/90
+        , ForceMode.Acceleration);
     }
 
     void AjustRoll()
@@ -62,11 +88,11 @@ public class FlyControler : MonoBehaviour
     void HandleInput()
     {
         // print(_joystick.GetDirection());
-        // _pitch = _joystick.GetDirection().y;
-        // _yaw = _joystick.GetDirection().x;
+        _pitch = _joystick.GetDirection().y;
+        _yaw = _joystick.GetDirection().x;
 
-        _pitch = _gyroControler.GetRotationRate().z;
-        _yaw = _gyroControler.GetRotationRate().x;
+        // _pitch = _gyroControler.GetRotationRate().z;
+        // _yaw = _gyroControler.GetRotationRate().x;
 
         // _roll = -_gyroControler.GetRotationRate().x * .5f;
 
@@ -85,7 +111,7 @@ public class FlyControler : MonoBehaviour
     {
         enabled = true;
         _rigidbody.freezeRotation = false;
-        _rigidbody.useGravity = false;
+        // _rigidbody.useGravity = false;
         _rigidbody.velocity = Vector3.zero;
 
         _camControler.IsPlayerflying = true;
