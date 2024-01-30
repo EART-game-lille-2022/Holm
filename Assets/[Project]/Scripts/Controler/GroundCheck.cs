@@ -8,7 +8,7 @@ public class GroundCheck : MonoBehaviour
 {
     [SerializeField] private float _groundCheckDistance;
     [SerializeField] private LayerMask _groundLayer;
-    [SerializeField] private float _timeToGround;
+    [SerializeField] private float _timeToUnground;
     [SerializeField] private bool _isGrounded;
     private float _timer;
     RaycastHit _checkHit;
@@ -26,7 +26,7 @@ public class GroundCheck : MonoBehaviour
         if(_isGrounded && !Check())
         {
             _timer += Time.deltaTime;
-            if (_timer > _timeToGround)
+            if (_timer > _timeToUnground)
             {
                 _playerControler.ChangeState(PlayerState.Flying);
                 _timer = 0;

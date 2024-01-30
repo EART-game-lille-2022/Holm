@@ -32,7 +32,11 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] private float _liftForce = 5;
     [SerializeField] private float _windResistance = 2;
     [SerializeField] private float _flyRbDrag;
-
+    [SerializeField] private float _minAngleRatioMultiplier;
+    [SerializeField] private float _maxAngleRatioMultiplier;
+    [SerializeField] private float _minDownFallingForce;
+    [SerializeField] private float _maxDownFallingForce;
+    
     [Space]
     public Vector3 _playerInput;
     public float minUpForce;
@@ -67,7 +71,7 @@ public class PlayerControler : MonoBehaviour
             return;
 
         _currentState = stateToSet;
-
+        print("State to set :" + _currentState);
         switch (_currentState)
         {
             case PlayerState.Grounded:
@@ -77,7 +81,7 @@ public class PlayerControler : MonoBehaviour
                 _cameraControler.SetCameraParameter(1.5f, true);
 
                 _rigidbody.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
-                _rigidbody.drag = _groundRbDrag;
+                // _rigidbody.drag = _groundRbDrag;
                 break;
 
             case PlayerState.Flying:
@@ -86,14 +90,14 @@ public class PlayerControler : MonoBehaviour
                 _cameraControler.SetCameraParameter(0, false);
 
                 _rigidbody.constraints = RigidbodyConstraints.None;
-                _rigidbody.drag = _flyRbDrag;
+                // _rigidbody.drag = _flyRbDrag;
                 break;
         }
     }
 
     private void GroundControler()
     {
-        print("Ground");
+        // print("Ground");
         Vector3 viewDirection = transform.position - new Vector3(Camera.main.transform.position.x, transform.position.y, Camera.main.transform.position.z);
         viewDirection = viewDirection.normalized;
         // print("viewDirection " + viewDirection);
@@ -103,52 +107,69 @@ public class PlayerControler : MonoBehaviour
 
         if (moveDireciton != Vector3.zero)
         {
-            transform.forward = Vector3.Slerp(transform.forward, moveDireciton, Time.fixedDeltaTime * 5);
+            transform.forward = Vector3.Slerp(transform.forward, moveDireciton, Time.fixedDeltaTime * 10);
             // transform.Translate(Vector3.forward * _groundMoveSpeed * Time.fixedDeltaTime * _playerInput.magnitude);
             // _rigidbody.AddForce(transform.forward * _groundMoveSpeed, ForceMode.Acceleration);
         }
 
         Vector3 newVelocity = transform.forward * _playerInput.magnitude * _groundMoveSpeed;
         _rigidbody.velocity = new Vector3(newVelocity.x, _rigidbody.velocity.y, newVelocity.z);
-
     }
 
     private void FlyControler()
     {
-        print("Fly");
+        // print("Fly");
         //TODO revoire les valeur et ajuster les addforce
         angle = Vector3.Angle(transform.up, Vector3.down) - 90;
         angleRatio = angle / 90;
 
         Vector3 velocityXZ = _rigidbody.velocity;
         velocityXZ.y = 0;
-
         velocityMag = velocityXZ.magnitude;
 
         //! Rotate le player
+        //! peut etre "objetifié" pour avoir deux ailes
         positionToAddForce = transform.TransformPoint(_playerInput);
         _rigidbody.AddForceAtPosition(-transform.forward * _liftForce * -_playerInput.magnitude, positionToAddForce
                                      , ForceMode.Acceleration);
 
+
+        print(Mathf.Lerp(1, 2, Mathf.Max(0, angle) / 90));
+        //! Chute en avant +/- rapide en fonction de l'inclinaison
+        float downFallingForce = Mathf.Lerp(_minDownFallingForce, _maxDownFallingForce, Mathf.Max(0, angle) / 90);
+        if(angle > 0)
+            _rigidbody.AddForceAtPosition(Vector3.down  * downFallingForce, transform.TransformPoint(Vector3.up)
+                                        , ForceMode.Acceleration);
+
+
+        //! Convertie l'angle en un multiplicateur en fonction de l'incilinaison
+        float angleRatioMultiplier = 
+        Mathf.Lerp(_maxAngleRatioMultiplier, _minAngleRatioMultiplier, Mathf.InverseLerp(-90, 90, angle));
+
+
+        //! Set la  velocité pour fly boy
+        _rigidbody.velocity = transform.up * _upForce * angleRatioMultiplier;
+
+
+
         //! Resistance au vent en fonction d'angle
-        _rigidbody.AddForce(Vector3.up * angleRatio * _windResistance * velocityMag, ForceMode.Acceleration);
+        // _rigidbody.AddForce(Vector3.up * angleRatio * _windResistance * velocityMag, ForceMode.Acceleration);
 
-
-        //! Chute en avant
-        _rigidbody.AddForceAtPosition(Vector3.down, transform.TransformPoint(Vector3.up), ForceMode.Acceleration);
 
         //! Acceleration du player
         //! -angle pour avoir un multiplier positif avec un angle negatif
-        if (angle < 0 && minUpForce < 50)
-            minUpForce += Time.fixedDeltaTime * 25;
-        else if (minUpForce > 0)
-            minUpForce -= Time.fixedDeltaTime * 25;
+        // if (angle < 0 && minUpForce < 50)
+        //     minUpForce += Time.fixedDeltaTime * 25;
+        // else if (minUpForce > 0)
+        //     minUpForce -= Time.fixedDeltaTime * 25;
 
         // float direction = angle > 0 ? -1 : 1;
+        
         // print(Mathf.InverseLerp(-1, 1, Math.Max(-angle, minUpForce) / 90));
 
-        _rigidbody.AddForce(transform.up * _upForce * Mathf.InverseLerp(-1, 1, Math.Max(-angle, minUpForce) / 90)
-                           , ForceMode.Acceleration);                                                //! /90 ramene a 0-1; 
+        //! Force pour avancer
+        // _rigidbody.AddForce(transform.up * _upForce * Math.Max(-angle, minUpForce) / 90
+        //                    , ForceMode.Acceleration);                                                //! /90 ramene a 0-1; 
 
         // float fallingForce = Mathf.InverseLerp(60, 90, angle);
         // _rigidbody.AddForce(Vector3.down * Physics.gravity.magnitude * (angle > 60 ? angle : fallingForce), ForceMode.Impulse);
