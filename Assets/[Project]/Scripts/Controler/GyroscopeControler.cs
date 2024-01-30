@@ -12,19 +12,6 @@ public class GyroscopeControler : MonoBehaviour
     [Space]
     [Space]
     [Space]
-    [Space]
-    [Space]
-    [Space]
-    [Space]
-    [Space]
-    [Space]
-    [Space]
-    [Space]
-    [Space]
-    [Space]
-    [Space]
-    [Space]
-    [Space]
     public Vector3 _deltaAccelerometre;
     Vector3 _lastFrameAccelerometre;
 
@@ -53,14 +40,14 @@ public class GyroscopeControler : MonoBehaviour
 
 
 
-    protected void OnGUI()
-    {
-        GUI.skin.label.fontSize = Screen.width / 40;
+    // protected void OnGUI()
+    // {
+    //     GUI.skin.label.fontSize = Screen.width / 40;
 
-        GUILayout.Label("Orientation: " + Screen.orientation);
-        GUILayout.Label("input.gyro.attitude: " + Input.gyro.attitude);
-        GUILayout.Label("iphone width/font: " + Screen.width + " : " + GUI.skin.label.fontSize);
-    }
+    //     GUILayout.Label("Orientation: " + Screen.orientation);
+    //     GUILayout.Label("input.gyro.attitude: " + Input.gyro.attitude);
+    //     GUILayout.Label("iphone width/font: " + Screen.width + " : " + GUI.skin.label.fontSize);
+    // }
     
     public float gamepadSensivity = 10;
     // The Gyroscope is right-handed.  Unity is left handed.
