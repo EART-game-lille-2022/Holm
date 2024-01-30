@@ -41,7 +41,8 @@ public class PlayerControler : MonoBehaviour
     public Vector3 _playerInput;
     public float minUpForce;
     public float velocityMag;
-    public float angle;
+    public float xAngle;
+    public float yAngle;
     public float angleRatio;
     Vector3 positionToAddForce;
     private GroundCheck _groundCheck;
@@ -50,10 +51,17 @@ public class PlayerControler : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody>();
         _groundCheck = GetComponent<GroundCheck>();
+
+        ChangeState(PlayerState.Flying);
     }
 
     void FixedUpdate()
     {
+        Vector3 viewDirection = transform.position - new Vector3(Camera.main.transform.position.x, transform.position.y, Camera.main.transform.position.z);
+        viewDirection = viewDirection.normalized;
+
+        _orientation.forward = viewDirection;
+
         if (_currentState == PlayerState.Grounded)
         {
             GroundControler();
@@ -97,11 +105,7 @@ public class PlayerControler : MonoBehaviour
 
     private void GroundControler()
     {
-        // print("Ground");
-        Vector3 viewDirection = transform.position - new Vector3(Camera.main.transform.position.x, transform.position.y, Camera.main.transform.position.z);
-        viewDirection = viewDirection.normalized;
-        // print("viewDirection " + viewDirection);
-        _orientation.forward = viewDirection;
+
 
         Vector3 moveDireciton = _orientation.forward * _playerInput.y + _orientation.right * _playerInput.x;
 
@@ -120,8 +124,8 @@ public class PlayerControler : MonoBehaviour
     {
         // print("Fly");
         //TODO revoire les valeur et ajuster les addforce
-        angle = Vector3.Angle(transform.up, Vector3.down) - 90;
-        angleRatio = angle / 90;
+        xAngle = Vector3.Angle(transform.up, Vector3.down) - 90;
+        yAngle = Vector3.Angle(transform.right, Vector3.down) - 90;
 
         Vector3 velocityXZ = _rigidbody.velocity;
         velocityXZ.y = 0;
@@ -134,17 +138,21 @@ public class PlayerControler : MonoBehaviour
                                      , ForceMode.Acceleration);
 
 
-        print(Mathf.Lerp(1, 2, Mathf.Max(0, angle) / 90));
+        //? rota sur le yaw en fonction du roll
+        float yawForce = Mathf.Lerp(0, 5, Mathf.InverseLerp(0, 90, Mathf.Abs(yAngle)));
+        _rigidbody.AddForceAtPosition((yAngle > 0 ? -_orientation.right : _orientation.right) * yawForce, transform.TransformPoint(Vector3.up)
+                                    , ForceMode.Acceleration);
+
         //! Chute en avant +/- rapide en fonction de l'inclinaison
-        float downFallingForce = Mathf.Lerp(_minDownFallingForce, _maxDownFallingForce, Mathf.Max(0, angle) / 90);
-        if(angle > 0)
+        float downFallingForce = Mathf.Lerp(_minDownFallingForce, _maxDownFallingForce, Mathf.Max(0, xAngle) / 90);
+        if(xAngle > 0)
             _rigidbody.AddForceAtPosition(Vector3.down  * downFallingForce, transform.TransformPoint(Vector3.up)
                                         , ForceMode.Acceleration);
 
 
         //! Convertie l'angle en un multiplicateur en fonction de l'incilinaison
         float angleRatioMultiplier = 
-        Mathf.Lerp(_maxAngleRatioMultiplier, _minAngleRatioMultiplier, Mathf.InverseLerp(-90, 90, angle));
+        Mathf.Lerp(_maxAngleRatioMultiplier, _minAngleRatioMultiplier, Mathf.InverseLerp(-90, 90, xAngle));
 
 
         //! Set la  velocité pour fly boy
@@ -193,5 +201,9 @@ public class PlayerControler : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawSphere(positionToAddForce, .5f);
+
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawSphere(transform.TransformPoint(Vector3.up), .5f);
+
     }
 }
