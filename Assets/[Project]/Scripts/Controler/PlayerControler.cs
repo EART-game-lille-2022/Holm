@@ -25,17 +25,17 @@ public class PlayerControler : MonoBehaviour
     [Header("Ground Parametre :")]
     [SerializeField] private float _groundMoveSpeed = 5;
     [SerializeField] private float _jumpForce = 5;
-    [SerializeField] private float _groundRbDrag;
+    [SerializeField] private float _groundRbDrag = 0;
 
     [Header("Fly Parametre :")]
     [SerializeField] private float _upForce = 10;
     [SerializeField] private float _liftForce = 5;
     [SerializeField] private float _windResistance = 2;
-    [SerializeField] private float _flyRbDrag;
-    [SerializeField] private float _minAngleRatioMultiplier;
-    [SerializeField] private float _maxAngleRatioMultiplier;
-    [SerializeField] private float _minDownFallingForce;
-    [SerializeField] private float _maxDownFallingForce;
+    [SerializeField] private float _flyRbDrag = 2;
+    [SerializeField] private float _minAngleRatioMultiplier = -1;
+    [SerializeField] private float _maxAngleRatioMultiplier = 2;
+    [SerializeField] private float _minDownFallingForce = 1.5f;
+    [SerializeField] private float _maxDownFallingForce = 4;
     
     [Space]
     public Vector3 _playerInput;
@@ -52,7 +52,7 @@ public class PlayerControler : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody>();
         _groundCheck = GetComponent<GroundCheck>();
 
-        ChangeState(PlayerState.Flying);
+        // ChangeState(PlayerState.Flying);
     }
 
     void FixedUpdate()
@@ -75,6 +75,7 @@ public class PlayerControler : MonoBehaviour
 
     public void ChangeState(PlayerState stateToSet)
     {
+        //TODO Animé le changement d'état
         if (stateToSet == _currentState)
             return;
 
@@ -105,8 +106,6 @@ public class PlayerControler : MonoBehaviour
 
     private void GroundControler()
     {
-
-
         Vector3 moveDireciton = _orientation.forward * _playerInput.y + _orientation.right * _playerInput.x;
 
         if (moveDireciton != Vector3.zero)
@@ -123,7 +122,6 @@ public class PlayerControler : MonoBehaviour
     private void FlyControler()
     {
         // print("Fly");
-        //TODO revoire les valeur et ajuster les addforce
         xAngle = Vector3.Angle(transform.up, Vector3.down) - 90;
         yAngle = Vector3.Angle(transform.right, Vector3.down) - 90;
 
@@ -137,9 +135,8 @@ public class PlayerControler : MonoBehaviour
         _rigidbody.AddForceAtPosition(-transform.forward * _liftForce * -_playerInput.magnitude, positionToAddForce
                                      , ForceMode.Acceleration);
 
-
-        //? rota sur le yaw en fonction du roll
-        float yawForce = Mathf.Lerp(0, 5, Mathf.InverseLerp(0, 90, Mathf.Abs(yAngle)));
+        //! rota sur le yaw en fonction du roll
+        float yawForce = Mathf.Lerp(0, 3, Mathf.InverseLerp(0, 90, Mathf.Abs(yAngle)));
         _rigidbody.AddForceAtPosition((yAngle > 0 ? -_orientation.right : _orientation.right) * yawForce, transform.TransformPoint(Vector3.up)
                                     , ForceMode.Acceleration);
 

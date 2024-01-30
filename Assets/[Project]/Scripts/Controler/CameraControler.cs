@@ -34,8 +34,6 @@ public class CameraControler : MonoBehaviour
 
         _cameraTarget.transform.forward = transform.forward;
 
-
-        //TODO fix la transition de la camera
         _playerCanMoveCamera = canPlayerMoveCamera;
         // Camera.main.GetComponent<CinemachineBrain>().enabled = _playerCanMoveCamera;
         // Camera.main.transform.parent = _playerCanMoveCamera ? transform : null;
