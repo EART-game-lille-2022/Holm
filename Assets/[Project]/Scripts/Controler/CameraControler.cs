@@ -1,102 +1,53 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using Cinemachine;
+using UnityEngine.InputSystem;
 
 public class CameraControler : MonoBehaviour
 {
-    [Header("Reference :")]
     [SerializeField] private CinemachineVirtualCamera _virtualCam;
-    [Space]
-    [SerializeField] private Transform _cameraRoot;
+    [SerializeField] private Transform _cameraTarget;
     [SerializeField] private float _sensivity = 1;
-    private Vector2 _lastFrameTracking;
-    private Vector2 _currentFrameTracking;
-    private Vector2 _deltaVector;
-    private Vector2 _inputVector;
-    private bool _isPlayerFlying;
-    public bool IsPlayerflying
-    {
-        set
-        {
-            var thirdPerson = _virtualCam.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
-            _isPlayerFlying = value;
-            if(_isPlayerFlying)
-            {
-                thirdPerson.ShoulderOffset.y = .5f;
-                Camera.main.transform.parent = transform.parent;
-                Camera.main.GetComponent<CinemachineBrain>().enabled = false;
-                _deltaVector = Vector2.zero;
-            }
-            else
-            {
-                thirdPerson.ShoulderOffset.y = 2;
-                Camera.main.transform.parent = null;
-                Camera.main.GetComponent<CinemachineBrain>().enabled = true;
-            }
-        }
-    }
+    private Vector3 _inputAxis;
+    bool _playerCanMoveCamera;
 
-    
+    void Start()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
 
     void Update()
     {
-        if(_isPlayerFlying)
+        if(!_playerCanMoveCamera)
+            _cameraTarget.transform.forward = transform.up;
+
+        // _cameraTarget.Rotate(new Vector3(_inputAxis.y, _inputAxis.x, 0) * _sensivity * Time.deltaTime);
+        _cameraTarget.transform.eulerAngles += _inputAxis * Time.deltaTime * _sensivity;
+        _cameraTarget.transform.eulerAngles = new Vector3(_cameraTarget.transform.eulerAngles.x, _cameraTarget.transform.eulerAngles.y, 0);
+    }
+
+    public void SetCameraParameter(float shoulderOffset, bool canPlayerMoveCamera)
+    {
+        Cinemachine3rdPersonFollow cm = _virtualCam.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
+        cm.ShoulderOffset = new Vector3(0, shoulderOffset, 0);
+
+        _cameraTarget.transform.forward = transform.forward;
+
+        _playerCanMoveCamera = canPlayerMoveCamera;
+        // Camera.main.GetComponent<CinemachineBrain>().enabled = _playerCanMoveCamera;
+        // Camera.main.transform.parent = _playerCanMoveCamera ? transform : null;
+    }
+
+    void OnLook(InputValue value)
+    {
+        if(!_playerCanMoveCamera)
         {
-            AerialControl();
+            _inputAxis = Vector2.zero;
             return;
         }
-
-        GroundControl();
-    }
-
-    void AerialControl()
-    {
-        _cameraRoot.localRotation = Quaternion.Euler(Vector3.zero);
-    }
-
-    void GroundControl()
-    {
-        _currentFrameTracking = _inputVector;
-
-        ComputeDelta();
-        SetCameraRotation(new Vector3(-_deltaVector.y, _deltaVector.x, 0));
-
-        _lastFrameTracking = _currentFrameTracking;
-    }
-
-    void ComputeDelta()
-    {
-        _deltaVector += _currentFrameTracking - _lastFrameTracking;
-    }
-
-    public void ComputeDeltaWithOrientation(Vector2 value, Vector2 lastframeValue)
-    {
-        print("Value : " + value + "  LastFrameValue : " + lastframeValue);
-        _deltaVector += value - lastframeValue;
-    }
-
-    void SetCameraRotation(Vector3 value)
-    {
-        // print("Cam set rotation : " + value);
-        _cameraRoot.localRotation = Quaternion.Euler(value * _sensivity);
-    }
-
-    public void ResetDelta()
-    {
-        _deltaVector = Vector2.zero;
-        _cameraRoot.localRotation = Quaternion.Euler(Vector2.zero);
-    }
-
-    //! Call by Panel Event
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        _lastFrameTracking = eventData.position;
-    }
-
-    //! Call by Panel Event
-    public void OnPointerMove(PointerEventData eventData)
-    {
-        _inputVector = eventData.position;
+        
+        _inputAxis.x = -value.Get<Vector2>().y;
+        _inputAxis.y = value.Get<Vector2>().x;
     }
 }
