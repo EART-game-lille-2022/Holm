@@ -58,7 +58,7 @@ public class GroundCheck : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        print(other.gameObject.layer);
+        // print(other.gameObject.layer);
         if(other.collider.gameObject.layer == 10)
         {
             // print(other.collider.gameObject.layer);
