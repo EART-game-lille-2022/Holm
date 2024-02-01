@@ -87,7 +87,8 @@ public class PlayerControler : MonoBehaviour
             case PlayerState.Grounded:
                 // print("Player Grounded !");
                 //TODO !NELLO! Reorientation du joueur ne fonctione pas bien en fonction de l'orientation de départ
-                transform.up = _orientation.up;
+                // transform.up = _orientation.up;
+                
                 _cameraControler.SetCameraParameter(1.5f, true);
 
                 _rigidbody.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
@@ -96,12 +97,14 @@ public class PlayerControler : MonoBehaviour
                 break;
 
             case PlayerState.Flying:
-                Vector3 startOrientation = transform.up;
+                // Vector3 startOrientation = transform.up;
+                Quaternion targetOrientation = Quaternion.LookRotation( -Vector3.up, _orientation.up );
+                Quaternion startOrientation = transform.rotation;
                 _cameraControler.SetCameraParameter(0, false);
                 _rigidbody.constraints = RigidbodyConstraints.None;
                 DOTween.To((time) =>
                 {
-                    transform.up = Vector3.Lerp(startOrientation, _orientation.forward, time);
+                    _rigidbody.rotation = transform.rotation = Quaternion.Slerp(startOrientation, targetOrientation, time);
                 }, 0, 1, .5f);
                 break;
         }
@@ -161,10 +164,10 @@ public class PlayerControler : MonoBehaviour
         //TODO incrementé la force doucement si angle > 0, reset doux rapide
 
         //!empeche le nez de remonter tout seul
-        if (xAngle > 0)
-            _rigidbody.AddForceAtPosition(Vector3.down * noseFallingForce, transform.TransformPoint(Vector3.up), ForceMode.Acceleration);
-         if (xAngle < 0)
-            _rigidbody.AddForceAtPosition(Vector3.down * noseFallingForce * .2f, transform.TransformPoint(Vector3.up), ForceMode.Acceleration);
+        // if (xAngle > 0)
+        //     _rigidbody.AddForceAtPosition(Vector3.down * noseFallingForce, transform.TransformPoint(Vector3.up), ForceMode.Acceleration);
+        //  if (xAngle < 0)
+        //     _rigidbody.AddForceAtPosition(Vector3.down * noseFallingForce * .2f, transform.TransformPoint(Vector3.up), ForceMode.Acceleration);
       
 
         //! Décrochage !
@@ -187,7 +190,8 @@ public class PlayerControler : MonoBehaviour
         float angleRatioMultiplier =
         Mathf.Lerp(_maxAngleRatioMultiplier, _minAngleRatioMultiplier, Mathf.InverseLerp(-90, 90, xAngle));
         //! Set la  velocité pour fly boy
-        _rigidbody.velocity = transform.up * _upForce * angleRatioMultiplier;
+        // _rigidbody.velocity = transform.up * _upForce * angleRatioMultiplier;
+        _rigidbody.AddForce(transform.up * _upForce * angleRatioMultiplier, ForceMode.Acceleration);
 
 
 
