@@ -117,6 +117,8 @@ public class PlayerControler : MonoBehaviour
 
     private void GroundControler()
     {
+        //TODO faire des add force
+        //TODO bougé au sol avec la physisique pour permetre au vent de nous faire décolé
         Vector3 moveDireciton = _orientation.forward * _playerInput.y + _orientation.right * _playerInput.x;
 
         if (moveDireciton != Vector3.zero)
