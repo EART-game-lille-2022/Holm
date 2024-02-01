@@ -556,7 +556,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 53820352}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 5c4e264d2a3817a4d9be0cb0ae58fb10, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -9423,7 +9423,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 681919369}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 5c4e264d2a3817a4d9be0cb0ae58fb10, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -31988,7 +31988,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2090474675}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 5c4e264d2a3817a4d9be0cb0ae58fb10, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -33916,7 +33916,7 @@ PrefabInstance:
     - target: {fileID: 8638740810310440649, guid: cd32517c7629ca647ba5ccfca98efd76,
         type: 3}
       propertyPath: _groundMoveSpeed
-      value: 20
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 8638740810310440649, guid: cd32517c7629ca647ba5ccfca98efd76,
         type: 3}

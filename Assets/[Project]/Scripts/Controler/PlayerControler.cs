@@ -13,6 +13,7 @@ public enum PlayerState
 
 public class PlayerControler : MonoBehaviour
 {
+    //TODO raycast pour voire si le joueur est bloqué contre un mur = nerf la force pour avancer
 
     [Header("Reference :")]
     // [SerializeField] private UiJoystick _joystick;
@@ -24,20 +25,20 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] private Collider _collider;
 
     [Header("Ground Parametre :")]
-    [SerializeField] private float _groundMoveSpeed = 5;
-    [SerializeField] private float _jumpForce = 5;
-    [SerializeField] private float _fallingForce = 10;    
+    [SerializeField] private float _groundMoveSpeed = 40;
+    [SerializeField] private float _jumpForce = 20;
+    [SerializeField] private float _fallingForce = 60;    
     [SerializeField] private Vector3 _groundCenterOfMass = new Vector3(0, -.5f, 0);
     [SerializeField] private PhysicMaterial _groundPhysicMaterial;
 
     [Header("Fly Parametre :")]
-    [SerializeField] private float _upForce = 10;
-    [SerializeField] private float _liftForce = 5;
-    [SerializeField] private float _windResistance = 2;
+    [SerializeField] private float _upForce = 30;
+    [SerializeField] private float _liftForce = 3;
+    [SerializeField] private float _windResistance = 10;
     [SerializeField] private Vector3 _flyCenterOfMass = Vector3.zero;
     [SerializeField] private float _minAngleRatioMultiplier = -1;
-    [SerializeField] private float _maxAngleRatioMultiplier = 2;
-    [SerializeField] private float _maxDownFallingForce = 4;
+    [SerializeField] private float _maxAngleRatioMultiplier = 5;
+    [SerializeField] private float _maxDownFallingForce = 15;
     [SerializeField] private PhysicMaterial _flyPhysicMaterial;
     [Space]
     [Space]
@@ -89,7 +90,7 @@ public class PlayerControler : MonoBehaviour
         {
             case PlayerState.Grounded:
                 // print("Player Grounded !");
-                transform.up = _orientation.up;
+                transform.up = Vector3.up;
                 
                 _cameraControler.SetCameraParameter(1.5f, true);
 
@@ -127,8 +128,6 @@ public class PlayerControler : MonoBehaviour
 
     private void GroundControler()
     {
-        //TODO faire des add force
-        //TODO bougé au sol avec la physisique pour permetre au vent de nous faire décolé
         Vector3 moveDireciton = _orientation.forward * _playerInput.y + _orientation.right * _playerInput.x;
         moveDireciton *= _groundMoveSpeed;
 
@@ -139,9 +138,20 @@ public class PlayerControler : MonoBehaviour
             // _rigidbody.AddForce(transform.forward * _groundMoveSpeed, ForceMode.Acceleration);
         }
 
-        print(moveDireciton);
         _rigidbody.AddForce(moveDireciton, ForceMode.Acceleration);
         _rigidbody.AddForce(Vector3.down * _fallingForce, ForceMode.Acceleration);
+
+        // print(_rigidbody.velocity.magnitude);
+        if(_playerInput.magnitude == 0)
+        {
+            float velValue = Mathf.InverseLerp(0, 10, _rigidbody.velocity.magnitude);
+            print(velValue);
+
+            Vector3 velOutY = _rigidbody.velocity;
+            velOutY.y = 0;
+            //! if mult trop grand : par en vrille :)
+            _rigidbody.AddForce(-velOutY * 5, ForceMode.Acceleration);
+        }
         // _rigidbody.velocity = new Vector3(moveDirection.x, _rigidbody.velocity.y, moveDirection.z);
     }
 
