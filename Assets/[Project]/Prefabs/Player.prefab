@@ -83,7 +83,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _virtualCam: {fileID: 0}
   _cameraTarget: {fileID: 0}
-  _sensivity: 10
+  _sensivity: 100
 --- !u!114 &6292274478634928469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,20 +119,30 @@ MonoBehaviour:
   _currentState: 0
   _orientation: {fileID: 0}
   _cameraControler: {fileID: 1078326050562177572}
-  _groundMoveSpeed: 10
-  _jumpForce: 2
-  _groundRbDrag: 0
+  _collider: {fileID: 5363725301897604046}
+  _groundMoveSpeed: 40
+  _jumpForce: 20
+  _fallingForce: 60
+  _groundCenterOfMass: {x: 0, y: -0.5, z: 0}
+  _groundPhysicMaterial: {fileID: 13400000, guid: 28758832965e7f541bb0f8ca56c4682d,
+    type: 2}
   _upForce: 30
-  _liftForce: 5
+  _liftForce: 3
   _windResistance: 10
-  _flyRbDrag: 1
-  _minAngleRatioMultiplier: 0
-  _maxAngleRatioMultiplier: 2
+  _flyCenterOfMass: {x: 0, y: 0, z: 0}
+  _minAngleRatioMultiplier: -1
+  _maxAngleRatioMultiplier: 5
+  _maxDownFallingForce: 15
+  _flyPhysicMaterial: {fileID: 13400000, guid: b1cc9a07893cdc249a27c8949bfff0f6, type: 2}
   _playerInput: {x: 0, y: 0, z: 0}
   minUpForce: 0
   velocityMag: 0
-  angle: 0
-  angleRatio: 0
+  xAngle: 0
+  yAngle: 0
+  noseFallingForce: 1
+  stallTimer: 0
+  isStalling: 0
+  stallingThresold: 70
 --- !u!54 &8865421231721314167
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -142,9 +152,9 @@ Rigidbody:
   m_GameObject: {fileID: 1819533472033459452}
   serializedVersion: 4
   m_Mass: 10
-  m_Drag: 2
+  m_Drag: 3
   m_AngularDrag: 4
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_CenterOfMass: {x: 0, y: -0.5, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
@@ -153,7 +163,7 @@ Rigidbody:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_ImplicitCom: 1
+  m_ImplicitCom: 0
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
