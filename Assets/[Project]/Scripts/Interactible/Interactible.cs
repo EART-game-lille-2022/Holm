@@ -6,6 +6,8 @@ using UnityEngine.Events;
 public class Interactible : MonoBehaviour
 {
     [SerializeField] private UnityEvent _onInteract;
+    [SerializeField] private MeshRenderer _renderer;
+    [SerializeField] private Color _selectedColor;
 
     void Start()
     {
@@ -20,11 +22,16 @@ public class Interactible : MonoBehaviour
 
     public void OnSelected()
     {
-        transform.localScale = Vector3.one * 1.2f;
+        print("S");
+        // transform.localScale = Vector3.one * 1.2f;
+        _renderer.sharedMaterials[1].SetFloat("_Scale", 1.2f);
     }
 
     public void OnUnselected()
     {
-        transform.localScale = Vector3.one;
+        print("U");
+        // transform.localScale = Vector3.one;
+        _renderer.sharedMaterials[1].SetFloat("_Scale", 0f);
+
     }
 }
