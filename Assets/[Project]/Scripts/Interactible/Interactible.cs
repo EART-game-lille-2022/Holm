@@ -2,16 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using DG.Tweening;
 
 public class Interactible : MonoBehaviour
 {
     [SerializeField] private UnityEvent _onInteract;
     [SerializeField] private MeshRenderer _renderer;
-    [SerializeField] private Color _selectedColor;
+    [SerializeField] private float _outLineAnimationDuration;
+    [SerializeField] private AnimationCurve _outlinePopCurve;
+    [SerializeField] private Shader _outlineShader;
+    [SerializeField] private Material tempMat;
 
     void Start()
     {
         InteractibleManager.AddInteractible(this);
+        _renderer.sharedMaterials[1] = new Material(_renderer.sharedMaterials[1]);
+        _renderer.materials[1].SetFloat("_Scale", 0);
     }
 
     public void Interact()
@@ -22,16 +28,18 @@ public class Interactible : MonoBehaviour
 
     public void OnSelected()
     {
-        print("S");
-        // transform.localScale = Vector3.one * 1.2f;
-        _renderer.sharedMaterials[1].SetFloat("_Scale", 1.2f);
+        DOTween.To((time) =>
+        {
+            _renderer.materials[1].SetFloat("_Scale", time);
+        }, 0, 1.2f, _outLineAnimationDuration).SetEase(_outlinePopCurve);
     }
 
     public void OnUnselected()
     {
-        print("U");
-        // transform.localScale = Vector3.one;
-        _renderer.sharedMaterials[1].SetFloat("_Scale", 0f);
-
+        //TODO Animation bug !
+        DOTween.To((time) =>
+        {
+            _renderer.materials[1].SetFloat("_Scale", time);
+        }, 1.2f, 0, _outLineAnimationDuration).SetEase(Ease.Linear);
     }
 }
