@@ -15,15 +15,16 @@ public class InteractibleManager : MonoBehaviour
     [Header("Parameter :")]
     [SerializeField] private float _minimumDistanceToInteract;
 
-    private Interactible _selectedInteractible;
+    private Interactible _selected;
+    private Interactible _lastFramSelected;
 
     void Awake()
     {
-        //TODO Call nello, list static clear pas quand la scene redemard ?
-        if(InteractibleList.Count > 0)
+        //TODO Call nello, list static clear pas quand la scene reset ?
+        if (InteractibleList.Count > 0)
             InteractibleList.Clear();
     }
-    
+
     private Interactible GetNearestInteractible(Vector3 position)
     {
         float minDistance = Mathf.Infinity;
@@ -31,11 +32,10 @@ public class InteractibleManager : MonoBehaviour
         foreach (var item in InteractibleList)
         {
             float distance = Vector3.Distance(position, item.transform.position);
-            if(distance < minDistance)
+            if (distance < minDistance)
             {
                 minDistance = distance;
-
-                if(distance < _minimumDistanceToInteract)
+                if (distance < _minimumDistanceToInteract)
                     toReturn = item;
             }
         }
@@ -45,30 +45,35 @@ public class InteractibleManager : MonoBehaviour
 
     void Update()
     {
-        if(InteractibleList.Count <= 0)
+        if (InteractibleList.Count <= 0)
             return;
 
-        _selectedInteractible = GetNearestInteractible(_player.position);
-        DebugInteractibleSelection(_selectedInteractible);
+        _selected = GetNearestInteractible(_player.position);
+        if (_selected != _lastFramSelected)
+        {
+            _selected?.OnSelected();
+            _lastFramSelected?.OnUnselected();
+        }
+
+        DebugInteractibleSelection(_selected);
+        _lastFramSelected = _selected;
     }
 
     private void DebugInteractibleSelection(Interactible nearest)
     {
-        if(InteractibleList.Count <= 0)
+        if (InteractibleList.Count <= 0)
             return;
 
         foreach (var item in InteractibleList)
-        {
-            Debug.DrawLine(_player.position, item.transform.position, Color.red);        
-        }
+            Debug.DrawLine(_player.position, item.transform.position, Color.red);
 
-        if(nearest)
-            Debug.DrawLine(_player.position, nearest.transform.position, Color.green);      
+        if (nearest)
+            Debug.DrawLine(_player.position, nearest.transform.position, Color.green);
     }
 
     private void OnInteract()
     {
-        if(_selectedInteractible)
-            _selectedInteractible.Interact();
+        if (_selected)
+            _selected.Interact();
     }
 }
