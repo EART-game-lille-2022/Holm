@@ -10,8 +10,6 @@ public class Interactible : MonoBehaviour
     [SerializeField] private MeshRenderer _renderer;
     [SerializeField] private float _outLineAnimationDuration;
     [SerializeField] private AnimationCurve _outlinePopCurve;
-    [SerializeField] private Shader _outlineShader;
-    [SerializeField] private Material tempMat;
 
     void Start()
     {
@@ -41,5 +39,10 @@ public class Interactible : MonoBehaviour
         {
             _renderer.materials[1].SetFloat("_Scale", time);
         }, 1.2f, 0, _outLineAnimationDuration).SetEase(Ease.Linear);
+    }
+
+    void OnDestroy()
+    {
+        InteractibleManager.RemoveInteractible(this);
     }
 }

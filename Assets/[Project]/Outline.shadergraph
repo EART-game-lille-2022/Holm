@@ -47,11 +47,7 @@
         }
     ],
     "m_GroupDatas": [],
-    "m_StickyNoteDatas": [
-        {
-            "m_Id": "27aa57e4dc7d4b3eb79f570ebde36ea4"
-        }
-    ],
+    "m_StickyNoteDatas": [],
     "m_Edges": [
         {
             "m_OutputSlot": {
@@ -234,26 +230,6 @@
 
 {
     "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
-    "m_ObjectId": "27aa57e4dc7d4b3eb79f570ebde36ea4",
-    "m_Title": "Wut o_O",
-    "m_Content": "je comprend pas mais je fait quand meme ! :)",
-    "m_TextSize": 0,
-    "m_Theme": 0,
-    "m_Position": {
-        "serializedVersion": "2",
-        "x": -388.0,
-        "y": -183.0,
-        "width": 200.0,
-        "height": 160.0
-    },
-    "m_Group": {
-        "m_Id": ""
-    }
-}
-
-{
-    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.BlockNode",
     "m_ObjectId": "36518db2c76a4330a87c9dc3f4a79290",
     "m_Group": {
@@ -298,10 +274,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 140.0,
-            "y": 86.0,
-            "width": 126.0,
-            "height": 118.0
+            "x": 15.000021934509278,
+            "y": 59.99999237060547,
+            "width": 130.0000457763672,
+            "height": 118.00000762939453
         }
     },
     "m_Slots": [
@@ -431,10 +407,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -160.0,
-            "y": 61.0,
-            "width": 0.0,
-            "height": 0.0
+            "x": -203.0,
+            "y": 73.99999237060547,
+            "width": 104.0000228881836,
+            "height": 34.0
         }
     },
     "m_Slots": [
@@ -840,9 +816,9 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -249.0,
-            "y": 151.0,
-            "width": 208.0,
+            "x": -307.0,
+            "y": 116.00000762939453,
+            "width": 208.00003051757813,
             "height": 315.0
         }
     },

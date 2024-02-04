@@ -6,8 +6,17 @@ using UnityEngine.InputSystem;
 public class InteractibleManager : MonoBehaviour
 {
     [SerializeField] public static List<Interactible> InteractibleList = new List<Interactible>();
-    public static void AddInteractible(Interactible toAdd) { InteractibleList.Add(toAdd); }
-    public static void RemoveInteractible(Interactible toRemove) { InteractibleList.Remove(toRemove); }
+    public static void AddInteractible(Interactible toAdd)
+    {
+        if(!InteractibleList.Contains(toAdd))
+            InteractibleList.Add(toAdd);
+    }
+    public static void RemoveInteractible(Interactible toRemove)
+    {
+        if (InteractibleList.Contains(toRemove))
+            InteractibleList.Remove(toRemove);
+    }
+
 
     [Header("Reference :")]
     [SerializeField] private Transform _player;
