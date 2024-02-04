@@ -145,7 +145,7 @@ public class PlayerControler : MonoBehaviour
         if(_playerInput.magnitude == 0)
         {
             float velValue = Mathf.InverseLerp(0, 10, _rigidbody.velocity.magnitude);
-            print(velValue);
+            // print(velValue);
 
             Vector3 velOutY = _rigidbody.velocity;
             velOutY.y = 0;
