@@ -47,6 +47,7 @@ public class InteractibleManager : MonoBehaviour
                 minDistance = distance;
                 if (distance < _minimumDistanceToInteract)
                     toReturn = item;
+                //TODO Vect.Dot si jamais
             }
         }
 

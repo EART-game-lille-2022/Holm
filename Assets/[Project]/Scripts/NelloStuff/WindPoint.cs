@@ -32,9 +32,10 @@ public class WindPoint : MonoBehaviour
             //     distance = .0001f;
 
             //! A Quelle point ce windPoint est a prendre en compte dans le calcul
+            //! plus distance est petit, plus weight est grand
             float weight = 1f / distance;
 
-
+            
             scale += windPoint.transform.localScale * weight;
             forward += windPoint.transform.forward * weight;
 
@@ -42,7 +43,7 @@ public class WindPoint : MonoBehaviour
         }
 
         print("currentWeight : " + currentWeight);
-        
+
         scale /= currentWeight;
         forward /= currentWeight;
 

@@ -80,6 +80,7 @@ public class PlayerControler : MonoBehaviour
     public void ChangeState(PlayerState stateToSet)
     {
         //TODO Animé le changement d'état
+        //TODO set les trail pour ettre appais sur leur fin
         if (stateToSet == _currentState)
             return;
 
