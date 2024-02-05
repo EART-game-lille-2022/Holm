@@ -7,7 +7,6 @@ using UnityEngine;
 public class WindPoint : MonoBehaviour
 {
     public static List<WindPoint> pointsList = new List<WindPoint>();
-    public float value = 1;
 
     void OnEnable()
     {
@@ -19,34 +18,36 @@ public class WindPoint : MonoBehaviour
         pointsList.Remove(this);
     }
 
-    public static void GetWeightAt(Vector3 position, out float value, out Vector3 scale, out Vector3 forward)
+    public static void GetWeightAt(Vector3 position, out Vector3 scale, out Vector3 forward)
     {
-        value = 0;
         scale = Vector3.zero;
         forward = Vector3.zero;
         float currentWeight = 0;
 
-        foreach (var point in pointsList)
+        foreach (var windPoint in pointsList)
         {
             //! Max pour eviter la division par 0
-            float distance = Mathf.Max(0.0001f, (position - point.transform.position).magnitude);
+            float distance = Mathf.Max(0.0001f, (position - windPoint.transform.position).magnitude);
             // if(distance == 0)
             //     distance = .0001f;
 
-            //! design patern pour get l'influence de plusieur points?
+            //! A Quelle point ce windPoint est a prendre en compte dans le calcul
             float weight = 1f / distance;
 
-            value += point.value * weight;
-            scale += point.transform.localScale * weight;
-            forward += point.transform.forward * weight;
+
+            scale += windPoint.transform.localScale * weight;
+            forward += windPoint.transform.forward * weight;
 
             currentWeight += weight;
         }
-        print("currentWeight : " + currentWeight);
 
+        print("currentWeight : " + currentWeight);
+        
         scale /= currentWeight;
-        value /= currentWeight;
         forward /= currentWeight;
+
+
+
 
         //Vector2.Angle(forward, Vector.up);
         //float a = Mathf.Atan2(forward.x, -forward.y) * Mathf.Rad2Deg;
