@@ -13,6 +13,6 @@ public class WindWeigth : MonoBehaviour
         WindPoint.GetWeightAt(transform.position, out value, out scale, out Vector3 forward);
 
         transform.localScale = scale;
-        transform.rotation = Quaternion.LookRotation(forward);
+        transform.rotation = Quaternion.LookRotation(forward, Vector3.up);
     }
 }

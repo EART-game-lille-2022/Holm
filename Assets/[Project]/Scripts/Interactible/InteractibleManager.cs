@@ -30,6 +30,7 @@ public class InteractibleManager : MonoBehaviour
     void Awake()
     {
         //TODO Call nello, list static clear pas quand la scene reset ?
+        //? lié au disable realode domaine ?
         if (InteractibleList.Count > 0)
             InteractibleList.Clear();
     }

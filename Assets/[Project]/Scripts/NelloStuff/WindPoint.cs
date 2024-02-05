@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 [ExecuteInEditMode]
@@ -7,13 +8,12 @@ public class WindPoint : MonoBehaviour
 {
     public static List<WindPoint> pointsList = new List<WindPoint>();
     public float value = 1;
-    // Start is called before the first frame update
+
     void OnEnable()
     {
         pointsList.Add(this);
     }
 
-    // Update is called once per frame
     void OnDisable()
     {
         pointsList.Remove(this);
@@ -21,15 +21,18 @@ public class WindPoint : MonoBehaviour
 
     public static void GetWeightAt(Vector3 position, out float value, out Vector3 scale, out Vector3 forward)
     {
-        float currentWeight = 0;
         value = 0;
         scale = Vector3.zero;
         forward = Vector3.zero;
+        float currentWeight = 0;
+
         foreach (var point in pointsList)
         {
             //! Max pour eviter la division par 0
             float distance = Mathf.Max(0.0001f, (position - point.transform.position).magnitude);
-            // d = d * d;
+            // if(distance == 0)
+            //     distance = .0001f;
+
             //! design patern pour get l'influence de plusieur points?
             float weight = 1f / distance;
 
@@ -39,6 +42,7 @@ public class WindPoint : MonoBehaviour
 
             currentWeight += weight;
         }
+        print("currentWeight : " + currentWeight);
 
         scale /= currentWeight;
         value /= currentWeight;
@@ -56,7 +60,7 @@ public class WindPoint : MonoBehaviour
         //WindPoint rap = points.GetRandom<WindPoint>();
 
         //float w = 10;
-        //float result = w.Remap01(100, 50).Abs().Pow(2);
-        //float r = Mathf.Pow(Mathf.Abs(ExtendsMethods.Remap01(w, 100, 50)), 2);
+        // float result = w.Remap01(100, 50).Abs().Pow(2);
+        // float r = Mathf.Pow(Mathf.Abs(ExtendsMethods.Remap01(w, 100, 50)), 2);
     }
 }
