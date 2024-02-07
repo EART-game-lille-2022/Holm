@@ -10,6 +10,7 @@ public class SplineMover : MonoBehaviour
     [SerializeField] private float _speed;
     [SerializeField] private float _distanceOffSet;
     public bool _isMoving = true;
+    [SerializeField] private bool _followRotation;
     private float _distance;
     private Vector3 _newPosition = Vector3.zero;
     private Vector3 _lastFramePosition;
@@ -36,7 +37,9 @@ public class SplineMover : MonoBehaviour
         _newPosition = _spline.computePointWithLength(_distance);
 
         transform.position = _spline.transform.TransformPoint(_newPosition);
-        transform.forward = _spline.computeOrientationWithLength(_distance, Vector3.up).forward;
+
+        if(_followRotation)
+            transform.forward = _spline.computeOrientationWithLength(_distance, Vector3.up).forward;
 
 
         if (transform.position == _lastFramePosition)
