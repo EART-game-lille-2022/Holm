@@ -32,7 +32,7 @@ public class WindReciver : MonoBehaviour
 
         Vector3 forcePos = (mediumDirection / _windAreasList.Count).normalized;
 
-        print(forcePos);
+        // print(forcePos);
         // _rigidbody.AddForce(_windDirection.normalized * _windForce, ForceMode.Acceleration);
         _rigidbody.AddForceAtPosition(_windDirection * _windForce, transform.TransformPoint(forcePos), ForceMode.Force);
     }
