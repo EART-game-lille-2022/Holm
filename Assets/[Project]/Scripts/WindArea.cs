@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class WindArea : MonoBehaviour
 {
+    [SerializeField] private Transform _direction;
+    public Transform Direction { get => _direction; }
     [SerializeField] private float _force;
     public float Force { get => _force; }
-
 
     void OnTriggerEnter(Collider other)
     {

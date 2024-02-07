@@ -6,6 +6,7 @@ public class WindReciver : MonoBehaviour
 {
     [SerializeField] private List<WindArea> _windAreasList;
     [SerializeField] private float _windForce;
+    [SerializeField] private Vector3 _windDirection;
     private Rigidbody _rigidbody;
 
     void Start()
@@ -15,13 +16,25 @@ public class WindReciver : MonoBehaviour
 
     void Update()
     {
+        if(_windAreasList.Count == 0)
+            return;
+
+        Vector3 mediumDirection = Vector3.zero;
+
         _windForce = 0;
+        _windDirection = Vector3.zero;
         foreach (var item in _windAreasList)
         {
             _windForce += item.Force;
+            _windDirection += item.Direction.up;
+            mediumDirection += item.transform.position;
         }
 
-        _rigidbody.AddForce(Vector3.up * _windForce, ForceMode.Acceleration);
+        Vector3 forcePos = (mediumDirection / _windAreasList.Count).normalized;
+
+        print(forcePos);
+        // _rigidbody.AddForce(_windDirection.normalized * _windForce, ForceMode.Acceleration);
+        _rigidbody.AddForceAtPosition(_windDirection * _windForce, transform.TransformPoint(forcePos), ForceMode.Force);
     }
 
     public void AddArea(WindArea area)
