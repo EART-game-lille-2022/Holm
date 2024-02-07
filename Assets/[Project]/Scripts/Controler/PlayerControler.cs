@@ -86,7 +86,7 @@ public class PlayerControler : MonoBehaviour
 
         _currentState = stateToSet;
 
-        print("State to set :" + _currentState);
+            // print("State to set :" + _currentState);
         switch (stateToSet)
         {
             case PlayerState.Grounded:
