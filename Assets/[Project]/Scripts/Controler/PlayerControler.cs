@@ -42,6 +42,7 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] private float _upForce = 30;
     [SerializeField] private float _liftForce = 3;
     [SerializeField] private Vector3 _flyCenterOfMass = Vector3.zero;
+    [SerializeField] private float stallingThresold = 70;
     [SerializeField] private float noseFallingForce;
     [SerializeField] private float _minAngleRatioMultiplier = -1;
     [SerializeField] private float _maxAngleRatioMultiplier = 5;
@@ -53,7 +54,6 @@ public class PlayerControler : MonoBehaviour
     private float yAngle;
     private float stallTimer;
     private bool isStalling;
-    private float stallingThresold = 70;
     private Vector3 _positionToAddForce;
     private GroundCheck _groundCheck;
     private Vector3 _groundOrientationDirection;
@@ -206,6 +206,7 @@ public class PlayerControler : MonoBehaviour
         //! Rotate le player
         if (!isStalling)
         {
+            //TODO differencier l'axe x et y pour un controle plus intuitif et maniable
             _positionToAddForce = transform.TransformPoint(_playerInput);
             _rigidbody.AddForceAtPosition(-transform.forward * _liftForce * -_playerInput.magnitude, _positionToAddForce
                                         , ForceMode.Acceleration);
