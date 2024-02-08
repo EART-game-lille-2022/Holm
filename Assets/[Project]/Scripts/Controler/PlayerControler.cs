@@ -48,17 +48,15 @@ public class PlayerControler : MonoBehaviour
     private float stallingThresold = 70;
     private Vector3 _positionToAddForce;
     private GroundCheck _groundCheck;
+    private Vector3 _groundOrientationDirection;
+    private Vector3 _center;
+    private Vector3 _hat;
 
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
         _groundCheck = GetComponent<GroundCheck>();
     }
-
-
-    public Vector3 _groundOrientationDirection;
-    public Vector3 _center;
-    public Vector3 _hat;
 
     void FixedUpdate()
     {
@@ -74,8 +72,6 @@ public class PlayerControler : MonoBehaviour
         {
             FlyControler();
         }
-
-
     }
 
     void RecenterPlayerUp()
@@ -93,7 +89,6 @@ public class PlayerControler : MonoBehaviour
     
     public void ChangeState(PlayerState stateToSet)
     {
-        //TODO Animé le changement d'état
         //TODO set les trail pour ettre appais sur leur fin
         if (stateToSet == _currentState)
             return;
@@ -145,7 +140,6 @@ public class PlayerControler : MonoBehaviour
 
     private void GroundControler()
     {
-        //TODO fix atteridage orientation bugged 
         //TODO fix spinning = falling
         Vector3 moveDireciton = _orientation.forward * _playerInput.y + _orientation.right * _playerInput.x;
         moveDireciton *= _groundMoveSpeed;
@@ -160,7 +154,8 @@ public class PlayerControler : MonoBehaviour
         _rigidbody.AddForce(moveDireciton, ForceMode.Acceleration);
         _rigidbody.AddForce(Vector3.down * _fallingForce, ForceMode.Acceleration);
 
-        // print(_rigidbody.velocity.magnitude);
+        
+        //! Slow down the player on ground
         if (_playerInput.magnitude == 0)
         {
             float velValue = Mathf.InverseLerp(0, 10, _rigidbody.velocity.magnitude);
@@ -168,10 +163,8 @@ public class PlayerControler : MonoBehaviour
 
             Vector3 velOutY = _rigidbody.velocity;
             velOutY.y = 0;
-            //! if mult trop grand : par en vrille :)
             _rigidbody.AddForce(-velOutY * 5, ForceMode.Acceleration);
         }
-        // _rigidbody.velocity = new Vector3(moveDirection.x, _rigidbody.velocity.y, moveDirection.z);
     }
 
     private void FlyControler()
