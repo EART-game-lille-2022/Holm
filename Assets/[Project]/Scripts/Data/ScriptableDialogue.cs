@@ -8,7 +8,9 @@ public enum PnjMood
     None,
     Happy,
     Sad,
+    Angry,
     Surprised,
+    Hmmm,
 }
 
 [Serializable]

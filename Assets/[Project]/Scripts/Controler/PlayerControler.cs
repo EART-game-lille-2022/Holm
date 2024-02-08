@@ -129,6 +129,8 @@ public class PlayerControler : MonoBehaviour
 
     private void GroundControler()
     {
+        //TODO fix atteridage orientation bugged 
+        //TODO fix spinning = falling
         Vector3 moveDireciton = _orientation.forward * _playerInput.y + _orientation.right * _playerInput.x;
         moveDireciton *= _groundMoveSpeed;
 
