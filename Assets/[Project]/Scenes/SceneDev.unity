@@ -21736,12 +21736,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1418577894}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!96 &1625455108 stripped
-TrailRenderer:
-  m_CorrespondingSourceObject: {fileID: 1936769139881431417, guid: cd32517c7629ca647ba5ccfca98efd76,
-    type: 3}
-  m_PrefabInstance: {fileID: 4696880450011191476}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1647122613
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21981,12 +21975,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!96 &1655685541 stripped
-TrailRenderer:
-  m_CorrespondingSourceObject: {fileID: 5074494214051359292, guid: cd32517c7629ca647ba5ccfca98efd76,
-    type: 3}
-  m_PrefabInstance: {fileID: 4696880450011191476}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1657366549
 GameObject:
   m_ObjectHideFlags: 0
@@ -33536,6 +33524,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1936769139881431417, guid: cd32517c7629ca647ba5ccfca98efd76,
         type: 3}
+      propertyPath: m_Parameters.colorGradient.ctime1
+      value: 65021
+      objectReference: {fileID: 0}
+    - target: {fileID: 1936769139881431417, guid: cd32517c7629ca647ba5ccfca98efd76,
+        type: 3}
+      propertyPath: m_Parameters.colorGradient.key1.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1936769139881431417, guid: cd32517c7629ca647ba5ccfca98efd76,
+        type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
       value: 1
       objectReference: {fileID: 0}
@@ -33589,16 +33587,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5074494214051359292, guid: cd32517c7629ca647ba5ccfca98efd76,
+    - target: {fileID: 8638740810310440649, guid: cd32517c7629ca647ba5ccfca98efd76,
         type: 3}
-      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].time
-      value: 1
+      propertyPath: _maxFov
+      value: 100
       objectReference: {fileID: 0}
-    - target: {fileID: 5074494214051359292, guid: cd32517c7629ca647ba5ccfca98efd76,
+    - target: {fileID: 8638740810310440649, guid: cd32517c7629ca647ba5ccfca98efd76,
         type: 3}
-      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
-      value: 1
+      propertyPath: _minFov
+      value: 70
       objectReference: {fileID: 0}
+    - target: {fileID: 8638740810310440649, guid: cd32517c7629ca647ba5ccfca98efd76,
+        type: 3}
+      propertyPath: _velMag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8638740810310440649, guid: cd32517c7629ca647ba5ccfca98efd76,
+        type: 3}
+      propertyPath: _virtualCam
+      value: 
+      objectReference: {fileID: 770777856}
     - target: {fileID: 8638740810310440649, guid: cd32517c7629ca647ba5ccfca98efd76,
         type: 3}
       propertyPath: _orientation
@@ -33606,24 +33614,14 @@ PrefabInstance:
       objectReference: {fileID: 2021383739}
     - target: {fileID: 8638740810310440649, guid: cd32517c7629ca647ba5ccfca98efd76,
         type: 3}
-      propertyPath: _trailList.Array.size
-      value: 2
+      propertyPath: _maxFovVelocity
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 8638740810310440649, guid: cd32517c7629ca647ba5ccfca98efd76,
         type: 3}
-      propertyPath: _maxAngleRatioMultiplier
-      value: 10
+      propertyPath: _minFovVelocity
+      value: 30
       objectReference: {fileID: 0}
-    - target: {fileID: 8638740810310440649, guid: cd32517c7629ca647ba5ccfca98efd76,
-        type: 3}
-      propertyPath: _trailList.Array.data[0]
-      value: 
-      objectReference: {fileID: 1625455108}
-    - target: {fileID: 8638740810310440649, guid: cd32517c7629ca647ba5ccfca98efd76,
-        type: 3}
-      propertyPath: _trailList.Array.data[1]
-      value: 
-      objectReference: {fileID: 1655685541}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

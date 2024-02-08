@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using DG.Tweening;
 using System.Collections.Generic;
+using Cinemachine;
 
 [Serializable]
 public enum PlayerState
@@ -18,13 +19,17 @@ public class PlayerControler : MonoBehaviour
 
     [Header("Reference :")]
     // [SerializeField] private UiJoystick _joystick;
-    [SerializeField] private GyroscopeControler _gyroControler;
-    [SerializeField] private Rigidbody _rigidbody;
-    [SerializeField] private PlayerState _currentState;
     [SerializeField] private Transform _orientation;
     [SerializeField] private CameraControler _cameraControler;
     [SerializeField] private Collider _collider;
+    [SerializeField] private CinemachineVirtualCamera _virtualCam;
     [SerializeField] private List<TrailRenderer> _trailList;
+
+    [Header("Global Parameter :")]
+    [SerializeField] private float _minFovVelocity = 30;
+    [SerializeField] private float _maxFovVelocity = 70;
+    [SerializeField] private float _maxFov = 100;
+    [SerializeField] private float _minFov = 70;
 
     [Header("Ground Parametre :")]
     [SerializeField] private float _groundMoveSpeed = 40;
@@ -42,6 +47,7 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] private float _maxAngleRatioMultiplier = 5;
     [SerializeField] private PhysicMaterial _flyPhysicMaterial;
 
+    public float _velocityMagnitude;
     private Vector3 _playerInput;
     private float xAngle;
     private float yAngle;
@@ -51,8 +57,11 @@ public class PlayerControler : MonoBehaviour
     private Vector3 _positionToAddForce;
     private GroundCheck _groundCheck;
     private Vector3 _groundOrientationDirection;
-    private Vector3 _center;
-    private Vector3 _hat;
+    private Vector3 _playerTopHeadPos;
+    private PlayerState _currentState;
+    private Rigidbody _rigidbody;
+
+    
 
     void Start()
     {
@@ -62,6 +71,10 @@ public class PlayerControler : MonoBehaviour
 
     void FixedUpdate()
     {
+        _velocityMagnitude = _rigidbody.velocity.magnitude;
+        _virtualCam.m_Lens.FieldOfView = 
+        Mathf.Lerp(_minFov, _maxFov, Mathf.InverseLerp(_minFovVelocity, _maxFovVelocity, _velocityMagnitude));
+
         RecenterPlayerUp();
 
         ComputeOrientation();
@@ -80,12 +93,11 @@ public class PlayerControler : MonoBehaviour
     {
         if (_currentState == PlayerState.Grounded)
         {
-            _hat = transform.TransformPoint(Vector3.up);
-            _center = transform.position + Vector3.up;
+            _playerTopHeadPos = transform.TransformPoint(Vector3.up);
 
-            _groundOrientationDirection = _center - _hat;
-            print(_groundOrientationDirection.magnitude);
-            _rigidbody.AddForceAtPosition(_groundOrientationDirection * 10, _center, ForceMode.Acceleration);
+            _groundOrientationDirection = transform.position + Vector3.up - _playerTopHeadPos;
+            // print(_groundOrientationDirection.magnitude);
+            _rigidbody.AddForceAtPosition(_groundOrientationDirection * 10, transform.position + Vector3.up, ForceMode.Acceleration);
         }
     }
 
@@ -101,8 +113,6 @@ public class PlayerControler : MonoBehaviour
         switch (stateToSet)
         {
             case PlayerState.Grounded:
-                // print("Player Grounded !");
-
                 _cameraControler.SetCameraParameter(1.5f, true);
 
                 // _rigidbody.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
@@ -118,18 +128,25 @@ public class PlayerControler : MonoBehaviour
                 break;
 
             case PlayerState.Flying:
+                _cameraControler.SetCameraParameter(0, false);
+
                 // Vector3 startOrientation = transform.up;
                 // Quaternion targetOrientation = Quaternion.LookRotation( -Vector3.up, _orientation.up );
                 Quaternion startOrientation = transform.rotation;
                 Quaternion targetOrientation = Quaternion.LookRotation(-Vector3.up, transform.forward);
-                _cameraControler.SetCameraParameter(0, false);
-                // _rigidbody.constraints = RigidbodyConstraints.None;
                 _rigidbody.centerOfMass = _flyCenterOfMass;
                 _collider.material = _flyPhysicMaterial;
 
-                //TODO animé l'éppaiseur dur trail pour son apprarition
+                //TODO animé l'épaiseur dur trail pour son apprarition
+
                 foreach (var item in _trailList)
                     item.enabled = true;
+                    
+                // DOTween.To((time) =>
+                // {   //? ca marche pas :'(
+                //     _trailList[0].widthCurve.keys[0].value = time;
+                //     _trailList[1].widthCurve.keys[0].value = time;
+                // }, 0, 1, .5f);
 
                 DOTween.To((time) =>
                 {
