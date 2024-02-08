@@ -193,10 +193,9 @@ public class PlayerControler : MonoBehaviour
                                     , ForceMode.Acceleration);
 
 
-        //! Chute en avant +/- rapide en fonction de l'inclinaison
         //TODO incrementé la force doucement si angle > 0, reset doux rapide
 
-        //!empeche le nez de remonter tout seul
+        //!empeche le nez de remonter tout seul et le fait doucement chuté
         if (xAngle > 0)
             _rigidbody.AddForceAtPosition(Vector3.down * noseFallingForce, transform.TransformPoint(Vector3.up), ForceMode.Acceleration);
         if (xAngle < 0)
@@ -222,31 +221,7 @@ public class PlayerControler : MonoBehaviour
         //! Convertie l'angle en un multiplicateur en fonction de l'incilinaison
         float angleRatioMultiplier =
         Mathf.Lerp(_maxAngleRatioMultiplier, _minAngleRatioMultiplier, Mathf.InverseLerp(-90, 90, xAngle));
-        //! Set la  velocité pour fly boy
-        // _rigidbody.velocity = transform.up * _upForce * angleRatioMultiplier;
         _rigidbody.AddForce(transform.up * _upForce * angleRatioMultiplier, ForceMode.Acceleration);
-
-
-
-
-
-        //! Acceleration du player
-        //! -angle pour avoir un multiplier positif avec un angle negatif
-        // if (angle < 0 && minUpForce < 50)
-        //     minUpForce += Time.fixedDeltaTime * 25;
-        // else if (minUpForce > 0)
-        //     minUpForce -= Time.fixedDeltaTime * 25;
-
-        // float direction = angle > 0 ? -1 : 1;
-
-        // print(Mathf.InverseLerp(-1, 1, Math.Max(-angle, minUpForce) / 90));
-
-        //! Force pour avancer
-        // _rigidbody.AddForce(transform.up * _upForce * Math.Max(-angle, minUpForce) / 90
-        //                    , ForceMode.Acceleration);                                                //! /90 ramene a 0-1; 
-
-        // float fallingForce = Mathf.InverseLerp(60, 90, angle);
-        // _rigidbody.AddForce(Vector3.down * Physics.gravity.magnitude * (angle > 60 ? angle : fallingForce), ForceMode.Impulse);
     }
 
     private void OnMove(InputValue value)
@@ -265,16 +240,16 @@ public class PlayerControler : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(_positionToAddForce, .5f);
+        // Gizmos.color = Color.yellow;
+        // Gizmos.DrawSphere(_positionToAddForce, .5f);
 
         // Gizmos.color = Color.magenta;
         // Gizmos.DrawSphere(transform.TransformPoint(Vector3.up), .5f);
 
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(_center, .1f);
+        // Gizmos.color = Color.red;
+        // Gizmos.DrawSphere(_center, .1f);
 
-        Gizmos.color = Color.blue;
-        Gizmos.DrawSphere(_hat, .1f);
+        // Gizmos.color = Color.blue;
+        // Gizmos.DrawSphere(_hat, .1f);
     }
 }
