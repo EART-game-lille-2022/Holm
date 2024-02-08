@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using DG.Tweening;
+using System.Collections.Generic;
 
 [Serializable]
 public enum PlayerState
@@ -23,6 +24,7 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] private Transform _orientation;
     [SerializeField] private CameraControler _cameraControler;
     [SerializeField] private Collider _collider;
+    [SerializeField] private List<TrailRenderer> _trailList;
 
     [Header("Ground Parametre :")]
     [SerializeField] private float _groundMoveSpeed = 40;
@@ -86,7 +88,7 @@ public class PlayerControler : MonoBehaviour
             _rigidbody.AddForceAtPosition(_groundOrientationDirection * 10, _center, ForceMode.Acceleration);
         }
     }
-    
+
     public void ChangeState(PlayerState stateToSet)
     {
         //TODO set les trail pour ettre appais sur leur fin
@@ -109,6 +111,9 @@ public class PlayerControler : MonoBehaviour
                 _collider.material = _groundPhysicMaterial;
                 transform.up = Vector3.up;
 
+                foreach (var item in _trailList)
+                    item.enabled = false;
+
                 _currentState = PlayerState.Grounded;
                 break;
 
@@ -121,6 +126,10 @@ public class PlayerControler : MonoBehaviour
                 // _rigidbody.constraints = RigidbodyConstraints.None;
                 _rigidbody.centerOfMass = _flyCenterOfMass;
                 _collider.material = _flyPhysicMaterial;
+
+                //TODO animé l'éppaiseur dur trail pour son apprarition
+                foreach (var item in _trailList)
+                    item.enabled = true;
 
                 DOTween.To((time) =>
                 {
@@ -154,7 +163,7 @@ public class PlayerControler : MonoBehaviour
         _rigidbody.AddForce(moveDireciton, ForceMode.Acceleration);
         _rigidbody.AddForce(Vector3.down * _fallingForce, ForceMode.Acceleration);
 
-        
+
         //! Slow down the player on ground
         if (_playerInput.magnitude == 0)
         {
