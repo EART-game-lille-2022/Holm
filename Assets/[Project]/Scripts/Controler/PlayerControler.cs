@@ -27,34 +27,26 @@ public class PlayerControler : MonoBehaviour
     [Header("Ground Parametre :")]
     [SerializeField] private float _groundMoveSpeed = 40;
     [SerializeField] private float _jumpForce = 20;
-    [SerializeField] private float _fallingForce = 60;    
+    [SerializeField] private float _fallingForce = 60;
     [SerializeField] private Vector3 _groundCenterOfMass = new Vector3(0, -.5f, 0);
     [SerializeField] private PhysicMaterial _groundPhysicMaterial;
 
     [Header("Fly Parametre :")]
     [SerializeField] private float _upForce = 30;
     [SerializeField] private float _liftForce = 3;
-    [SerializeField] private float _windResistance = 10;
     [SerializeField] private Vector3 _flyCenterOfMass = Vector3.zero;
+    [SerializeField] private float noseFallingForce;
     [SerializeField] private float _minAngleRatioMultiplier = -1;
     [SerializeField] private float _maxAngleRatioMultiplier = 5;
-    [SerializeField] private float _maxDownFallingForce = 15;
     [SerializeField] private PhysicMaterial _flyPhysicMaterial;
-    [Space]
-    [Space]
-    [Space]
-    public Vector3 _playerInput;
-    public float minUpForce;
-    public float velocityMag;
-    public float xAngle;
-    public float yAngle;
-    public float noseFallingForce;
-    public float stallTimer;
-    public bool isStalling;
-    public float stallingThresold = 70;
-    [Space]
 
-    Vector3 positionToAddForce;
+    private Vector3 _playerInput;
+    private float xAngle;
+    private float yAngle;
+    private float stallTimer;
+    private bool isStalling;
+    private float stallingThresold = 70;
+    private Vector3 _positionToAddForce;
     private GroundCheck _groundCheck;
 
     void Start()
@@ -63,8 +55,15 @@ public class PlayerControler : MonoBehaviour
         _groundCheck = GetComponent<GroundCheck>();
     }
 
+
+    public Vector3 _groundOrientationDirection;
+    public Vector3 _center;
+    public Vector3 _hat;
+
     void FixedUpdate()
     {
+        RecenterPlayerUp();
+
         ComputeOrientation();
         if (_currentState == PlayerState.Grounded)
         {
@@ -75,8 +74,23 @@ public class PlayerControler : MonoBehaviour
         {
             FlyControler();
         }
+
+
     }
 
+    void RecenterPlayerUp()
+    {
+        if (_currentState == PlayerState.Grounded)
+        {
+            _hat = transform.TransformPoint(Vector3.up);
+            _center = transform.position + Vector3.up;
+
+            _groundOrientationDirection = _center - _hat;
+            print(_groundOrientationDirection.magnitude);
+            _rigidbody.AddForceAtPosition(_groundOrientationDirection * 10, _center, ForceMode.Acceleration);
+        }
+    }
+    
     public void ChangeState(PlayerState stateToSet)
     {
         //TODO Animé le changement d'état
@@ -86,18 +100,20 @@ public class PlayerControler : MonoBehaviour
 
         _currentState = stateToSet;
 
-            // print("State to set :" + _currentState);
+        // print("State to set :" + _currentState);
         switch (stateToSet)
         {
             case PlayerState.Grounded:
                 // print("Player Grounded !");
-                transform.up = Vector3.up;
-                
+
                 _cameraControler.SetCameraParameter(1.5f, true);
 
                 // _rigidbody.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
+                _rigidbody.velocity = Vector3.zero;
                 _rigidbody.centerOfMass = _groundCenterOfMass;
                 _collider.material = _groundPhysicMaterial;
+                transform.up = Vector3.up;
+
                 _currentState = PlayerState.Grounded;
                 break;
 
@@ -105,7 +121,7 @@ public class PlayerControler : MonoBehaviour
                 // Vector3 startOrientation = transform.up;
                 // Quaternion targetOrientation = Quaternion.LookRotation( -Vector3.up, _orientation.up );
                 Quaternion startOrientation = transform.rotation;
-                Quaternion targetOrientation = Quaternion.LookRotation(-Vector3.up , transform.forward);
+                Quaternion targetOrientation = Quaternion.LookRotation(-Vector3.up, transform.forward);
                 _cameraControler.SetCameraParameter(0, false);
                 // _rigidbody.constraints = RigidbodyConstraints.None;
                 _rigidbody.centerOfMass = _flyCenterOfMass;
@@ -129,6 +145,8 @@ public class PlayerControler : MonoBehaviour
 
     private void GroundControler()
     {
+        //TODO fix atteridage orientation bugged 
+        //TODO fix spinning = falling
         Vector3 moveDireciton = _orientation.forward * _playerInput.y + _orientation.right * _playerInput.x;
         moveDireciton *= _groundMoveSpeed;
 
@@ -143,7 +161,7 @@ public class PlayerControler : MonoBehaviour
         _rigidbody.AddForce(Vector3.down * _fallingForce, ForceMode.Acceleration);
 
         // print(_rigidbody.velocity.magnitude);
-        if(_playerInput.magnitude == 0)
+        if (_playerInput.magnitude == 0)
         {
             float velValue = Mathf.InverseLerp(0, 10, _rigidbody.velocity.magnitude);
             // print(velValue);
@@ -164,14 +182,13 @@ public class PlayerControler : MonoBehaviour
 
         Vector3 velocityXZ = _rigidbody.velocity;
         velocityXZ.y = 0;
-        velocityMag = velocityXZ.magnitude;
 
 
         //! Rotate le player
         if (!isStalling)
         {
-            positionToAddForce = transform.TransformPoint(_playerInput);
-            _rigidbody.AddForceAtPosition(-transform.forward * _liftForce * -_playerInput.magnitude, positionToAddForce
+            _positionToAddForce = transform.TransformPoint(_playerInput);
+            _rigidbody.AddForceAtPosition(-transform.forward * _liftForce * -_playerInput.magnitude, _positionToAddForce
                                         , ForceMode.Acceleration);
         }
 
@@ -189,9 +206,9 @@ public class PlayerControler : MonoBehaviour
         //!empeche le nez de remonter tout seul
         if (xAngle > 0)
             _rigidbody.AddForceAtPosition(Vector3.down * noseFallingForce, transform.TransformPoint(Vector3.up), ForceMode.Acceleration);
-         if (xAngle < 0)
+        if (xAngle < 0)
             _rigidbody.AddForceAtPosition(Vector3.down * noseFallingForce * .2f, transform.TransformPoint(Vector3.up), ForceMode.Acceleration);
-      
+
 
         //! Décrochage !
         if (xAngle > stallingThresold)
@@ -202,10 +219,10 @@ public class PlayerControler : MonoBehaviour
         else
             stallTimer = 0;
 
-        if(isStalling)
+        if (isStalling)
         {
             _rigidbody.AddForceAtPosition(Vector3.down * noseFallingForce * 5, transform.TransformPoint(Vector3.up), ForceMode.Acceleration);
-            if(xAngle < -80)
+            if (xAngle < -80)
                 isStalling = false;
         }
 
@@ -219,8 +236,6 @@ public class PlayerControler : MonoBehaviour
 
 
 
-        //! Resistance au vent en fonction d'angle
-        // _rigidbody.AddForce(Vector3.up * angleRatio * _windResistance * velocityMag, ForceMode.Acceleration);
 
         //! Acceleration du player
         //! -angle pour avoir un multiplier positif avec un angle negatif
@@ -258,10 +273,15 @@ public class PlayerControler : MonoBehaviour
     void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(positionToAddForce, .5f);
+        Gizmos.DrawSphere(_positionToAddForce, .5f);
 
-        Gizmos.color = Color.magenta;
-        Gizmos.DrawSphere(transform.TransformPoint(Vector3.up), .5f);
+        // Gizmos.color = Color.magenta;
+        // Gizmos.DrawSphere(transform.TransformPoint(Vector3.up), .5f);
 
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(_center, .1f);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawSphere(_hat, .1f);
     }
 }

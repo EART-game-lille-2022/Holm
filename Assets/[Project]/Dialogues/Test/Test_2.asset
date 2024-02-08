@@ -10,21 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1ea06d6ca7f8b484b8a5ac86b6ba859b, type: 3}
-  m_Name: TesteDialogue
+  m_Name: Test_2
   m_EditorClassIdentifier: 
   stateList:
+  - mood: 4
+    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
+    text: MAIS !!! c tout en miette !
   - mood: 2
     pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
-    text: Bouboubou j'ai pas mon colis...
-  - mood: 3
-    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
-    text: OMG c toi, je t'ai atendut si longtemps !
-  - mood: 1
-    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
-    text: Merci bien pour le colis :)
-  - mood: 2
-    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
-    text: Mais il est tout en miette
-  - mood: 2
-    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
-    text: abouboubou...
+    text: a bouboubou .....

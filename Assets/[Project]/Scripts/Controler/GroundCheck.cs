@@ -73,12 +73,12 @@ public class GroundCheck : MonoBehaviour
         }
     }
 
-    void OnDrawGizmos()
-    {
-        if (_checkHit.collider)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawSphere(_checkHit.point, .3f);
-        }
-    }
+    // void OnDrawGizmos()
+    // {
+    //     if (_checkHit.collider)
+    //     {
+    //         Gizmos.color = Color.red;
+    //         Gizmos.DrawSphere(_checkHit.point, .3f);
+    //     }
+    // }
 }

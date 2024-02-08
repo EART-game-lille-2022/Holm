@@ -14,6 +14,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private ScriptableDialogue _currentDialogue;
     [SerializeField] private int _stateIndex = 0;
     private bool _isCurrentStateFinish = true;
+    DialogueDescriptor _currentDescriptor;
 
     void Awake()
     {
@@ -21,18 +22,25 @@ public class DialogueManager : MonoBehaviour
         QuitDialogue();
     }
 
-    public void PlayDialogue(ScriptableDialogue toPlay)
+    public void PlayDialogue(ScriptableDialogue toPlay, DialogueDescriptor descriptor)
     {
+        if(_currentDialogue == toPlay)
+            return;
+
+        gameObject.SetActive(true);
+        _textBloc.text = " ";
+        _pnjImage.sprite = null;
+
+        _currentDescriptor = descriptor;
         _currentDialogue = toPlay;
         _stateIndex = 0;
-        gameObject.SetActive(true);
+
         NextDialogueState();
     }
 
     private void OnInteract(InputValue value)
     {
-        print("Dialogue Interact !");
-
+        // print("Dialogue Interact !");
         if (!_currentDialogue)
             return;
 
@@ -52,7 +60,7 @@ public class DialogueManager : MonoBehaviour
     private void SkipPrintingText()
     {
         _isCurrentStateFinish = true;
-        _textBloc.text = _currentDialogue.stateList[_stateIndex - 1 ].text;
+        _textBloc.text = _currentDialogue.stateList[_stateIndex - 1].text;
     }
 
     [ContextMenu("iuehrgiuhegrhuigreuihegr")]
@@ -67,9 +75,9 @@ public class DialogueManager : MonoBehaviour
         _isCurrentStateFinish = false;
         PnjMood pnjMood;
         _pnjImage.sprite = _currentDialogue.stateList[index].GetImage(out pnjMood);
-        print("Mood : " + pnjMood + " at index : " + _stateIndex);
-        // if(pnjMood == PnjMood.Surprised)
-        //     _pnjImage.transform.DOShakePosition(1, 1, 1 ,90);
+        // print("Mood : " + pnjMood + " at index : " + _stateIndex);
+        if(pnjMood == PnjMood.Surprised)
+            _pnjImage.transform.DOShakePosition(1, 20, 20, 90);
         StartCoroutine(PrintTexte(_currentDialogue.stateList[index].text));
     }
 
@@ -86,10 +94,13 @@ public class DialogueManager : MonoBehaviour
 
     public void QuitDialogue()
     {
+        gameObject.SetActive(false);
         _textBloc.text = " ";
         _pnjImage.sprite = null;
+
         _currentDialogue = null;
         _stateIndex = 0;
-        gameObject.SetActive(false);
+        _currentDescriptor?.OnDialogueEnd();
+        _currentDescriptor = null;
     }
 }
