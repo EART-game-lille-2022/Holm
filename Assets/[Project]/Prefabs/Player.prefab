@@ -120,6 +120,9 @@ MonoBehaviour:
   _orientation: {fileID: 0}
   _cameraControler: {fileID: 1078326050562177572}
   _collider: {fileID: 5363725301897604046}
+  _trailList:
+  - {fileID: 1936769139881431417}
+  - {fileID: 5074494214051359292}
   _groundMoveSpeed: 40
   _jumpForce: 15
   _fallingForce: 30
@@ -131,11 +134,8 @@ MonoBehaviour:
   _flyCenterOfMass: {x: 0, y: 0, z: 0}
   noseFallingForce: 1
   _minAngleRatioMultiplier: -1
-  _maxAngleRatioMultiplier: 5
+  _maxAngleRatioMultiplier: 10
   _flyPhysicMaterial: {fileID: 13400000, guid: b1cc9a07893cdc249a27c8949bfff0f6, type: 2}
-  _groundOrientationDirection: {x: 0, y: 0, z: 0}
-  _center: {x: 0, y: 0, z: 0}
-  _hat: {x: 0, y: 0, z: 0}
 --- !u!114 &147157684505009539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -804,6 +804,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Trail (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5365816584995880614, guid: bc418a6ed9eefcb47814c6d70c0049d0,
+        type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5365816584995880614, guid: bc418a6ed9eefcb47814c6d70c0049d0,
+        type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8593590333179272080, guid: bc418a6ed9eefcb47814c6d70c0049d0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -859,6 +869,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc418a6ed9eefcb47814c6d70c0049d0, type: 3}
+--- !u!96 &5074494214051359292 stripped
+TrailRenderer:
+  m_CorrespondingSourceObject: {fileID: 5365816584995880614, guid: bc418a6ed9eefcb47814c6d70c0049d0,
+    type: 3}
+  m_PrefabInstance: {fileID: 872304538442945690}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8888307669647740682 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8593590333179272080, guid: bc418a6ed9eefcb47814c6d70c0049d0,
@@ -901,7 +917,7 @@ PrefabInstance:
     - target: {fileID: 5365816584995880614, guid: bc418a6ed9eefcb47814c6d70c0049d0,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8593590333179272080, guid: bc418a6ed9eefcb47814c6d70c0049d0,
         type: 3}
@@ -958,6 +974,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc418a6ed9eefcb47814c6d70c0049d0, type: 3}
+--- !u!96 &1936769139881431417 stripped
+TrailRenderer:
+  m_CorrespondingSourceObject: {fileID: 5365816584995880614, guid: bc418a6ed9eefcb47814c6d70c0049d0,
+    type: 3}
+  m_PrefabInstance: {fileID: 5807387889524699103}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2870319517868225615 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8593590333179272080, guid: bc418a6ed9eefcb47814c6d70c0049d0,
