@@ -13,6 +13,7 @@ public enum PlayerState
 
 public class PlayerControler : MonoBehaviour
 {
+    //TODO raycast pour voire si le joueur est bloqué contre un mur = nerf la force pour avancer
 
     [Header("Reference :")]
     // [SerializeField] private UiJoystick _joystick;
@@ -21,21 +22,24 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] private PlayerState _currentState;
     [SerializeField] private Transform _orientation;
     [SerializeField] private CameraControler _cameraControler;
+    [SerializeField] private Collider _collider;
 
     [Header("Ground Parametre :")]
-    [SerializeField] private float _groundMoveSpeed = 5;
-    [SerializeField] private float _jumpForce = 5;
-    [SerializeField] private float _groundRbDrag = 0;
+    [SerializeField] private float _groundMoveSpeed = 40;
+    [SerializeField] private float _jumpForce = 20;
+    [SerializeField] private float _fallingForce = 60;    
+    [SerializeField] private Vector3 _groundCenterOfMass = new Vector3(0, -.5f, 0);
+    [SerializeField] private PhysicMaterial _groundPhysicMaterial;
 
     [Header("Fly Parametre :")]
-    [SerializeField] private float _upForce = 10;
-    [SerializeField] private float _liftForce = 5;
-    [SerializeField] private float _windResistance = 2;
-    [SerializeField] private float _flyRbDrag = 2;
+    [SerializeField] private float _upForce = 30;
+    [SerializeField] private float _liftForce = 3;
+    [SerializeField] private float _windResistance = 10;
+    [SerializeField] private Vector3 _flyCenterOfMass = Vector3.zero;
     [SerializeField] private float _minAngleRatioMultiplier = -1;
-    [SerializeField] private float _maxAngleRatioMultiplier = 2;
-    [SerializeField] private float _maxDownFallingForce = 4;
-
+    [SerializeField] private float _maxAngleRatioMultiplier = 5;
+    [SerializeField] private float _maxDownFallingForce = 15;
+    [SerializeField] private PhysicMaterial _flyPhysicMaterial;
     [Space]
     [Space]
     [Space]
@@ -76,32 +80,37 @@ public class PlayerControler : MonoBehaviour
     public void ChangeState(PlayerState stateToSet)
     {
         //TODO Animé le changement d'état
+        //TODO set les trail pour ettre appais sur leur fin
         if (stateToSet == _currentState)
             return;
 
         _currentState = stateToSet;
 
-        print("State to set :" + _currentState);
+            // print("State to set :" + _currentState);
         switch (stateToSet)
         {
             case PlayerState.Grounded:
                 // print("Player Grounded !");
-                //TODO !NELLO! Reorientation du joueur ne fonctione pas bien en fonction de l'orientation de départ
-                // transform.up = _orientation.up;
+                transform.up = Vector3.up;
                 
                 _cameraControler.SetCameraParameter(1.5f, true);
 
-                _rigidbody.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
+                // _rigidbody.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
+                _rigidbody.centerOfMass = _groundCenterOfMass;
+                _collider.material = _groundPhysicMaterial;
                 _currentState = PlayerState.Grounded;
-                // _rigidbody.drag = _groundRbDrag;
                 break;
 
             case PlayerState.Flying:
                 // Vector3 startOrientation = transform.up;
-                Quaternion targetOrientation = Quaternion.LookRotation( -Vector3.up, _orientation.up );
+                // Quaternion targetOrientation = Quaternion.LookRotation( -Vector3.up, _orientation.up );
                 Quaternion startOrientation = transform.rotation;
+                Quaternion targetOrientation = Quaternion.LookRotation(-Vector3.up , transform.forward);
                 _cameraControler.SetCameraParameter(0, false);
-                _rigidbody.constraints = RigidbodyConstraints.None;
+                // _rigidbody.constraints = RigidbodyConstraints.None;
+                _rigidbody.centerOfMass = _flyCenterOfMass;
+                _collider.material = _flyPhysicMaterial;
+
                 DOTween.To((time) =>
                 {
                     _rigidbody.rotation = transform.rotation = Quaternion.Slerp(startOrientation, targetOrientation, time);
@@ -121,6 +130,7 @@ public class PlayerControler : MonoBehaviour
     private void GroundControler()
     {
         Vector3 moveDireciton = _orientation.forward * _playerInput.y + _orientation.right * _playerInput.x;
+        moveDireciton *= _groundMoveSpeed;
 
         if (moveDireciton != Vector3.zero)
         {
@@ -129,8 +139,21 @@ public class PlayerControler : MonoBehaviour
             // _rigidbody.AddForce(transform.forward * _groundMoveSpeed, ForceMode.Acceleration);
         }
 
-        Vector3 newVelocity = transform.forward * _playerInput.magnitude * _groundMoveSpeed;
-        _rigidbody.velocity = new Vector3(newVelocity.x, _rigidbody.velocity.y, newVelocity.z);
+        _rigidbody.AddForce(moveDireciton, ForceMode.Acceleration);
+        _rigidbody.AddForce(Vector3.down * _fallingForce, ForceMode.Acceleration);
+
+        // print(_rigidbody.velocity.magnitude);
+        if(_playerInput.magnitude == 0)
+        {
+            float velValue = Mathf.InverseLerp(0, 10, _rigidbody.velocity.magnitude);
+            // print(velValue);
+
+            Vector3 velOutY = _rigidbody.velocity;
+            velOutY.y = 0;
+            //! if mult trop grand : par en vrille :)
+            _rigidbody.AddForce(-velOutY * 5, ForceMode.Acceleration);
+        }
+        // _rigidbody.velocity = new Vector3(moveDirection.x, _rigidbody.velocity.y, moveDirection.z);
     }
 
     private void FlyControler()
@@ -164,10 +187,10 @@ public class PlayerControler : MonoBehaviour
         //TODO incrementé la force doucement si angle > 0, reset doux rapide
 
         //!empeche le nez de remonter tout seul
-        // if (xAngle > 0)
-        //     _rigidbody.AddForceAtPosition(Vector3.down * noseFallingForce, transform.TransformPoint(Vector3.up), ForceMode.Acceleration);
-        //  if (xAngle < 0)
-        //     _rigidbody.AddForceAtPosition(Vector3.down * noseFallingForce * .2f, transform.TransformPoint(Vector3.up), ForceMode.Acceleration);
+        if (xAngle > 0)
+            _rigidbody.AddForceAtPosition(Vector3.down * noseFallingForce, transform.TransformPoint(Vector3.up), ForceMode.Acceleration);
+         if (xAngle < 0)
+            _rigidbody.AddForceAtPosition(Vector3.down * noseFallingForce * .2f, transform.TransformPoint(Vector3.up), ForceMode.Acceleration);
       
 
         //! Décrochage !
@@ -228,7 +251,7 @@ public class PlayerControler : MonoBehaviour
     {
         if (value.Get<float>() == 1 ? true : false && _groundCheck.IsGrounded())
         {
-            _rigidbody.velocity += Vector3.up * _jumpForce;
+            _rigidbody.AddForce(Vector3.up * _jumpForce, ForceMode.VelocityChange);
         }
     }
 
