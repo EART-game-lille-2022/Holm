@@ -15,3 +15,5 @@ MonoBehaviour:
   happy: {fileID: 21300000, guid: b9e4987750a8c4a4097f8b9fe3bec475, type: 3}
   sad: {fileID: 21300000, guid: ae53e9f43b257884eb6438fbbe559613, type: 3}
   surprised: {fileID: 21300000, guid: c28063370b1f1f643a34acfeb6dcb9d6, type: 3}
+  angry: {fileID: 21300000, guid: 7385b825d2821e148b28762748e8693b, type: 3}
+  hmmm: {fileID: 21300000, guid: 1de2c751ded604d43960bbb0affd3594, type: 3}

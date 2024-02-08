@@ -33,6 +33,12 @@ public class DialogueState
 
             case PnjMood.Surprised :
                 return pnj.surprised;
+            
+            case PnjMood.Angry :
+                return pnj.angry;
+
+            case PnjMood.Hmmm :
+                return pnj.hmmm;
         }
         Debug.LogWarning("PNJ mood not set !!!");
         return null;

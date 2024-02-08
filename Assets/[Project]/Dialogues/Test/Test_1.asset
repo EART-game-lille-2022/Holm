@@ -16,9 +16,9 @@ MonoBehaviour:
   - mood: 2
     pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
     text: Bouboubou j'ai pas mon colis...
-  - mood: 3
+  - mood: 5
     pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
-    text: OMG c toi, je t'ai atendut si longtemps !
+    text: Oh c toi... ta pris ton temps...
   - mood: 1
     pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
     text: Merci bien pour le colis :)

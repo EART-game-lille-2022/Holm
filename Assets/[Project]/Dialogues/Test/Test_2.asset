@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Test_2
   m_EditorClassIdentifier: 
   stateList:
-  - mood: 3
+  - mood: 4
     pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
     text: MAIS !!! c tout en miette !
   - mood: 2

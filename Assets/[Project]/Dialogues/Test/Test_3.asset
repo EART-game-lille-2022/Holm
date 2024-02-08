@@ -13,9 +13,13 @@ MonoBehaviour:
   m_Name: Test_3
   m_EditorClassIdentifier: 
   stateList:
+  - mood: 5
+    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
+    text: T'es encor la ?
   - mood: 1
     pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
-    text: "Bon tant que t'es l\xE0, tu pourrais aller chercher de la U U glu"
+    text: "Tant que t'es l\xE0, rend toi utile, tu pourrais aller chercher de la
+      U U glu"
   - mood: 1
     pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
     text: Merci d'avance :)
