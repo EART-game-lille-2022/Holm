@@ -16,7 +16,6 @@ public enum PlayerState
 public class PlayerControler : MonoBehaviour
 {
     //TODO raycast pour voire si le joueur est bloqué contre un mur = nerf la force pour avancer
-
     [Header("Reference :")]
     // [SerializeField] private UiJoystick _joystick;
     [SerializeField] private Transform _orientation;
@@ -103,7 +102,6 @@ public class PlayerControler : MonoBehaviour
 
     public void ChangeState(PlayerState stateToSet)
     {
-        //TODO set les trail pour ettre appais sur leur fin
         if (stateToSet == _currentState)
             return;
 
@@ -166,7 +164,6 @@ public class PlayerControler : MonoBehaviour
 
     private void GroundControler()
     {
-        //TODO fix spinning = falling
         Vector3 moveDireciton = _orientation.forward * _playerInput.y + _orientation.right * _playerInput.x;
         moveDireciton *= _groundMoveSpeed;
 
@@ -195,6 +192,8 @@ public class PlayerControler : MonoBehaviour
 
     private void FlyControler()
     {
+        //TODO fonction de "reset" l'orientation du joueur en maintenant "B" par exemple
+
         //TODO Ajouter de l'inercie velociter
         xAngle = Vector3.Angle(transform.up, Vector3.down) - 90;
         yAngle = Vector3.Angle(transform.right, Vector3.down) - 90;
@@ -206,12 +205,18 @@ public class PlayerControler : MonoBehaviour
         //! Rotate le player
         if (!isStalling)
         {
-            //TODO differencier l'axe x et y pour un controle plus intuitif et maniable
+            // _positionToAddForce = transform.TransformPoint(new Vector2(_playerInput.x, 0));
             _positionToAddForce = transform.TransformPoint(_playerInput);
+
+            //! Z
             _rigidbody.AddForceAtPosition(-transform.forward * _liftForce * -_playerInput.magnitude, _positionToAddForce
                                         , ForceMode.Acceleration);
-        }
 
+            //! X
+            // Vector3 xToAddForce = new Vector3(transform.position.x + _playerInput.x, transform.position.y, transform.position.z);
+            // _rigidbody.AddForceAtPosition(-transform.forward * _liftForce * -_playerInput.magnitude, xToAddForce
+            //                             , ForceMode.Acceleration);
+        }
 
         //! force sur le yaw en fonction du roll
         float yawForce = Mathf.Lerp(0, 3, Mathf.InverseLerp(0, 90, Mathf.Abs(yAngle)));
@@ -219,15 +224,11 @@ public class PlayerControler : MonoBehaviour
                                     , transform.TransformPoint(Vector3.up)
                                     , ForceMode.Acceleration);
 
-
-        //TODO incrementé la force doucement si angle > 0, reset doux rapide
-
         //!empeche le nez de remonter tout seul et le fait doucement chuté
         if (xAngle > 0)
             _rigidbody.AddForceAtPosition(Vector3.down * noseFallingForce, transform.TransformPoint(Vector3.up), ForceMode.Acceleration);
         if (xAngle < 0)
             _rigidbody.AddForceAtPosition(Vector3.down * noseFallingForce * .2f, transform.TransformPoint(Vector3.up), ForceMode.Acceleration);
-
 
         //! Décrochage !
         if (xAngle > stallingThresold)
@@ -267,8 +268,8 @@ public class PlayerControler : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        // Gizmos.color = Color.yellow;
-        // Gizmos.DrawSphere(_positionToAddForce, .5f);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(_positionToAddForce, .5f);
 
         // Gizmos.color = Color.magenta;
         // Gizmos.DrawSphere(transform.TransformPoint(Vector3.up), .5f);

@@ -97,7 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 43dd22f25072a134498ac2be95686058,
+    type: 2}
   m_LightingSettings: {fileID: 79546365}
 --- !u!196 &4
 NavMeshSettings:
@@ -22292,10 +22293,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: WindArea (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 55130523106466434, guid: 737ed6ff152af134cbb0b2ab3e6f09a6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2867328169934642038, guid: 737ed6ff152af134cbb0b2ab3e6f09a6,
         type: 3}
       propertyPath: _force
-      value: 20
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2867328169934642038, guid: 737ed6ff152af134cbb0b2ab3e6f09a6,
         type: 3}
@@ -23073,6 +23079,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WindArea (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 55130523106466434, guid: 737ed6ff152af134cbb0b2ab3e6f09a6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2867328169934642038, guid: 737ed6ff152af134cbb0b2ab3e6f09a6,
         type: 3}
@@ -27704,6 +27715,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WindArea (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 55130523106466434, guid: 737ed6ff152af134cbb0b2ab3e6f09a6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6934838580039675030, guid: 737ed6ff152af134cbb0b2ab3e6f09a6,
         type: 3}
@@ -34084,6 +34100,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WindArea
+      objectReference: {fileID: 0}
+    - target: {fileID: 55130523106466434, guid: 737ed6ff152af134cbb0b2ab3e6f09a6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2867328169934642038, guid: 737ed6ff152af134cbb0b2ab3e6f09a6,
         type: 3}
