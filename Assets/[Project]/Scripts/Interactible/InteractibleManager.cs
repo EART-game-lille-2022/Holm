@@ -29,7 +29,7 @@ public class InteractibleManager : MonoBehaviour
 
     void Awake()
     {
-        //TODO Call nello, list static clear pas quand la scene reset ?
+        //TODO Call Nello, list static clear pas quand la scene reset ?
         //? lié au disable realode domaine ?
         if (InteractibleList.Count > 0)
             InteractibleList.Clear();
@@ -47,7 +47,7 @@ public class InteractibleManager : MonoBehaviour
                 minDistance = distance;
                 if (distance < _minimumDistanceToInteract)
                     toReturn = item;
-                //TODO Vect.Dot si jamais
+                //TODO Vect.Dot si jamais, pour ajuster les controles des interactibles
             }
         }
 

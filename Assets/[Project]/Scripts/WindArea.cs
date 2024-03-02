@@ -8,6 +8,8 @@ public class WindArea : MonoBehaviour
     public Transform Direction { get => _direction; }
     [SerializeField] private float _force;
     public float Force { get => _force; }
+    [SerializeField] private bool _isChaos;
+    public bool IsChaos { get => _isChaos; }
 
     void OnTriggerEnter(Collider other)
     {

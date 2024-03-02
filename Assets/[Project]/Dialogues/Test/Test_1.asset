@@ -22,3 +22,19 @@ MonoBehaviour:
   - mood: 1
     pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
     text: Merci bien pour le colis :)
+  - mood: 4
+    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
+    text: MAIS !!! c tout en miette !
+  - mood: 2
+    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
+    text: a bouboubou .....
+  - mood: 5
+    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
+    text: T'es encor la ?
+  - mood: 1
+    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
+    text: "Tant que t'es l\xE0, rend toi utile, tu pourrais aller chercher de la
+      U U glu"
+  - mood: 1
+    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
+    text: Merci d'avance :)
