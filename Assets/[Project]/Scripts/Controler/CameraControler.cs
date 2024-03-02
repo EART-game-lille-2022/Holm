@@ -8,18 +8,18 @@ public class CameraControler : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera _virtualCam;
     [SerializeField] private Transform _cameraTarget;
     [SerializeField] private float _sensivity = 1;
+    [SerializeField] private float _shoulderOffset;
+
+    private bool _canPlayerMoveCamera;
     private Vector3 _inputAxis;
     bool _playerCanMoveCamera;
 
-    void Start()
-    {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-    }
 
     void Update()
     {
-        if(!_playerCanMoveCamera)
+        //TODO screenShak pendant la chute
+
+        if (!_playerCanMoveCamera)
             _cameraTarget.transform.forward = transform.up;
 
         // _cameraTarget.Rotate(new Vector3(_inputAxis.y, _inputAxis.x, 0) * _sensivity * Time.deltaTime);
@@ -29,6 +29,7 @@ public class CameraControler : MonoBehaviour
 
     public void SetCameraParameter(float shoulderOffset, bool canPlayerMoveCamera)
     {
+        //TODO passer PlayerState en parametre, et internaliser les parametre lie a la cam dans la class
         Cinemachine3rdPersonFollow cm = _virtualCam.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
         cm.ShoulderOffset = new Vector3(0, shoulderOffset, 0);
 
@@ -41,12 +42,12 @@ public class CameraControler : MonoBehaviour
 
     void OnLook(InputValue value)
     {
-        if(!_playerCanMoveCamera)
+        if (!_playerCanMoveCamera)
         {
             _inputAxis = Vector2.zero;
             return;
         }
-        
+
         _inputAxis.x = -value.Get<Vector2>().y;
         _inputAxis.y = value.Get<Vector2>().x;
     }
