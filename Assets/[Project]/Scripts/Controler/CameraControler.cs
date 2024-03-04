@@ -10,17 +10,23 @@ public class CameraControler : MonoBehaviour
     [SerializeField] private float _sensivity = 1;
     [SerializeField] private float _shoulderOffset;
 
-    private bool _canPlayerMoveCamera;
     private Vector3 _inputAxis;
-    bool _playerCanMoveCamera;
+    private bool _playerCanMoveCamera;
+    private Transform _startTarget;
+    private Transform _startLookAt;
 
+    void Start()
+    {
+        _startTarget = _cameraTarget;
+        _startLookAt = _virtualCam.LookAt;
+    }
 
     void Update()
     {
         //TODO screenShake pendant la chute
-        if(!GameManager.instance.CanPlayerMove)
+        if (!GameManager.instance.CanPlayerMove)
             return;
-            
+
         if (!_playerCanMoveCamera)
             _cameraTarget.transform.forward = transform.up;
 
@@ -40,6 +46,19 @@ public class CameraControler : MonoBehaviour
         _playerCanMoveCamera = canPlayerMoveCamera;
         // Camera.main.GetComponent<CinemachineBrain>().enabled = _playerCanMoveCamera;
         // Camera.main.transform.parent = _playerCanMoveCamera ? transform : null;
+    }
+
+    public void SetCameraTaret(Transform newTarget, Transform newLookAt)
+    {
+        _virtualCam.Follow = newTarget;
+        _virtualCam.LookAt = newLookAt;
+
+    }
+
+    public void ResetCameraTarget()
+    {
+        _virtualCam.Follow = _startTarget;
+        _virtualCam.LookAt = _startLookAt;
     }
 
     void OnLook(InputValue value)

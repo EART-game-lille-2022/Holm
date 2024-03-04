@@ -5,7 +5,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    
+    [SerializeField] private CameraControler _cameraControler;
+
     public bool CanPlayerMove => _canPlayerMove;
     private bool _canPlayerMove = true;
 
@@ -19,6 +20,17 @@ public class GameManager : MonoBehaviour
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    public void SetPlayerToQuestPanelState(Transform panelPosition)
+    {
+        SetPlayerControleAbility(false);
+        _cameraControler.SetCameraTaret(panelPosition, panelPosition);
+    }
+
+    public void SetPlayerToControleState()
+    {
+
     }
 
     public void SetPlayerControleAbility(bool value)

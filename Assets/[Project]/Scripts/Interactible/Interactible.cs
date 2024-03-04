@@ -3,20 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using DG.Tweening;
+using TMPro;
 
 public class Interactible : MonoBehaviour
 {
     [SerializeField] private UnityEvent<Interactible> _onInteract;
     [SerializeField] private float _outLineAnimationDuration = .2f;
     [SerializeField] private AnimationCurve _outlinePopCurve;
-    private MeshRenderer _renderer;
+    public  List<MeshRenderer> _rendererList;
 
     void Start()
     {
         InteractibleManager.AddInteractible(this);
-        _renderer = GetComponentInChildren<MeshRenderer>();
-        _renderer.sharedMaterials[1] = new Material(_renderer.sharedMaterials[1]);
-        _renderer.materials[1].SetFloat("_Scale", 0);
+        foreach (var item in GetComponentsInChildren<MeshRenderer>())
+        {
+            if(!item.GetComponent<TextMeshPro>())
+                _rendererList.Add(item);
+        }
+
+        for (int i = 0; i < _rendererList.Count; i++)
+        {
+            _rendererList[i].sharedMaterials[1] = new Material(_rendererList[i].sharedMaterials[1]);
+            _rendererList[i].materials[1].SetFloat("_Scale", 0);
+        }
     }
 
     public void Interact()
@@ -34,7 +43,8 @@ public class Interactible : MonoBehaviour
     {
         DOTween.To((time) =>
         {
-            _renderer.materials[1].SetFloat("_Scale", time);
+            for (int i = 0; i < _rendererList.Count; i++)
+                _rendererList[i].materials[1].SetFloat("_Scale", time);
         }, 0, 1.2f, _outLineAnimationDuration).SetEase(_outlinePopCurve);
     }
 
@@ -42,7 +52,8 @@ public class Interactible : MonoBehaviour
     {
         DOTween.To((time) =>
         {
-            _renderer.materials[1].SetFloat("_Scale", time);
+            for (int i = 0; i < _rendererList.Count; i++)
+                _rendererList[i].materials[1].SetFloat("_Scale", time);
         }, 1.2f, 0, _outLineAnimationDuration).SetEase(Ease.Linear);
     }
 

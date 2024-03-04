@@ -25,6 +25,7 @@ public class InteractibleManager : MonoBehaviour
             InteractibleList.Clear();
     }
 
+
     public static void AddInteractible(Interactible toAdd)
     {
         if (!InteractibleList.Contains(toAdd))
