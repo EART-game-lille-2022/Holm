@@ -17,8 +17,10 @@ public class CameraControler : MonoBehaviour
 
     void Update()
     {
-        //TODO screenShak pendant la chute
-
+        //TODO screenShake pendant la chute
+        if(!GameManager.instance.CanPlayerMove)
+            return;
+            
         if (!_playerCanMoveCamera)
             _cameraTarget.transform.forward = transform.up;
 

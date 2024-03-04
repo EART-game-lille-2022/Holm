@@ -22,6 +22,10 @@ public class DialogueManager : MonoBehaviour
     void Awake()
     {
         instance = this;
+    }
+
+    void Start()
+    {
         QuitDialogue();
     }
 
@@ -33,6 +37,8 @@ public class DialogueManager : MonoBehaviour
         //* Get la ref du descriptor pour reset le conditionel des interactions
         if(descriptor)
             _descriptor = descriptor;
+
+        GameManager.instance.SetPlayerControleAbility(false);
 
         gameObject.SetActive(true);
         _textBloc.text = " ";
@@ -108,5 +114,6 @@ public class DialogueManager : MonoBehaviour
         _stateIndex = 0;
 
         _descriptor?.OnDialogueEnd();
+        GameManager.instance.SetPlayerControleAbility(true);
     }
 }

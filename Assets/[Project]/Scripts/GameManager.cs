@@ -5,6 +5,10 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    
+    public bool CanPlayerMove => _canPlayerMove;
+    private bool _canPlayerMove = true;
+
 
     void Awake()
     {
@@ -19,6 +23,6 @@ public class GameManager : MonoBehaviour
 
     public void SetPlayerControleAbility(bool value)
     {
-        
+        _canPlayerMove = value;
     }
 }

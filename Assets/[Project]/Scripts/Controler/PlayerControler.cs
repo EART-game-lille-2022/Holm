@@ -76,6 +76,12 @@ public class PlayerControler : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(!GameManager.instance.CanPlayerMove)
+        {
+            _rigidbody.velocity = Vector3.zero;
+            return;
+        }
+
         _velocityMagnitude = _rigidbody.velocity.magnitude;
         _virtualCam.m_Lens.FieldOfView =
         Mathf.Lerp(_minFov, _maxFov, Mathf.InverseLerp(_minFovVelocity, _maxFovVelocity, _velocityMagnitude));
@@ -83,15 +89,12 @@ public class PlayerControler : MonoBehaviour
         RecenterPlayerUp();
 
         ComputeOrientation();
+
         if (_currentState == PlayerState.Grounded)
-        {
             GroundControler();
-        }
 
         if (_currentState == PlayerState.Flying)
-        {
             FlyControler();
-        }
     }
 
     void RecenterPlayerUp()
