@@ -30,6 +30,7 @@ public class DialogueManager : MonoBehaviour
         if(_currentDialogue == toPlay)
             return;
 
+        //* Get la ref du descriptor pour reset le conditionel des interactions
         if(descriptor)
             _descriptor = descriptor;
 
