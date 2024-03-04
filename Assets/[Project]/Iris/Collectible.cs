@@ -17,7 +17,7 @@ public class Collectible : MonoBehaviour
         collectibles.Remove(this);
     }
     void Update()
-    {
+    { 
         // distance avec le joueur -> finish
     }
 }

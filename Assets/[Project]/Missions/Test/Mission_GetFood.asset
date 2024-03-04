@@ -10,12 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a1e2efc2c551d544986fd214911ce8ae, type: 3}
-  m_Name: Mission_First
+  m_Name: Mission_GetFood
   m_EditorClassIdentifier: 
-  missionName: Collect Lewis lost panties
-  isUnlocked: 1
-  dialogue: {fileID: 11400000, guid: 56b08dff52c63fe4db11217ed041cdf7, type: 2}
-  unlockedOnFinish:
-  - {fileID: 11400000, guid: b869d4cd9faf3084dacb0e036fb61a97, type: 2}
+  missionName: 
+  isUnlocked: 0
+  dialogue: {fileID: 0}
+  unlockedOnFinish: []
   objectifList:
-  - {fileID: 11400000, guid: 6c9ecd026e8af5647a084c4ff7bdc033, type: 2}
+  - {fileID: 11400000, guid: 34f3018baa325e143bd9a5ef5e1cc079, type: 2}

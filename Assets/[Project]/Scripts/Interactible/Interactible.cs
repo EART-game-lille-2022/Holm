@@ -6,14 +6,15 @@ using DG.Tweening;
 
 public class Interactible : MonoBehaviour
 {
-    [SerializeField] private UnityEvent _onInteract;
-    [SerializeField] private MeshRenderer _renderer;
-    [SerializeField] private float _outLineAnimationDuration;
+    [SerializeField] private UnityEvent<Interactible> _onInteract;
+    [SerializeField] private float _outLineAnimationDuration = .2f;
     [SerializeField] private AnimationCurve _outlinePopCurve;
+    private MeshRenderer _renderer;
 
     void Start()
     {
         InteractibleManager.AddInteractible(this);
+        _renderer = GetComponentInChildren<MeshRenderer>();
         _renderer.sharedMaterials[1] = new Material(_renderer.sharedMaterials[1]);
         _renderer.materials[1].SetFloat("_Scale", 0);
     }
@@ -21,7 +22,12 @@ public class Interactible : MonoBehaviour
     public void Interact()
     {
         print("Interact with : " + name);
-        _onInteract.Invoke();
+        _onInteract.Invoke(this);
+    }
+
+    public void EndInteraction()
+    {
+        InteractibleManager.instance.OnEndInteraction();
     }
 
     public void OnSelected()
@@ -34,7 +40,6 @@ public class Interactible : MonoBehaviour
 
     public void OnUnselected()
     {
-        //TODO Call Nello, Animation bug !
         DOTween.To((time) =>
         {
             _renderer.materials[1].SetFloat("_Scale", time);

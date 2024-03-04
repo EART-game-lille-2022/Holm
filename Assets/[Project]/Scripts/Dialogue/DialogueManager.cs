@@ -7,6 +7,9 @@ using UnityEngine.InputSystem;
 
 public class DialogueManager : MonoBehaviour
 {
+    //! Un dialogue peut etre appeler de deux facon :
+    //! Via un DialogueDescriptor
+    //! Via MissionStart
     public static DialogueManager instance;
     [SerializeField] private float _charDelay;
     [SerializeField] private TextMeshProUGUI _textBloc;
@@ -14,7 +17,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private ScriptableDialogue _currentDialogue;
     [SerializeField] private int _stateIndex = 0;
     private bool _isCurrentStateFinish = true;
-    DialogueDescriptor _currentDescriptor;
+    private DialogueDescriptor _descriptor;
 
     void Awake()
     {
@@ -22,16 +25,18 @@ public class DialogueManager : MonoBehaviour
         QuitDialogue();
     }
 
-    public void PlayDialogue(ScriptableDialogue toPlay, DialogueDescriptor descriptor)
+    public void PlayDialogue(ScriptableDialogue toPlay, DialogueDescriptor descriptor = null)
     {
         if(_currentDialogue == toPlay)
             return;
+
+        if(descriptor)
+            _descriptor = descriptor;
 
         gameObject.SetActive(true);
         _textBloc.text = " ";
         _pnjImage.sprite = null;
 
-        _currentDescriptor = descriptor;
         _currentDialogue = toPlay;
         _stateIndex = 0;
 
@@ -100,7 +105,7 @@ public class DialogueManager : MonoBehaviour
 
         _currentDialogue = null;
         _stateIndex = 0;
-        _currentDescriptor?.OnDialogueEnd();
-        _currentDescriptor = null;
+
+        _descriptor?.OnDialogueEnd();
     }
 }

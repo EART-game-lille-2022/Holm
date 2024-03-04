@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [Serializable]
@@ -19,7 +20,7 @@ public class DialogueState
 {
     public PnjMood mood;
     public ScriptablePNJ pnj;
-    public string text;
+    [TextArea] public string text;
 
     public Sprite GetImage(out PnjMood currentMood)
     {
@@ -49,6 +50,12 @@ public class DialogueState
 [CreateAssetMenu(fileName = "Dialogue")]
 public class ScriptableDialogue : ScriptableObject
 {
-    [ListBindable(BindableSupport.Yes)]
     public List<DialogueState> stateList;
+
+
+
+
+
+
+    
 }

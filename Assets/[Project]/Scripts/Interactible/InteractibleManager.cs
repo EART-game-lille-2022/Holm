@@ -5,18 +5,8 @@ using UnityEngine.InputSystem;
 
 public class InteractibleManager : MonoBehaviour
 {
-    [SerializeField] public static List<Interactible> InteractibleList = new List<Interactible>();
-    public static void AddInteractible(Interactible toAdd)
-    {
-        if(!InteractibleList.Contains(toAdd))
-            InteractibleList.Add(toAdd);
-    }
-    public static void RemoveInteractible(Interactible toRemove)
-    {
-        if (InteractibleList.Contains(toRemove))
-            InteractibleList.Remove(toRemove);
-    }
-
+    public static InteractibleManager instance;
+    public static List<Interactible> InteractibleList = new List<Interactible>();
 
     [Header("Reference :")]
     [SerializeField] private Transform _player;
@@ -26,13 +16,25 @@ public class InteractibleManager : MonoBehaviour
 
     private Interactible _selected;
     private Interactible _lastFramSelected;
+    private bool _canPlayerInteract = true;
 
     void Awake()
     {
-        //TODO Call Nello, list static clear pas quand la scene reset ?
-        //? lié au disable realode domaine ?
+        instance = this;
         if (InteractibleList.Count > 0)
             InteractibleList.Clear();
+    }
+
+    public static void AddInteractible(Interactible toAdd)
+    {
+        if (!InteractibleList.Contains(toAdd))
+            InteractibleList.Add(toAdd);
+    }
+
+    public static void RemoveInteractible(Interactible toRemove)
+    {
+        if (InteractibleList.Contains(toRemove))
+            InteractibleList.Remove(toRemove);
     }
 
     private Interactible GetNearestInteractible(Vector3 position)
@@ -47,7 +49,6 @@ public class InteractibleManager : MonoBehaviour
                 minDistance = distance;
                 if (distance < _minimumDistanceToInteract)
                     toReturn = item;
-                //TODO Vect.Dot si jamais, pour ajuster les controles des interactibles
             }
         }
 
@@ -70,6 +71,21 @@ public class InteractibleManager : MonoBehaviour
         _lastFramSelected = _selected;
     }
 
+    private void OnInteract()
+    {
+        if (_selected && _canPlayerInteract)
+        {
+            _selected.Interact();
+            _canPlayerInteract = false;
+        }
+    }
+
+    public void OnEndInteraction()
+    {
+        print("Interaction End !");
+        _canPlayerInteract = true;
+    }
+
     private void DebugInteractibleSelection(Interactible nearest)
     {
         if (InteractibleList.Count <= 0)
@@ -82,9 +98,4 @@ public class InteractibleManager : MonoBehaviour
             Debug.DrawLine(_player.position, nearest.transform.position, Color.green);
     }
 
-    private void OnInteract()
-    {
-        if (_selected)
-            _selected.Interact();
-    }
 }
