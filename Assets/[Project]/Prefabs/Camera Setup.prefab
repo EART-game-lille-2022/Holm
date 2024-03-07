@@ -267,14 +267,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ede33a35727ad94d8ddd22a7ffa9605, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minFovVelocity: 30
-  _maxFovVelocity: 70
+  _minVelocity: 30
+  _maxVelocity: 70
   _maxFov: 100
   _minFov: 70
-  _minShakeVelocity: 30
-  _maxShakeVelocity: 70
-  _maxShake: 2
-  _minShake: 0
+  _maxAmplitude: 1.5
+  _maxFrequency: 10
 --- !u!1 &7049185468582247266
 GameObject:
   m_ObjectHideFlags: 0
@@ -406,6 +404,7 @@ GameObject:
   - component: {fileID: 2473684784612938521}
   - component: {fileID: 1792176880258103173}
   - component: {fileID: 1332576293723551257}
+  - component: {fileID: 4387371263163910351}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -491,3 +490,20 @@ MonoBehaviour:
   CameraRadius: 0.2
   DampingIntoCollision: 0
   DampingFromCollision: 2
+--- !u!114 &4387371263163910351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8372976447726585824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NoiseProfile: {fileID: 11400000, guid: b241f91b9ccf8ff489abf204b30d3112, type: 2}
+  m_PivotOffset: {x: 0, y: 0, z: 0}
+  m_AmplitudeGain: 1
+  m_FrequencyGain: 1
+  mNoiseOffsets: {x: 582.8965, y: -395.8906, z: -63.56372}
