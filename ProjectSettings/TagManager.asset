@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Orientation
+  - CameraSetup
+  - CameraTarget
   layers:
   - Default
   - TransparentFX

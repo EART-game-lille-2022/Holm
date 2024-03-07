@@ -47,7 +47,7 @@ public class GroundCheck : MonoBehaviour
                 , Quaternion.identity
                 , _jumpGroundCheckDistance
                 , _groundLayer);
-        print(hit.collider);
+        // print(hit.collider);
         return hit.collider;
     }
 
