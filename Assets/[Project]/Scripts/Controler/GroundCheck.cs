@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -18,7 +17,6 @@ public class GroundCheck : MonoBehaviour
     {
         _playerControler = GetComponent<PlayerControler>();
     }
-
 
     void FixedUpdate()
     {
@@ -73,12 +71,12 @@ public class GroundCheck : MonoBehaviour
         }
     }
 
-    void OnDrawGizmos()
-    {
-        if (_checkHit.collider)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawSphere(_checkHit.point, .3f);
-        }
-    }
+    // void OnDrawGizmos()
+    // {
+    //     if (_checkHit.collider)
+    //     {
+    //         Gizmos.color = Color.red;
+    //         Gizmos.DrawSphere(_checkHit.point, .3f);
+    //     }
+    // }
 }

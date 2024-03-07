@@ -2,6 +2,8 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using DG.Tweening;
+using System.Collections.Generic;
+using Cinemachine;
 
 [Serializable]
 public enum PlayerState
@@ -13,45 +15,63 @@ public enum PlayerState
 
 public class PlayerControler : MonoBehaviour
 {
+    //TODO raycast pour voire si le joueur est bloqué contre un mur = nerf la force pour avancer
+
+    //TODO RETOUR CHRIS : on peut remonter trop fascilement en restant vers le haut
+    //TODO RETOUR CHRIS : TROP de perte de vitesse donc on peut pas remonter avec notre gain de vitesse apres une "chute"
+    //TODO RETOUR CHRIS : super flight : plus t'es rapide 
+
 
     [Header("Reference :")]
     // [SerializeField] private UiJoystick _joystick;
-    [SerializeField] private GyroscopeControler _gyroControler;
-    [SerializeField] private Rigidbody _rigidbody;
-    [SerializeField] private PlayerState _currentState;
     [SerializeField] private Transform _orientation;
     [SerializeField] private CameraControler _cameraControler;
+    [SerializeField] private Collider _collider;
+    [SerializeField] private List<TrailRenderer> _trailList;
+
+    [Header("Global Parameter :")]
+    [Space]
+    [SerializeField] private float _worldYLimite = 1000;
 
     [Header("Ground Parametre :")]
-    [SerializeField] private float _groundMoveSpeed = 5;
-    [SerializeField] private float _jumpForce = 5;
-    [SerializeField] private float _groundRbDrag = 0;
+    [SerializeField] private float _groundMoveSpeed = 40;
+    [SerializeField] private float _jumpForce = 20;
+    [SerializeField] private float _fallingForce = 60;
+    [SerializeField] private Vector3 _groundCenterOfMass = new Vector3(0, -.5f, 0);
+    [SerializeField] private PhysicMaterial _groundPhysicMaterial;
 
     [Header("Fly Parametre :")]
-    [SerializeField] private float _upForce = 10;
-    [SerializeField] private float _liftForce = 5;
-    [SerializeField] private float _windResistance = 2;
-    [SerializeField] private float _flyRbDrag = 2;
+    [SerializeField] private float _upForce = 30;
+    [SerializeField] private float _liftForce = 3;
+    [SerializeField] private Vector3 _flyCenterOfMass = Vector3.zero;
+    [SerializeField] private float _stallingThresold = 70;
+    [SerializeField] private float _noseFallingForce;
     [SerializeField] private float _minAngleRatioMultiplier = -1;
-    [SerializeField] private float _maxAngleRatioMultiplier = 2;
-    [SerializeField] private float _maxDownFallingForce = 4;
+    [SerializeField] private float _maxAngleRatioMultiplier = 5;
+    [SerializeField] private PhysicMaterial _flyPhysicMaterial;
+
+    [Header("WIP :")]
+    public float _fallingStartConservationThresold;
+    public float _fallingConservationRate;
+    public float _fallingConservationValue;
 
     [Space]
     [Space]
     [Space]
-    public Vector3 _playerInput;
-    public float minUpForce;
-    public float velocityMag;
-    public float xAngle;
-    public float yAngle;
-    public float noseFallingForce;
-    public float stallTimer;
-    public bool isStalling;
-    public float stallingThresold = 70;
-    [Space]
 
-    Vector3 positionToAddForce;
+    public float _stallingMagnitudeThresold;
+    public float _velocityMagnitude;
+    private Vector3 _playerInput;
+    public float _xAngle;
+    private float _yAngle;
+    private float _stallTimer;
+    private bool _isStalling;
+    private Vector3 _positionToAddForce;
     private GroundCheck _groundCheck;
+    private Vector3 _groundOrientationDirection;
+    private Vector3 _playerTopHeadPos;
+    private PlayerState _currentState = PlayerState.None;
+    private Rigidbody _rigidbody;
 
     void Start()
     {
@@ -61,48 +81,84 @@ public class PlayerControler : MonoBehaviour
 
     void FixedUpdate()
     {
-        ComputeOrientation();
-        if (_currentState == PlayerState.Grounded)
+        if (!GameManager.instance.CanPlayerMove)
         {
-            GroundControler();
+            _rigidbody.velocity = Vector3.zero;
+            return;
         }
 
-        if (_currentState == PlayerState.Flying)
+        if (transform.position.y < -_worldYLimite)
         {
+            transform.position = new Vector3(transform.position.x, _worldYLimite, transform.position.z);
+            _rigidbody.velocity = Vector3.zero;
+        }
+
+
+        RecenterPlayerUp();
+
+        ComputeOrientation();
+
+        if (_currentState == PlayerState.Grounded)
+            GroundControler();
+
+        if (_currentState == PlayerState.Flying)
             FlyControler();
+    }
+
+    void RecenterPlayerUp()
+    {
+        if (_currentState == PlayerState.Grounded)
+        {
+            _playerTopHeadPos = transform.TransformPoint(Vector3.up);
+
+            _groundOrientationDirection = transform.position + Vector3.up - _playerTopHeadPos;
+            // print(_groundOrientationDirection.magnitude);
+            _rigidbody.AddForceAtPosition(_groundOrientationDirection * 10, transform.position + Vector3.up, ForceMode.Acceleration);
         }
     }
 
     public void ChangeState(PlayerState stateToSet)
     {
-        //TODO Animé le changement d'état
+        // print("Change State Call from : " + _currentState + " // to : " + stateToSet);
         if (stateToSet == _currentState)
             return;
 
         _currentState = stateToSet;
 
-        print("State to set :" + _currentState);
+        // print("State to set :" + _currentState);
         switch (stateToSet)
         {
             case PlayerState.Grounded:
-                // print("Player Grounded !");
-                //TODO !NELLO! Reorientation du joueur ne fonctione pas bien en fonction de l'orientation de départ
-                transform.up = _orientation.up;
-                _cameraControler.SetCameraParameter(1.5f, true);
+                _cameraControler.SetCameraParameter(_currentState);
 
-                _rigidbody.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
+                // _rigidbody.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
+                _rigidbody.velocity = Vector3.zero;
+                _rigidbody.centerOfMass = _groundCenterOfMass;
+                _collider.material = _groundPhysicMaterial;
+                transform.up = Vector3.up;
+
+                foreach (var item in _trailList)
+                    item.enabled = false;
+
                 _currentState = PlayerState.Grounded;
-                // _rigidbody.drag = _groundRbDrag;
                 break;
 
             case PlayerState.Flying:
-                Vector3 startOrientation = transform.up;
-                _cameraControler.SetCameraParameter(0, false);
-                _rigidbody.constraints = RigidbodyConstraints.None;
+                Quaternion startOrientation = transform.rotation;
+                Quaternion targetOrientation = Quaternion.LookRotation(-Vector3.up, transform.forward);
+
+                _rigidbody.centerOfMass = _flyCenterOfMass;
+                _collider.material = _flyPhysicMaterial;
+
+                //TODO animé l'épaiseur dur trail pour son apprarition
+                foreach (var item in _trailList)
+                    item.enabled = true;
+
                 DOTween.To((time) =>
                 {
-                    transform.up = Vector3.Lerp(startOrientation, _orientation.forward, time);
-                }, 0, 1, .5f);
+                    transform.rotation = Quaternion.Slerp(startOrientation, targetOrientation, time);
+                }, 0, 1, .5f)
+                .OnComplete(() => _cameraControler.SetCameraParameter(_currentState));
                 break;
         }
     }
@@ -118,6 +174,7 @@ public class PlayerControler : MonoBehaviour
     private void GroundControler()
     {
         Vector3 moveDireciton = _orientation.forward * _playerInput.y + _orientation.right * _playerInput.x;
+        moveDireciton *= _groundMoveSpeed;
 
         if (moveDireciton != Vector3.zero)
         {
@@ -126,92 +183,95 @@ public class PlayerControler : MonoBehaviour
             // _rigidbody.AddForce(transform.forward * _groundMoveSpeed, ForceMode.Acceleration);
         }
 
-        Vector3 newVelocity = transform.forward * _playerInput.magnitude * _groundMoveSpeed;
-        _rigidbody.velocity = new Vector3(newVelocity.x, _rigidbody.velocity.y, newVelocity.z);
+        _rigidbody.AddForce(moveDireciton, ForceMode.Acceleration);
+        _rigidbody.AddForce(Vector3.down * _fallingForce, ForceMode.Acceleration);
+
+
+        //! Slow down the player on ground
+        if (_playerInput.magnitude == 0)
+        {
+            float velValue = Mathf.InverseLerp(0, 10, _rigidbody.velocity.magnitude);
+            // print(velValue);
+
+            Vector3 velOutY = _rigidbody.velocity;
+            velOutY.y = 0;
+            _rigidbody.AddForce(-velOutY * 5, ForceMode.Acceleration);
+        }
     }
 
     private void FlyControler()
     {
+        //TODO fonction de "reset" l'orientation du joueur en maintenant "B" par exemple
+
         //TODO Ajouter de l'inercie velociter
-        xAngle = Vector3.Angle(transform.up, Vector3.down) - 90;
-        yAngle = Vector3.Angle(transform.right, Vector3.down) - 90;
+        _xAngle = Vector3.Angle(transform.up, Vector3.down) - 90;
+        _yAngle = Vector3.Angle(transform.right, Vector3.down) - 90;
 
         Vector3 velocityXZ = _rigidbody.velocity;
         velocityXZ.y = 0;
-        velocityMag = velocityXZ.magnitude;
 
-
-        //! Rotate le player
-        if (!isStalling)
+        if (_xAngle < _fallingStartConservationThresold)
         {
-            positionToAddForce = transform.TransformPoint(_playerInput);
-            _rigidbody.AddForceAtPosition(-transform.forward * _liftForce * -_playerInput.magnitude, positionToAddForce
-                                        , ForceMode.Acceleration);
+            // print("speed up");
+            _fallingConservationValue += Time.deltaTime * _fallingConservationRate;
+        }
+        else if (_fallingConservationValue > 0)
+        {
+            _fallingConservationValue -= Time.deltaTime * _fallingConservationRate;
         }
 
+        //! Rotate le player
+        if (!_isStalling)
+        {
+            // _positionToAddForce = transform.TransformPoint(new Vector2(_playerInput.x, 0));
+            _positionToAddForce = transform.TransformPoint(_playerInput);
+
+            //! Z
+            _rigidbody.AddForceAtPosition(-transform.forward * _liftForce * -_playerInput.magnitude, _positionToAddForce
+                                        , ForceMode.Acceleration);
+
+            //! X
+            // Vector3 xToAddForce = new Vector3(transform.position.x + _playerInput.x, transform.position.y, transform.position.z);
+            // _rigidbody.AddForceAtPosition(-transform.forward * _liftForce * -_playerInput.magnitude, xToAddForce
+            //                             , ForceMode.Acceleration);
+        }
 
         //! force sur le yaw en fonction du roll
-        float yawForce = Mathf.Lerp(0, 3, Mathf.InverseLerp(0, 90, Mathf.Abs(yAngle)));
-        _rigidbody.AddForceAtPosition((yAngle > 0 ? -_orientation.right : _orientation.right) * yawForce
+        float yawForce = Mathf.Lerp(0, 3, Mathf.InverseLerp(0, 90, Mathf.Abs(_yAngle)));
+        _rigidbody.AddForceAtPosition((_yAngle > 0 ? -_orientation.right : _orientation.right) * yawForce
                                     , transform.TransformPoint(Vector3.up)
                                     , ForceMode.Acceleration);
 
-
-        //! Chute en avant +/- rapide en fonction de l'inclinaison
-        //TODO incrementé la force doucement si angle > 0, reset doux rapide
-
-        //!empeche le nez de remonter tout seul
-        if (xAngle > 0)
-            _rigidbody.AddForceAtPosition(Vector3.down * noseFallingForce, transform.TransformPoint(Vector3.up), ForceMode.Acceleration);
-         if (xAngle < 0)
-            _rigidbody.AddForceAtPosition(Vector3.down * noseFallingForce * .2f, transform.TransformPoint(Vector3.up), ForceMode.Acceleration);
-      
+        //!empeche le nez de remonter tout seul et le fait doucement chuté
+        if (_xAngle > 0)
+            _rigidbody.AddForceAtPosition(Vector3.down * _noseFallingForce, transform.TransformPoint(Vector3.up), ForceMode.Acceleration);
+        if (_xAngle < 0)
+            _rigidbody.AddForceAtPosition(Vector3.down * _noseFallingForce * .2f, transform.TransformPoint(Vector3.up), ForceMode.Acceleration);
 
         //! Décrochage !
-        if (xAngle > stallingThresold)
+        if (_xAngle > _stallingThresold || (_velocityMagnitude < _stallingMagnitudeThresold && _xAngle > 0))
         {
-            stallTimer += Time.deltaTime;
-            isStalling = stallTimer > .2f ? true : false;
+            _stallTimer += Time.deltaTime;
+            _isStalling = _stallTimer > .2f ? true : false;
         }
         else
-            stallTimer = 0;
+            _stallTimer = 0;
 
-        if(isStalling)
+        if (_isStalling)
         {
-            _rigidbody.AddForceAtPosition(Vector3.down * noseFallingForce * 5, transform.TransformPoint(Vector3.up), ForceMode.Acceleration);
-            if(xAngle < -80)
-                isStalling = false;
+            print("Stall !!!");
+            _rigidbody.AddForceAtPosition(Vector3.down * _noseFallingForce * 5, transform.TransformPoint(Vector3.up), ForceMode.Acceleration);
+            if (_xAngle < -80)
+                _isStalling = false;
         }
 
         //! Convertie l'angle en un multiplicateur en fonction de l'incilinaison
         float angleRatioMultiplier =
-        Mathf.Lerp(_maxAngleRatioMultiplier, _minAngleRatioMultiplier, Mathf.InverseLerp(-90, 90, xAngle));
-        //! Set la  velocité pour fly boy
-        _rigidbody.velocity = transform.up * _upForce * angleRatioMultiplier;
-
-
-
-
-        //! Resistance au vent en fonction d'angle
-        // _rigidbody.AddForce(Vector3.up * angleRatio * _windResistance * velocityMag, ForceMode.Acceleration);
-
-        //! Acceleration du player
-        //! -angle pour avoir un multiplier positif avec un angle negatif
-        // if (angle < 0 && minUpForce < 50)
-        //     minUpForce += Time.fixedDeltaTime * 25;
-        // else if (minUpForce > 0)
-        //     minUpForce -= Time.fixedDeltaTime * 25;
-
-        // float direction = angle > 0 ? -1 : 1;
-
-        // print(Mathf.InverseLerp(-1, 1, Math.Max(-angle, minUpForce) / 90));
-
-        //! Force pour avancer
-        // _rigidbody.AddForce(transform.up * _upForce * Math.Max(-angle, minUpForce) / 90
-        //                    , ForceMode.Acceleration);                                                //! /90 ramene a 0-1; 
-
-        // float fallingForce = Mathf.InverseLerp(60, 90, angle);
-        // _rigidbody.AddForce(Vector3.down * Physics.gravity.magnitude * (angle > 60 ? angle : fallingForce), ForceMode.Impulse);
+        Mathf.Lerp(_maxAngleRatioMultiplier, _minAngleRatioMultiplier, Mathf.InverseLerp(-90, 90, _xAngle));
+        _rigidbody.AddForce(transform.up * _upForce * angleRatioMultiplier, ForceMode.Acceleration);
+        if (_xAngle > 0)
+            _rigidbody.AddForce(transform.up * _fallingConservationValue, ForceMode.Acceleration);
+        // print(angleRatioMultiplier);
     }
 
     private void OnMove(InputValue value)
@@ -224,17 +284,22 @@ public class PlayerControler : MonoBehaviour
     {
         if (value.Get<float>() == 1 ? true : false && _groundCheck.IsGrounded())
         {
-            _rigidbody.velocity += Vector3.up * _jumpForce;
+            _rigidbody.AddForce(Vector3.up * _jumpForce, ForceMode.VelocityChange);
         }
     }
 
     void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(positionToAddForce, .5f);
+        Gizmos.DrawSphere(_positionToAddForce, .5f);
 
-        Gizmos.color = Color.magenta;
-        Gizmos.DrawSphere(transform.TransformPoint(Vector3.up), .5f);
+        // Gizmos.color = Color.magenta;
+        // Gizmos.DrawSphere(transform.TransformPoint(Vector3.up), .5f);
 
+        // Gizmos.color = Color.red;
+        // Gizmos.DrawSphere(_center, .1f);
+
+        // Gizmos.color = Color.blue;
+        // Gizmos.DrawSphere(_hat, .1f);
     }
 }
