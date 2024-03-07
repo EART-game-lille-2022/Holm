@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class FollowStuff : MonoBehaviour
 {
+    [SerializeField] private bool _followPlayer;
     [SerializeField] private Transform _target;
     [SerializeField] private Vector3 _offSet;
+
+    void Start()
+    {
+        if(_followPlayer)
+            _target = GameObject.FindGameObjectWithTag("Player").transform;
+    }
 
     void OnValidate()
     {
@@ -14,6 +21,7 @@ public class FollowStuff : MonoBehaviour
 
     void Update()
     {
-        transform.position = _target.position + _offSet;
+        if(_target)
+            transform.position = _target.position + _offSet;
     }
 }

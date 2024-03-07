@@ -118,7 +118,7 @@ public class PlayerControler : MonoBehaviour
 
     public void ChangeState(PlayerState stateToSet)
     {
-        print("Change State Call from : " + _currentState + " // to : " + stateToSet);
+        // print("Change State Call from : " + _currentState + " // to : " + stateToSet);
         if (stateToSet == _currentState)
             return;
 

@@ -9,7 +9,8 @@ public class MissionStart : MonoBehaviour
     void Start()
     {
         GetComponent<Interactible>()._onInteract.AddListener(StartQuest);
-        s_missionToStart.dialogue.hasBeenPlayed = false;
+        if(s_missionToStart)
+            s_missionToStart.dialogue.hasBeenPlayed = false;
     }
 
     public void StartQuest()
