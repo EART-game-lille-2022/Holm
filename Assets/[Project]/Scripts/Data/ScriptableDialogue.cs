@@ -42,7 +42,7 @@ public class DialogueState
             case PnjMood.Hmmm :
                 return pnj.hmmm;
         }
-        Debug.LogWarning("PNJ mood not set !!!");
+        // Debug.LogWarning("PNJ mood not set !!!");
         return null;
     }
 }
@@ -50,12 +50,6 @@ public class DialogueState
 [CreateAssetMenu(fileName = "Dialogue")]
 public class ScriptableDialogue : ScriptableObject
 {
+    public bool hasBeenPlayed = false;
     public List<DialogueState> stateList;
-
-
-
-
-
-
-    
 }

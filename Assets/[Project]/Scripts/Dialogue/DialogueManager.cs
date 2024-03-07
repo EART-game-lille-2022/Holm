@@ -34,11 +34,15 @@ public class DialogueManager : MonoBehaviour
         if(_currentDialogue == toPlay)
             return;
 
+        if(toPlay.hasBeenPlayed)
+            return;
+
         //* Get la ref du descriptor pour reset le conditionel des interactions
         if(descriptor)
             _descriptor = descriptor;
 
         GameManager.instance.SetPlayerControleAbility(false);
+        InteractibleManager.instance.SetInteractibleCapability(false);
 
         gameObject.SetActive(true);
         _textBloc.text = " ";
@@ -49,7 +53,6 @@ public class DialogueManager : MonoBehaviour
 
         NextDialogueState();
     }
-
     private void OnInteract(InputValue value)
     {
         // print("Dialogue Interact !");
@@ -110,10 +113,12 @@ public class DialogueManager : MonoBehaviour
         _textBloc.text = " ";
         _pnjImage.sprite = null;
 
+        _currentDialogue.hasBeenPlayed = true;
         _currentDialogue = null;
         _stateIndex = 0;
 
         _descriptor?.OnDialogueEnd();
         GameManager.instance.SetPlayerControleAbility(true);
+        InteractibleManager.instance.SetInteractibleCapability(true);
     }
 }
