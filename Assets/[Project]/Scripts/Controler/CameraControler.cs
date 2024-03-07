@@ -5,19 +5,12 @@ using DG.Tweening;
 
 public class CameraControler : MonoBehaviour
 {
-    [SerializeField] private CinemachineVirtualCamera _virtualCam;
-    [SerializeField] private Transform _cameraTarget;
     [SerializeField] private float _sensivity = 1;
     [Space]
     [SerializeField] private float _xUpCap;
     [SerializeField] private float _xDownCap;
     [SerializeField] private float _currentX;
 
-    [Header("FOV Parameter :")]
-    [SerializeField] private float _minFovVelocity = 30;
-    [SerializeField] private float _maxFovVelocity = 70;
-    [SerializeField] private float _maxFov = 100;
-    [SerializeField] private float _minFov = 70;
 
     [Header("Ground Parametre :")]
     [SerializeField] private float _groundShoulderOffset;
@@ -34,11 +27,16 @@ public class CameraControler : MonoBehaviour
     private PlayerState _currentPlayerState = PlayerState.None;
     private float _velocityMag;
     private Rigidbody _rigidbody;
+    private CinemachineVirtualCamera _virtualCam;
+    private Transform _cameraTarget;
+    private CameraEffect _cameraEffect;
 
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
-
+        _cameraTarget = GameObject.FindGameObjectWithTag("CameraTarget").transform;
+        _virtualCam = GameObject.FindGameObjectWithTag("CameraSetup").GetComponentInChildren<CinemachineVirtualCamera>();
+        _cameraEffect = GameObject.FindGameObjectWithTag("CameraSetup").GetComponentInChildren<CameraEffect>();
         _startTarget = _cameraTarget;
         _startLookAt = _virtualCam.LookAt;
     }
@@ -51,14 +49,15 @@ public class CameraControler : MonoBehaviour
             return;
 
         _velocityMag = _rigidbody.velocity.magnitude;
-        SetCameraFovWithVelocity(_velocityMag);
+        _cameraEffect.SetCameraFovWithVelocity(_velocityMag);
+        _cameraEffect.ShakeCameraWithVelocity(_velocityMag);
 
         if (_currentPlayerState == PlayerState.Flying)
         {
             _cameraTarget.transform.forward = Vector3.Slerp(_cameraTarget.transform.forward, transform.up, Time.deltaTime * _cameraTrakingSpeed);
             return;
         }
- 
+
         ComputeInputValue();
         _cameraTarget.transform.eulerAngles = _inputTargetEulerAngles;
 
@@ -114,12 +113,7 @@ public class CameraControler : MonoBehaviour
         .OnComplete(() => _currentPlayerState = playerState);
     }
 
-    private void SetCameraFovWithVelocity(float velocityMag)
-    {
-        float newFov = Mathf.Lerp(_minFov, _maxFov, Mathf.InverseLerp(_minFovVelocity, _maxFovVelocity, velocityMag));
-        _virtualCam.m_Lens.FieldOfView = newFov;
-        // _virtualCam.m_Lens.FieldOfView = Mathf.Lerp(_virtualCam.m_Lens.FieldOfView, newFov, Time.deltaTime * 15);
-    }
+
 
     public void SetCameraTaret(Transform newTarget, Transform newLookAt)
     {

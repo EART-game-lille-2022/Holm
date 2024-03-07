@@ -21,12 +21,8 @@ public class PlayerControler : MonoBehaviour
     //TODO RETOUR CHRIS : TROP de perte de vitesse donc on peut pas remonter avec notre gain de vitesse apres une "chute"
     //TODO RETOUR CHRIS : super flight : plus t'es rapide 
 
-
     [Header("Reference :")]
-    // [SerializeField] private UiJoystick _joystick;
-    [SerializeField] private Transform _orientation;
     [SerializeField] private CameraControler _cameraControler;
-    [SerializeField] private Collider _collider;
     [SerializeField] private List<TrailRenderer> _trailList;
 
     [Header("Global Parameter :")]
@@ -72,11 +68,16 @@ public class PlayerControler : MonoBehaviour
     private Vector3 _playerTopHeadPos;
     private PlayerState _currentState = PlayerState.None;
     private Rigidbody _rigidbody;
+    private Transform _orientation;
+    private Collider _collider;
+
 
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
         _groundCheck = GetComponent<GroundCheck>();
+        _orientation = GameObject.FindGameObjectWithTag("Orientation").transform;
+        _collider = GetComponent<Collider>();
     }
 
     void FixedUpdate()
@@ -93,9 +94,7 @@ public class PlayerControler : MonoBehaviour
             _rigidbody.velocity = Vector3.zero;
         }
 
-
         RecenterPlayerUp();
-
         ComputeOrientation();
 
         if (_currentState == PlayerState.Grounded)
@@ -137,8 +136,11 @@ public class PlayerControler : MonoBehaviour
                 _collider.material = _groundPhysicMaterial;
                 transform.up = Vector3.up;
 
-                foreach (var item in _trailList)
-                    item.enabled = false;
+                if (_trailList.Count != 0)
+                {
+                    foreach (var item in _trailList)
+                        item.enabled = false;
+                }
 
                 _currentState = PlayerState.Grounded;
                 break;
@@ -259,7 +261,8 @@ public class PlayerControler : MonoBehaviour
 
         if (_isStalling)
         {
-            print("Stall !!!");
+            //TODO mettre en stalling seulement en fonction de la vitesse du joueur !
+            // print("Stall !!!");
             _rigidbody.AddForceAtPosition(Vector3.down * _noseFallingForce * 5, transform.TransformPoint(Vector3.up), ForceMode.Acceleration);
             if (_xAngle < -80)
                 _isStalling = false;
@@ -282,7 +285,7 @@ public class PlayerControler : MonoBehaviour
 
     private void OnJump(InputValue value)
     {
-        if (value.Get<float>() == 1 ? true : false && _groundCheck.IsGrounded())
+        if ((value.Get<float>() == 1 ? true : false) && _groundCheck.CanJump())
         {
             _rigidbody.AddForce(Vector3.up * _jumpForce, ForceMode.VelocityChange);
         }

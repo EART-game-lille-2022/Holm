@@ -11,7 +11,7 @@ public class S_Objectif_Talk : S_MissionObjective
     {
         return false;
     }
-    
+
     public override void Start()
     {
         

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,8 +9,6 @@ public class InteractibleManager : MonoBehaviour
     public static InteractibleManager instance;
     public static List<Interactible> InteractibleList = new List<Interactible>();
 
-    [Header("Reference :")]
-    [SerializeField] private Transform _player;
 
     [Header("Parameter :")]
     [SerializeField] private float _minimumDistanceToInteract;
@@ -17,6 +16,7 @@ public class InteractibleManager : MonoBehaviour
     private Interactible _selected;
     private Interactible _lastFramSelected;
     private bool _canPlayerInteract = true;
+    private Transform _playerTransform;
 
     void Awake()
     {
@@ -25,6 +25,15 @@ public class InteractibleManager : MonoBehaviour
             InteractibleList.Clear();
     }
 
+    void Start()
+    {
+        _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+    }
+
+    public void SetInteractibleCapability(bool value)
+    {
+        _canPlayerInteract = value;
+    }
 
     public static void AddInteractible(Interactible toAdd)
     {
@@ -61,7 +70,7 @@ public class InteractibleManager : MonoBehaviour
         if (InteractibleList.Count <= 0)
             return;
 
-        _selected = GetNearestInteractible(_player.position);
+        _selected = GetNearestInteractible(_playerTransform.position);
         if (_selected != _lastFramSelected)
         {
             _selected?.OnSelected();
@@ -93,10 +102,9 @@ public class InteractibleManager : MonoBehaviour
             return;
 
         foreach (var item in InteractibleList)
-            Debug.DrawLine(_player.position, item.transform.position, Color.red);
+            Debug.DrawLine(_playerTransform.position, item.transform.position, Color.red);
 
         if (nearest)
-            Debug.DrawLine(_player.position, nearest.transform.position, Color.green);
+            Debug.DrawLine(_playerTransform.position, nearest.transform.position, Color.green);
     }
-
 }

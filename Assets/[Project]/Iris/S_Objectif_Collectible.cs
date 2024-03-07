@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Collect_", menuName = "Data/Objectif : Object collect", order = 1)]
-public class S_Objectif_Objects : S_MissionObjective
+public class S_Objectif_Collectible : S_MissionObjective
 {
     public string objectID;
+    bool hasBeenCollected;
 
     public override bool CheckFinish()
     {
-        return false;
+        return hasBeenCollected;
     }
 
     public override void Start()
     {
-        base.Start();
+        hasBeenCollected = false;
         foreach (Collectible collectible in Collectible.collectibles)
         {
             if (collectible.objectID == objectID)
@@ -26,7 +27,7 @@ public class S_Objectif_Objects : S_MissionObjective
 
     public override void End()
     {
-        base.End();
+        hasBeenCollected = true;
         foreach (Collectible collectible in Collectible.collectibles)
         {
             if (collectible.objectID == objectID)

@@ -9,13 +9,13 @@ public class S_MissionObjective : ScriptableObject
     {
         return false;
     }
+    
     public virtual void Start()
     {
-        Debug.Log("Start objct");
+        
     }
-
     public virtual void End()
     {
-        Debug.Log("End objct");
+        
     }
 }

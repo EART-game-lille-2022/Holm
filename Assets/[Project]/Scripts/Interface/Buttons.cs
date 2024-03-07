@@ -1,0 +1,40 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class Buttons : MonoBehaviour
+{
+    [SerializeField] private GameObject _optionCanvas;
+     
+    public void Jouer()
+    {
+        SceneManager.LoadScene("SceneDev");
+        Debug.Log("Play_Game!");
+    }
+
+    public void Quitter()
+    {
+        Application.Quit();
+        Debug.Log("Quit!");
+    }
+
+    public void CloseOptions()
+    {
+        print("CloseOptions");
+        _optionCanvas.SetActive(false);
+        Debug.Log("Close!");
+    }
+
+    public void Credits()
+    {
+        SceneManager.LoadScene("Scene_Credit");
+        Debug.Log("Credit!");
+    }
+
+    public void RetourMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+        Debug.Log("Return_Menu!");
+    }
+}
