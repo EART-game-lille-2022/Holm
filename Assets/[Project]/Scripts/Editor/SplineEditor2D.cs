@@ -16,7 +16,6 @@ public class SplineEditor2D : Editor
     private Transform SplineTransform;
 
     private int selectedControlPoints;
-    private int selectedIndex = -1;
 
     private SerializedProperty _controlPointProperty;
 
