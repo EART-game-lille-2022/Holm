@@ -6,13 +6,19 @@ using UnityEngine;
 public class S_Objectif_Talk : S_MissionObjective
 {
     // ref vers un character
-    
-    public override bool CheckFinish() {
+
+    public override bool CheckFinish()
+    {
         return false;
     }
-    public override void Start() {
+    
+    public override void Start()
+    {
+        
     }
 
-    public override void End() {
+    public override void End()
+    {
+        
     }
 }

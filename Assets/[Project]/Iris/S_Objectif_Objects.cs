@@ -6,19 +6,33 @@ using UnityEngine;
 public class S_Objectif_Objects : S_MissionObjective
 {
     public string objectID;
-    
-    public override bool CheckFinish() {
+
+    public override bool CheckFinish()
+    {
         return false;
     }
-    public override void Start() {
-        
-        foreach(Collectible collectible in Collectible.collectibles) {
-            if(collectible.objectID == objectID) {
+
+    public override void Start()
+    {
+        base.Start();
+        foreach (Collectible collectible in Collectible.collectibles)
+        {
+            if (collectible.objectID == objectID)
+            {
                 collectible.gameObject.SetActive(true);
             }
         }
     }
-    
-    public override void End() {
+
+    public override void End()
+    {
+        base.End();
+        foreach (Collectible collectible in Collectible.collectibles)
+        {
+            if (collectible.objectID == objectID)
+            {
+                collectible.gameObject.SetActive(false);
+            }
+        }
     }
 }

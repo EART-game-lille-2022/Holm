@@ -16,6 +16,12 @@ public class Collectible : MonoBehaviour
     void OnDestroy() {
         collectibles.Remove(this);
     }
+
+    public void GrabItem()
+    {
+        
+    }
+
     void Update()
     { 
         // distance avec le joueur -> finish

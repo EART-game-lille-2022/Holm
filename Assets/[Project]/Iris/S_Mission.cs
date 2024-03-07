@@ -14,16 +14,20 @@ public class S_Mission : ScriptableObject
 
     public S_MissionObjective[] objectifList;
 
-    public void StartMission() {
+    public void StartMission()
+    {
         Debug.Log("Start Mission");
         DialogueManager.instance.PlayDialogue(dialogue);
-        foreach(S_MissionObjective objectif in objectifList) {
+        foreach (S_MissionObjective objectif in objectifList)
+        {
             objectif.Start();
         }
     }
-    public bool CheckFinish() {
-        foreach(S_MissionObjective objectif in objectifList) {
-            if(!objectif.CheckFinish()) return false;
+    public bool CheckFinish()
+    {
+        foreach (S_MissionObjective objectif in objectifList)
+        {
+            if (!objectif.CheckFinish()) return false;
         }
         return true;
     }
