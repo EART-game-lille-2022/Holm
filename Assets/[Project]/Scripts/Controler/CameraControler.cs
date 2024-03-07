@@ -51,14 +51,24 @@ public class CameraControler : MonoBehaviour
             return;
 
         _velocityMag = _rigidbody.velocity.magnitude;
+        SetCameraFovWithVelocity(_velocityMag);
 
         if (_currentPlayerState == PlayerState.Flying)
         {
             _cameraTarget.transform.forward = Vector3.Slerp(_cameraTarget.transform.forward, transform.up, Time.deltaTime * _cameraTrakingSpeed);
-            SetCameraFovWithVelocity(_velocityMag);
             return;
         }
+ 
+        ComputeInputValue();
+        _cameraTarget.transform.eulerAngles = _inputTargetEulerAngles;
 
+        //! Reset Z axis
+        _cameraTarget.transform.eulerAngles =
+        new Vector3(_cameraTarget.transform.eulerAngles.x, _cameraTarget.transform.eulerAngles.y, 0);
+    }
+
+    private void ComputeInputValue()
+    {
         _currentX += _inputAxis.x * Time.deltaTime * _sensivity;
         _currentX = Mathf.Clamp(_currentX, _xDownCap, _xUpCap);
 
@@ -68,17 +78,6 @@ public class CameraControler : MonoBehaviour
         //! Convert angle to direction
         Quaternion a = Quaternion.Euler(_inputTargetEulerAngles);
         _inputTargetOrientation = a * Vector3.forward;
-
-
-
-        _cameraTarget.transform.eulerAngles = _inputTargetEulerAngles;
-
-        // _cameraTarget.transform.eulerAngles = new Vector3(_currentX, _cameraTarget.transform.eulerAngles.y, 0);
-        // _cameraTarget.transform.eulerAngles += new Vector3(0, _inputAxis.y * Time.deltaTime * _sensivity, 0);
-
-        //! Reset Z axis
-        _cameraTarget.transform.eulerAngles =
-        new Vector3(_cameraTarget.transform.eulerAngles.x, _cameraTarget.transform.eulerAngles.y, 0);
     }
 
     public void SetCameraParameter(PlayerState playerState)
@@ -117,8 +116,9 @@ public class CameraControler : MonoBehaviour
 
     private void SetCameraFovWithVelocity(float velocityMag)
     {
-        _virtualCam.m_Lens.FieldOfView =
-        Mathf.Lerp(_minFov, _maxFov, Mathf.InverseLerp(_minFovVelocity, _maxFovVelocity, velocityMag));
+        float newFov = Mathf.Lerp(_minFov, _maxFov, Mathf.InverseLerp(_minFovVelocity, _maxFovVelocity, velocityMag));
+        _virtualCam.m_Lens.FieldOfView = newFov;
+        // _virtualCam.m_Lens.FieldOfView = Mathf.Lerp(_virtualCam.m_Lens.FieldOfView, newFov, Time.deltaTime * 15);
     }
 
     public void SetCameraTaret(Transform newTarget, Transform newLookAt)

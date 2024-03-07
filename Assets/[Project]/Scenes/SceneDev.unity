@@ -19099,7 +19099,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1360793532
 Transform:
   m_ObjectHideFlags: 0
@@ -35630,6 +35630,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1078326050562177572, guid: cd32517c7629ca647ba5ccfca98efd76,
         type: 3}
+      propertyPath: _maxFov
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1078326050562177572, guid: cd32517c7629ca647ba5ccfca98efd76,
+        type: 3}
       propertyPath: _xUpCap
       value: 50
       objectReference: {fileID: 0}
@@ -35658,6 +35663,26 @@ PrefabInstance:
       propertyPath: _cameraTarget
       value: 
       objectReference: {fileID: 1874373074}
+    - target: {fileID: 1078326050562177572, guid: cd32517c7629ca647ba5ccfca98efd76,
+        type: 3}
+      propertyPath: _maxFovVelocity
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1078326050562177572, guid: cd32517c7629ca647ba5ccfca98efd76,
+        type: 3}
+      propertyPath: _flyShoulderOffset
+      value: -1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1078326050562177572, guid: cd32517c7629ca647ba5ccfca98efd76,
+        type: 3}
+      propertyPath: _cameraTrakingSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1078326050562177572, guid: cd32517c7629ca647ba5ccfca98efd76,
+        type: 3}
+      propertyPath: _groundShoulderOffset
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1819533472033459452, guid: cd32517c7629ca647ba5ccfca98efd76,
         type: 3}
       propertyPath: m_Name
@@ -35746,7 +35771,7 @@ PrefabInstance:
     - target: {fileID: 8638740810310440649, guid: cd32517c7629ca647ba5ccfca98efd76,
         type: 3}
       propertyPath: _upForce
-      value: 15
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8638740810310440649, guid: cd32517c7629ca647ba5ccfca98efd76,
         type: 3}
@@ -35811,7 +35836,7 @@ PrefabInstance:
     - target: {fileID: 8865421231721314167, guid: cd32517c7629ca647ba5ccfca98efd76,
         type: 3}
       propertyPath: m_Drag
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
