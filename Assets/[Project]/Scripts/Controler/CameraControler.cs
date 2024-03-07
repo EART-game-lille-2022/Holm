@@ -5,8 +5,7 @@ using DG.Tweening;
 
 public class CameraControler : MonoBehaviour
 {
-    [SerializeField] private CinemachineVirtualCamera _virtualCam;
-    [SerializeField] private Transform _cameraTarget;
+
     [SerializeField] private float _sensivity = 1;
     [Space]
     [SerializeField] private float _xUpCap;
@@ -34,10 +33,14 @@ public class CameraControler : MonoBehaviour
     private PlayerState _currentPlayerState = PlayerState.None;
     private float _velocityMag;
     private Rigidbody _rigidbody;
+    private CinemachineVirtualCamera _virtualCam;
+    private Transform _cameraTarget;
 
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        _cameraTarget = GameObject.FindGameObjectWithTag("CameraTarget").transform;
+        _virtualCam = GameObject.FindGameObjectWithTag("CameraSetup").GetComponentInChildren<CinemachineVirtualCamera>();
 
         _startTarget = _cameraTarget;
         _startLookAt = _virtualCam.LookAt;
@@ -58,7 +61,7 @@ public class CameraControler : MonoBehaviour
             _cameraTarget.transform.forward = Vector3.Slerp(_cameraTarget.transform.forward, transform.up, Time.deltaTime * _cameraTrakingSpeed);
             return;
         }
- 
+
         ComputeInputValue();
         _cameraTarget.transform.eulerAngles = _inputTargetEulerAngles;
 
