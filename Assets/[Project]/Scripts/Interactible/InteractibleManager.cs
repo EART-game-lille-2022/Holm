@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -25,6 +26,10 @@ public class InteractibleManager : MonoBehaviour
             InteractibleList.Clear();
     }
 
+    public void SetInteractibleCapability(bool value)
+    {
+        _canPlayerInteract = value;
+    }
 
     public static void AddInteractible(Interactible toAdd)
     {
@@ -98,5 +103,4 @@ public class InteractibleManager : MonoBehaviour
         if (nearest)
             Debug.DrawLine(_player.position, nearest.transform.position, Color.green);
     }
-
 }

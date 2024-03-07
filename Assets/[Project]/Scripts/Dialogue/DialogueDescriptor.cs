@@ -8,11 +8,8 @@ public class DialogueDescriptor : MonoBehaviour
     private int _indexDialogueToPlay;
     private Interactible _currentInteractible;
 
-    public void PlayDialogue(Interactible interactible = null)
+    public void PlayDialogue()
     {
-        if(interactible)
-            _currentInteractible = interactible;
-
         DialogueManager.instance.PlayDialogue(_dialogueList[_indexDialogueToPlay], this);
     }
 
@@ -22,7 +19,5 @@ public class DialogueDescriptor : MonoBehaviour
         _indexDialogueToPlay++;
         if(_indexDialogueToPlay >= _dialogueList.Count)
             _indexDialogueToPlay = 0;
-
-        _currentInteractible?.EndInteraction();
     }
 }

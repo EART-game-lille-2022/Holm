@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class MissionStart : MonoBehaviour
 {
-    public S_Mission missionStart;
+    public S_Mission s_missionToStart;
 
-    // IEnumerator Start()
-    // {
-    //     yield return new WaitForSeconds(5);
-    //     missionStart.StartQuest();
-    // }
+    void Start()
+    {
+        GetComponent<Interactible>()._onInteract.AddListener(StartQuest);
+        s_missionToStart.dialogue.hasBeenPlayed = false;
+    }
 
     public void StartQuest()
     {
-        missionStart.StartMission();
+        s_missionToStart.StartMission();
     }
 }
