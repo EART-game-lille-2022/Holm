@@ -77,6 +77,8 @@ public class PlayerControler : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody>();
         _groundCheck = GetComponent<GroundCheck>();
+
+        _collider = GetComponent<Collider>();
     }
 
     void FixedUpdate()
@@ -137,8 +139,11 @@ public class PlayerControler : MonoBehaviour
                 _collider.material = _groundPhysicMaterial;
                 transform.up = Vector3.up;
 
-                foreach (var item in _trailList)
-                    item.enabled = false;
+                if (_trailList.Count != 0)
+                {
+                    foreach (var item in _trailList)
+                        item.enabled = false;
+                }
 
                 _currentState = PlayerState.Grounded;
                 break;
@@ -259,7 +264,7 @@ public class PlayerControler : MonoBehaviour
 
         if (_isStalling)
         {
-            print("Stall !!!");
+            // print("Stall !!!");
             _rigidbody.AddForceAtPosition(Vector3.down * _noseFallingForce * 5, transform.TransformPoint(Vector3.up), ForceMode.Acceleration);
             if (_xAngle < -80)
                 _isStalling = false;
