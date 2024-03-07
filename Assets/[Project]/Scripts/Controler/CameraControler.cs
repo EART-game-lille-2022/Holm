@@ -49,7 +49,8 @@ public class CameraControler : MonoBehaviour
             return;
 
         _velocityMag = _rigidbody.velocity.magnitude;
-            _cameraEffect.SetCameraFovWithVelocity(_velocityMag);
+        _cameraEffect.SetCameraFovWithVelocity(_velocityMag);
+        _cameraEffect.ShakeCameraWithVelocity(_velocityMag);
 
         if (_currentPlayerState == PlayerState.Flying)
         {
