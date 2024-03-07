@@ -5,7 +5,6 @@ using UnityEngine;
 public class MeshOnSpline : MonoBehaviour
 {
     public Spline _spline;
-    private float _distance = 0f;
 
     public float _step = 0.001f;
 
