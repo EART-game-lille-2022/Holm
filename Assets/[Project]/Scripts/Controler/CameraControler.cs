@@ -1,58 +1,130 @@
-using System.Collections;
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.InputSystem;
+using DG.Tweening;
 
 public class CameraControler : MonoBehaviour
 {
     [SerializeField] private CinemachineVirtualCamera _virtualCam;
     [SerializeField] private Transform _cameraTarget;
     [SerializeField] private float _sensivity = 1;
-    [SerializeField] private float _shoulderOffset;
+    [Space]
+    [SerializeField] private float _xUpCap;
+    [SerializeField] private float _xDownCap;
+    [SerializeField] private float _currentX;
+
+    [Header("FOV Parameter :")]
+    [SerializeField] private float _minFovVelocity = 30;
+    [SerializeField] private float _maxFovVelocity = 70;
+    [SerializeField] private float _maxFov = 100;
+    [SerializeField] private float _minFov = 70;
+
+    [Header("Ground Parametre :")]
+    [SerializeField] private float _groundShoulderOffset;
+
+    [Header("Fly Parametre :")]
+    [SerializeField] private float _flyShoulderOffset;
+    [SerializeField] private float _cameraTrakingSpeed = 3f;
 
     private Vector3 _inputAxis;
-    private bool _playerCanMoveCamera;
+    private Vector3 _inputTargetEulerAngles;
+    private Vector3 _inputTargetOrientation;
     private Transform _startTarget;
     private Transform _startLookAt;
+    private PlayerState _currentPlayerState = PlayerState.None;
+    private float _velocityMag;
+    private Rigidbody _rigidbody;
 
-    void Start()
+    private void Start()
     {
+        _rigidbody = GetComponent<Rigidbody>();
+
         _startTarget = _cameraTarget;
         _startLookAt = _virtualCam.LookAt;
     }
 
-    void Update()
+
+    private void Update()
     {
         //TODO screenShake pendant la chute
         if (!GameManager.instance.CanPlayerMove)
             return;
 
-        if (!_playerCanMoveCamera)
-            _cameraTarget.transform.forward = transform.up;
+        _velocityMag = _rigidbody.velocity.magnitude;
+        SetCameraFovWithVelocity(_velocityMag);
 
-        // _cameraTarget.Rotate(new Vector3(_inputAxis.y, _inputAxis.x, 0) * _sensivity * Time.deltaTime);
-        _cameraTarget.transform.eulerAngles += _inputAxis * Time.deltaTime * _sensivity;
-        _cameraTarget.transform.eulerAngles = new Vector3(_cameraTarget.transform.eulerAngles.x, _cameraTarget.transform.eulerAngles.y, 0);
+        if (_currentPlayerState == PlayerState.Flying)
+        {
+            _cameraTarget.transform.forward = Vector3.Slerp(_cameraTarget.transform.forward, transform.up, Time.deltaTime * _cameraTrakingSpeed);
+            return;
+        }
+ 
+        ComputeInputValue();
+        _cameraTarget.transform.eulerAngles = _inputTargetEulerAngles;
+
+        //! Reset Z axis
+        _cameraTarget.transform.eulerAngles =
+        new Vector3(_cameraTarget.transform.eulerAngles.x, _cameraTarget.transform.eulerAngles.y, 0);
     }
 
-    public void SetCameraParameter(float shoulderOffset, bool canPlayerMoveCamera)
+    private void ComputeInputValue()
     {
-        //TODO passer PlayerState en parametre, et internaliser les parametre lie a la cam dans la class
+        _currentX += _inputAxis.x * Time.deltaTime * _sensivity;
+        _currentX = Mathf.Clamp(_currentX, _xDownCap, _xUpCap);
+
+        _inputTargetEulerAngles.x = _currentX;
+        _inputTargetEulerAngles.y += _inputAxis.y * Time.deltaTime * _sensivity;
+
+        //! Convert angle to direction
+        Quaternion a = Quaternion.Euler(_inputTargetEulerAngles);
+        _inputTargetOrientation = a * Vector3.forward;
+    }
+
+    public void SetCameraParameter(PlayerState playerState)
+    {
         Cinemachine3rdPersonFollow cm = _virtualCam.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
-        cm.ShoulderOffset = new Vector3(0, shoulderOffset, 0);
 
-        _cameraTarget.transform.forward = transform.forward;
+        _currentPlayerState = playerState;
 
-        _playerCanMoveCamera = canPlayerMoveCamera;
-        // Camera.main.GetComponent<CinemachineBrain>().enabled = _playerCanMoveCamera;
-        // Camera.main.transform.parent = _playerCanMoveCamera ? transform : null;
+        Vector3 targetStartOrientation = _cameraTarget.transform.forward;
+        Vector3 targetEndOrientation = Vector3.zero;
+
+        float shoulderOffsetStart = cm.ShoulderOffset.y;
+        float shoulderOffsetEnd = 0f;
+
+
+        DOTween.To((time) =>
+        {
+            switch (_currentPlayerState)
+            {
+                case PlayerState.Grounded:
+                    shoulderOffsetEnd = _groundShoulderOffset;
+                    break;
+
+                case PlayerState.Flying:
+                    shoulderOffsetEnd = _flyShoulderOffset;
+                    break;
+            }
+
+            cm.ShoulderOffset = new Vector3(0, Mathf.Lerp(shoulderOffsetStart, shoulderOffsetEnd, time), 0);
+            targetEndOrientation = _currentPlayerState == PlayerState.Grounded ? _inputTargetOrientation : transform.up;
+            _cameraTarget.transform.forward = Vector3.Slerp(targetStartOrientation, targetEndOrientation, time);
+        }, 0, 1, 1)
+        .SetUpdate(UpdateType.Late, false)
+        .OnComplete(() => _currentPlayerState = playerState);
+    }
+
+    private void SetCameraFovWithVelocity(float velocityMag)
+    {
+        float newFov = Mathf.Lerp(_minFov, _maxFov, Mathf.InverseLerp(_minFovVelocity, _maxFovVelocity, velocityMag));
+        _virtualCam.m_Lens.FieldOfView = newFov;
+        // _virtualCam.m_Lens.FieldOfView = Mathf.Lerp(_virtualCam.m_Lens.FieldOfView, newFov, Time.deltaTime * 15);
     }
 
     public void SetCameraTaret(Transform newTarget, Transform newLookAt)
     {
         _virtualCam.Follow = newTarget;
         _virtualCam.LookAt = newLookAt;
-
     }
 
     public void ResetCameraTarget()
@@ -61,9 +133,9 @@ public class CameraControler : MonoBehaviour
         _virtualCam.LookAt = _startLookAt;
     }
 
-    void OnLook(InputValue value)
+    private void OnLook(InputValue value)
     {
-        if (!_playerCanMoveCamera)
+        if (_currentPlayerState == PlayerState.Flying)
         {
             _inputAxis = Vector2.zero;
             return;
