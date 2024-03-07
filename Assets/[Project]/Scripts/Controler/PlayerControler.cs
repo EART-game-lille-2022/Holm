@@ -75,7 +75,7 @@ public class PlayerControler : MonoBehaviour
     private GroundCheck _groundCheck;
     private Vector3 _groundOrientationDirection;
     private Vector3 _playerTopHeadPos;
-    private PlayerState _currentState;
+    private PlayerState _currentState = PlayerState.None;
     private Rigidbody _rigidbody;
 
     void Start()
@@ -127,6 +127,7 @@ public class PlayerControler : MonoBehaviour
 
     public void ChangeState(PlayerState stateToSet)
     {
+        // print("Change State Call from : " + _currentState + " // to : " + stateToSet);
         if (stateToSet == _currentState)
             return;
 
@@ -136,7 +137,7 @@ public class PlayerControler : MonoBehaviour
         switch (stateToSet)
         {
             case PlayerState.Grounded:
-                _cameraControler.SetCameraParameter(1.5f, true);
+                _cameraControler.SetCameraParameter(1.5f, _currentState);
 
                 // _rigidbody.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
                 _rigidbody.velocity = Vector3.zero;
@@ -151,7 +152,7 @@ public class PlayerControler : MonoBehaviour
                 break;
 
             case PlayerState.Flying:
-                _cameraControler.SetCameraParameter(0, false);
+                _cameraControler.SetCameraParameter(0, _currentState);
 
                 Quaternion startOrientation = transform.rotation;
                 Quaternion targetOrientation = Quaternion.LookRotation(-Vector3.up, transform.forward);

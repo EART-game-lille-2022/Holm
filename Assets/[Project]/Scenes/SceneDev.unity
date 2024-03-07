@@ -35630,6 +35630,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1078326050562177572, guid: cd32517c7629ca647ba5ccfca98efd76,
         type: 3}
+      propertyPath: _xUpCap
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1078326050562177572, guid: cd32517c7629ca647ba5ccfca98efd76,
+        type: 3}
+      propertyPath: _yUpCap
+      value: -20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1078326050562177572, guid: cd32517c7629ca647ba5ccfca98efd76,
+        type: 3}
+      propertyPath: _xDownCap
+      value: -40
+      objectReference: {fileID: 0}
+    - target: {fileID: 1078326050562177572, guid: cd32517c7629ca647ba5ccfca98efd76,
+        type: 3}
       propertyPath: _sensivity
       value: 10
       objectReference: {fileID: 0}
@@ -35796,7 +35811,7 @@ PrefabInstance:
     - target: {fileID: 8865421231721314167, guid: cd32517c7629ca647ba5ccfca98efd76,
         type: 3}
       propertyPath: m_Drag
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
