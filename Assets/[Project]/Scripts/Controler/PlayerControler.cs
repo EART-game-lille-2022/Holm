@@ -27,14 +27,9 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] private Transform _orientation;
     [SerializeField] private CameraControler _cameraControler;
     [SerializeField] private Collider _collider;
-    [SerializeField] private CinemachineVirtualCamera _virtualCam;
     [SerializeField] private List<TrailRenderer> _trailList;
 
     [Header("Global Parameter :")]
-    [SerializeField] private float _minFovVelocity = 30;
-    [SerializeField] private float _maxFovVelocity = 70;
-    [SerializeField] private float _maxFov = 100;
-    [SerializeField] private float _minFov = 70;
     [Space]
     [SerializeField] private float _worldYLimite = 1000;
 
@@ -98,9 +93,6 @@ public class PlayerControler : MonoBehaviour
             _rigidbody.velocity = Vector3.zero;
         }
 
-        _velocityMagnitude = _rigidbody.velocity.magnitude;
-        _virtualCam.m_Lens.FieldOfView =
-        Mathf.Lerp(_minFov, _maxFov, Mathf.InverseLerp(_minFovVelocity, _maxFovVelocity, _velocityMagnitude));
 
         RecenterPlayerUp();
 
@@ -137,7 +129,7 @@ public class PlayerControler : MonoBehaviour
         switch (stateToSet)
         {
             case PlayerState.Grounded:
-                _cameraControler.SetCameraParameter(1.5f, _currentState);
+                _cameraControler.SetCameraParameter(_currentState);
 
                 // _rigidbody.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
                 _rigidbody.velocity = Vector3.zero;
@@ -152,8 +144,6 @@ public class PlayerControler : MonoBehaviour
                 break;
 
             case PlayerState.Flying:
-                _cameraControler.SetCameraParameter(0, _currentState);
-
                 Quaternion startOrientation = transform.rotation;
                 Quaternion targetOrientation = Quaternion.LookRotation(-Vector3.up, transform.forward);
 
@@ -166,12 +156,9 @@ public class PlayerControler : MonoBehaviour
 
                 DOTween.To((time) =>
                 {
-                    //! 
-
-                    //! Rotate le rb pour passer en vol
-                    /* _rigidbody.rotation =  */
                     transform.rotation = Quaternion.Slerp(startOrientation, targetOrientation, time);
-                }, 0, 1, .5f);
+                }, 0, 1, .5f)
+                .OnComplete(() => _cameraControler.SetCameraParameter(_currentState));
                 break;
         }
     }

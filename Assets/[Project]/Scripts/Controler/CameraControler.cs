@@ -1,7 +1,7 @@
-using System.Collections;
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.InputSystem;
+using DG.Tweening;
 
 public class CameraControler : MonoBehaviour
 {
@@ -12,16 +12,37 @@ public class CameraControler : MonoBehaviour
     [SerializeField] private float _xUpCap;
     [SerializeField] private float _xDownCap;
     [SerializeField] private float _currentX;
+
+    [Header("FOV Parameter :")]
+    [SerializeField] private float _minFovVelocity = 30;
+    [SerializeField] private float _maxFovVelocity = 70;
+    [SerializeField] private float _maxFov = 100;
+    [SerializeField] private float _minFov = 70;
+
+    [Header("Ground Parametre :")]
+    [SerializeField] private float _groundShoulderOffset;
+
+    [Header("Fly Parametre :")]
+    [SerializeField] private float _flyShoulderOffset;
+    [SerializeField] private float _cameraTrakingSpeed = 3f;
+
     private Vector3 _inputAxis;
+    private Vector3 _inputTargetEulerAngles;
+    private Vector3 _inputTargetOrientation;
     private Transform _startTarget;
     private Transform _startLookAt;
     private PlayerState _currentPlayerState = PlayerState.None;
+    private float _velocityMag;
+    private Rigidbody _rigidbody;
 
     private void Start()
     {
+        _rigidbody = GetComponent<Rigidbody>();
+
         _startTarget = _cameraTarget;
         _startLookAt = _virtualCam.LookAt;
     }
+
 
     private void Update()
     {
@@ -29,33 +50,75 @@ public class CameraControler : MonoBehaviour
         if (!GameManager.instance.CanPlayerMove)
             return;
 
+        _velocityMag = _rigidbody.velocity.magnitude;
+
         if (_currentPlayerState == PlayerState.Flying)
         {
-            print("fly : return");
-            _cameraTarget.transform.forward = transform.up;
+            _cameraTarget.transform.forward = Vector3.Slerp(_cameraTarget.transform.forward, transform.up, Time.deltaTime * _cameraTrakingSpeed);
+            SetCameraFovWithVelocity(_velocityMag);
             return;
         }
 
         _currentX += _inputAxis.x * Time.deltaTime * _sensivity;
         _currentX = Mathf.Clamp(_currentX, _xDownCap, _xUpCap);
 
-        _cameraTarget.transform.eulerAngles = new Vector3(_currentX, _cameraTarget.transform.eulerAngles.y, 0);
-        _cameraTarget.transform.eulerAngles += new Vector3(0, _inputAxis.y * Time.deltaTime * _sensivity, 0);
+        _inputTargetEulerAngles.x = _currentX;
+        _inputTargetEulerAngles.y += _inputAxis.y * Time.deltaTime * _sensivity;
+
+        //! Convert angle to direction
+        Quaternion a = Quaternion.Euler(_inputTargetEulerAngles);
+        _inputTargetOrientation = a * Vector3.forward;
+
+
+
+        _cameraTarget.transform.eulerAngles = _inputTargetEulerAngles;
+
+        // _cameraTarget.transform.eulerAngles = new Vector3(_currentX, _cameraTarget.transform.eulerAngles.y, 0);
+        // _cameraTarget.transform.eulerAngles += new Vector3(0, _inputAxis.y * Time.deltaTime * _sensivity, 0);
 
         //! Reset Z axis
         _cameraTarget.transform.eulerAngles =
         new Vector3(_cameraTarget.transform.eulerAngles.x, _cameraTarget.transform.eulerAngles.y, 0);
     }
 
-    public void SetCameraParameter(float shoulderOffset, PlayerState playerState)
+    public void SetCameraParameter(PlayerState playerState)
     {
-        //TODO passer PlayerState en parametre, et internaliser les parametre lie a la cam dans la class
         Cinemachine3rdPersonFollow cm = _virtualCam.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
-        cm.ShoulderOffset = new Vector3(0, shoulderOffset, 0);
-
-        _cameraTarget.transform.forward = transform.forward;
 
         _currentPlayerState = playerState;
+
+        Vector3 targetStartOrientation = _cameraTarget.transform.forward;
+        Vector3 targetEndOrientation = Vector3.zero;
+
+        float shoulderOffsetStart = cm.ShoulderOffset.y;
+        float shoulderOffsetEnd = 0f;
+
+
+        DOTween.To((time) =>
+        {
+            switch (_currentPlayerState)
+            {
+                case PlayerState.Grounded:
+                    shoulderOffsetEnd = _groundShoulderOffset;
+                    break;
+
+                case PlayerState.Flying:
+                    shoulderOffsetEnd = _flyShoulderOffset;
+                    break;
+            }
+
+            cm.ShoulderOffset = new Vector3(0, Mathf.Lerp(shoulderOffsetStart, shoulderOffsetEnd, time), 0);
+            targetEndOrientation = _currentPlayerState == PlayerState.Grounded ? _inputTargetOrientation : transform.up;
+            _cameraTarget.transform.forward = Vector3.Slerp(targetStartOrientation, targetEndOrientation, time);
+        }, 0, 1, 1)
+        .SetUpdate(UpdateType.Late, false)
+        .OnComplete(() => _currentPlayerState = playerState);
+    }
+
+    private void SetCameraFovWithVelocity(float velocityMag)
+    {
+        _virtualCam.m_Lens.FieldOfView =
+        Mathf.Lerp(_minFov, _maxFov, Mathf.InverseLerp(_minFovVelocity, _maxFovVelocity, velocityMag));
     }
 
     public void SetCameraTaret(Transform newTarget, Transform newLookAt)
