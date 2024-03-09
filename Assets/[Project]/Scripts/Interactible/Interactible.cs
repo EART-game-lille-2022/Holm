@@ -7,7 +7,7 @@ using TMPro;
 
 public class Interactible : MonoBehaviour
 {
-    [SerializeField] private UnityEvent<Interactible> _onInteract;
+    [SerializeField] public UnityEvent _onInteract;
     [SerializeField] private float _outLineAnimationDuration = .2f;
     [SerializeField] private AnimationCurve _outlinePopCurve;
     public  List<MeshRenderer> _rendererList;
@@ -31,12 +31,7 @@ public class Interactible : MonoBehaviour
     public void Interact()
     {
         print("Interact with : " + name);
-        _onInteract.Invoke(this);
-    }
-
-    public void EndInteraction()
-    {
-        InteractibleManager.instance.OnEndInteraction();
+        _onInteract.Invoke();
     }
 
     public void OnSelected()
