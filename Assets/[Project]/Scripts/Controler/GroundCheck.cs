@@ -14,10 +14,12 @@ public class GroundCheck : MonoBehaviour
     RaycastHit _checkHit;
     PlayerControler _playerControler;
     private bool _hasGrounded;
+    private PlayerAnimation _animation;
 
     void Start()
     {
         _playerControler = GetComponent<PlayerControler>();
+        _animation = GetComponentInChildren<PlayerAnimation>();
     }
 
     void FixedUpdate()
@@ -36,9 +38,9 @@ public class GroundCheck : MonoBehaviour
 
     public bool CanJump()
     {
-        if(!_hasGrounded)
+        if (!_hasGrounded)
             return false;
-        
+
         RaycastHit hit;
         Physics.BoxCast(transform.position
                 , Vector3.one / 2
@@ -81,6 +83,8 @@ public class GroundCheck : MonoBehaviour
                 _hasGrounded = true;
                 _playerControler.ChangeState(PlayerState.Grounded);
             }
+
+            _animation.SetJump(false);
         }
     }
 

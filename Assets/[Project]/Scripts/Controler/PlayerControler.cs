@@ -70,6 +70,7 @@ public class PlayerControler : MonoBehaviour
     private Rigidbody _rigidbody;
     private Transform _orientation;
     private Collider _collider;
+    private PlayerAnimation _animation;
 
 
     void Start()
@@ -78,10 +79,12 @@ public class PlayerControler : MonoBehaviour
         _groundCheck = GetComponent<GroundCheck>();
         _orientation = GameObject.FindGameObjectWithTag("Orientation").transform;
         _collider = GetComponent<Collider>();
+        _animation = GetComponentInChildren<PlayerAnimation>();
     }
 
     void FixedUpdate()
     {
+        //TODO ne pas orienter le joeur pour feat les animations
         if (!GameManager.instance.CanPlayerMove)
         {
             _rigidbody.velocity = Vector3.zero;
@@ -98,10 +101,16 @@ public class PlayerControler : MonoBehaviour
         ComputeOrientation();
 
         if (_currentState == PlayerState.Grounded)
+        {
+            _animation.SetGround(true);
             GroundControler();
+        }
 
         if (_currentState == PlayerState.Flying)
+        {
+            _animation.SetGround(false);
             FlyControler();
+        }
     }
 
     void RecenterPlayerUp()
@@ -137,10 +146,8 @@ public class PlayerControler : MonoBehaviour
                 transform.up = Vector3.up;
 
                 if (_trailList.Count != 0)
-                {
                     foreach (var item in _trailList)
                         item.enabled = false;
-                }
 
                 _currentState = PlayerState.Grounded;
                 break;
@@ -153,8 +160,9 @@ public class PlayerControler : MonoBehaviour
                 _collider.material = _flyPhysicMaterial;
 
                 //TODO animé l'épaiseur dur trail pour son apprarition
-                foreach (var item in _trailList)
-                    item.enabled = true;
+                if (_trailList.Count != 0)
+                    foreach (var item in _trailList)
+                        item.enabled = true;
 
                 DOTween.To((time) =>
                 {
@@ -281,6 +289,10 @@ public class PlayerControler : MonoBehaviour
     {
         Vector2 valueVector = value.Get<Vector2>();
         _playerInput = valueVector;
+
+        _animation.SetRun(_playerInput == Vector3.zero ? false : true);
+        _animation.SetXVector(_playerInput.x);
+        _animation.SetYVector(_playerInput.y);
     }
 
     private void OnJump(InputValue value)
@@ -288,6 +300,7 @@ public class PlayerControler : MonoBehaviour
         if ((value.Get<float>() == 1 ? true : false) && _groundCheck.CanJump())
         {
             _rigidbody.AddForce(Vector3.up * _jumpForce, ForceMode.VelocityChange);
+            _animation.SetJump(true);
         }
     }
 

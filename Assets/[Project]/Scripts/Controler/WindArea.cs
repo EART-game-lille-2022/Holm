@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class WindArea : MonoBehaviour
 {
-    [SerializeField] private float _force;
+    [SerializeField] private float _force = 5;
+    [SerializeField] private float _directionalForce = 0;
     [SerializeField] private bool _isChaos;
     [SerializeField] private List<Rigidbody> _rigidbodyList = new List<Rigidbody>();
 
@@ -16,7 +17,7 @@ public class WindArea : MonoBehaviour
         foreach (var item in _rigidbodyList)
         {
             item.AddForceAtPosition(transform.forward * _force
-                                  , item.transform.TransformPoint(Vector3.up)
+                                  , item.transform.TransformPoint(Vector3.up * _directionalForce)
                                   , ForceMode.Force);
         }
     }
