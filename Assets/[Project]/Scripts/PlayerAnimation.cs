@@ -8,6 +8,8 @@ public class PlayerAnimation : MonoBehaviour
     [SerializeField] private string _yVectorName = "Yvector";
     [Space]
     [SerializeField] private string _groundName = "grounded";
+    [SerializeField] private string _runName = "Run";
+    [SerializeField] private string _jumpName = "Jump";
     private Animator _animator;
 
     void Start()
@@ -17,12 +19,12 @@ public class PlayerAnimation : MonoBehaviour
 
     public void SetRun(bool value)
     {
-        _animator.SetBool("Run", value);
+        _animator.SetBool(_runName, value);
     }
 
     public void SetJump(bool value)
     {
-        _animator.SetBool("Jump", value);
+        _animator.SetBool(_jumpName, value);
     }
 
     public void SetGround(bool value)
