@@ -44,7 +44,6 @@ public class CameraControler : MonoBehaviour
 
     private void Update()
     {
-        //TODO screenShake pendant la chute
         if (!GameManager.instance.CanPlayerMove)
             return;
 

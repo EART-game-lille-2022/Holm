@@ -15,8 +15,6 @@ public enum PlayerState
 
 public class PlayerControler : MonoBehaviour
 {
-    //TODO raycast pour voire si le joueur est bloqué contre un mur = nerf la force pour avancer
-
     //TODO RETOUR CHRIS : on peut remonter trop fascilement en restant vers le haut
     //TODO RETOUR CHRIS : TROP de perte de vitesse donc on peut pas remonter avec notre gain de vitesse apres une "chute"
     //TODO RETOUR CHRIS : super flight : plus t'es rapide 
@@ -84,7 +82,6 @@ public class PlayerControler : MonoBehaviour
 
     void FixedUpdate()
     {
-        //TODO ne pas orienter le joeur pour feat les animations
         if (!GameManager.instance.CanPlayerMove)
         {
             _rigidbody.velocity = Vector3.zero;
@@ -159,7 +156,6 @@ public class PlayerControler : MonoBehaviour
                 _rigidbody.centerOfMass = _flyCenterOfMass;
                 _collider.material = _flyPhysicMaterial;
 
-                //TODO animé l'épaiseur dur trail pour son apprarition
                 if (_trailList.Count != 0)
                     foreach (var item in _trailList)
                         item.enabled = true;
