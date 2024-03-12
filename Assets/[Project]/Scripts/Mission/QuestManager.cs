@@ -15,7 +15,7 @@ public class QuestManager : MonoBehaviour
     public void AddMission(S_Mission mission)
     {
         currentMissionList.Add(mission);
-        // ajouter a l'UI
+        //TODO ajouter les info des mission a l'ui
     }
 
     public void FinishMission(S_Mission mission)
@@ -25,6 +25,8 @@ public class QuestManager : MonoBehaviour
         // ajouter a l'UI
     }
 
+
+    //! Sale d'avoir un Update ?
     void Update()
     {
         List<S_Mission> missionToRemove = new List<S_Mission>();

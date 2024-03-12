@@ -1,26 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem.Interactions;
 
 [CreateAssetMenu(fileName = "Mission_", menuName = "Data/Mission", order = 1)]
 public class S_Mission : ScriptableObject
 {
+    public bool isUnlocked = false;
     public string missionName;
     public string missionType;
     [TextArea] public string recap;
-    public bool isUnlocked = false;
-    public ScriptableDialogue dialogue;
 
+    [Space]
+
+    public ScriptableDialogue startDialogue;
+    public ScriptableDialogue endDialogue;
     public S_Mission[] unlockedOnFinish;
-
     public S_MissionObjective[] objectifList;
 
     public void StartMission()
     {
         Debug.Log("Start Mission");
 
-        DialogueManager.instance.PlayDialogue(dialogue);
+        DialogueManager.instance.PlayDialogue(startDialogue);
         QuestManager.instance.AddMission(this);
 
         foreach (S_MissionObjective objectif in objectifList)

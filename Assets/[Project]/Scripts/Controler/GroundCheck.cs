@@ -9,7 +9,6 @@ public class GroundCheck : MonoBehaviour
     [SerializeField] private float _jumpGroundCheckDistance;
     [SerializeField] private LayerMask _groundLayer;
     [SerializeField] private float _timeToUnground;
-    // [SerializeField] private bool _isGrounded;
     private float _timer;
     RaycastHit _checkHit;
     PlayerControler _playerControler;
