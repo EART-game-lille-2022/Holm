@@ -38,8 +38,9 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] private float _upForce = 30;
     [SerializeField] private float _liftForce = 3;
     [SerializeField] private Vector3 _flyCenterOfMass = Vector3.zero;
-    [SerializeField] private float _stallingThresold = 70;
-    [SerializeField] private float _noseFallingForce;
+    [SerializeField] private float _stallingAngleThresold = 70;
+    [SerializeField] private float _stallingVelocityThresold = 5;
+    [SerializeField] private float _noseFallingForce = 1;
     [SerializeField] private float _minAngleRatioMultiplier = -1;
     [SerializeField] private float _maxAngleRatioMultiplier = 5;
     [SerializeField] private PhysicMaterial _flyPhysicMaterial;
@@ -54,7 +55,6 @@ public class PlayerControler : MonoBehaviour
     [Space]
 
     public float _stallingMagnitudeThresold;
-    public float _velocityMagnitude;
     private Vector3 _playerInput;
     public float _xAngle;
     private float _yAngle;
@@ -255,10 +255,12 @@ public class PlayerControler : MonoBehaviour
             _rigidbody.AddForceAtPosition(Vector3.down * _noseFallingForce * .2f, transform.TransformPoint(Vector3.up), ForceMode.Acceleration);
 
         //! Décrochage !
-        if (_xAngle > _stallingThresold || (_velocityMagnitude < _stallingMagnitudeThresold && _xAngle > 0))
+        // if (_xAngle > _stallingAngleThresold || (_velocityMagnitude < _stallingMagnitudeThresold && _xAngle > 0))
+        if(_rigidbody.velocity.magnitude < _stallingVelocityThresold)
         {
             _stallTimer += Time.deltaTime;
             _isStalling = _stallTimer > .2f ? true : false;
+            // _isStalling = true;
         }
         else
             _stallTimer = 0;
