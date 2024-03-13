@@ -4,12 +4,10 @@ using TMPro;
 using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.InputSystem;
+using UnityEngine.PlayerLoop;
 
 public class DialogueManager : MonoBehaviour
 {
-    //! Un dialogue peut etre appeler de deux facon :
-    //! Via un DialogueDescriptor
-    //! Via MissionStart
     public static DialogueManager instance;
     [SerializeField] private float _charDelay;
     [SerializeField] private TextMeshProUGUI _textBloc;
@@ -17,19 +15,18 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private ScriptableDialogue _currentDialogue;
     [SerializeField] private int _stateIndex = 0;
     private bool _isCurrentStateFinish = true;
-    private DialogueDescriptor _descriptor;
 
-    void Awake()
+    private void Awake()
     {
         instance = this;
     }
 
-    void Start()
+    private void Start()
     {
         QuitDialogue();
     }
 
-    public void PlayDialogue(ScriptableDialogue toPlay, DialogueDescriptor descriptor = null)
+    public void PlayDialogue(ScriptableDialogue toPlay)
     {
         if(_currentDialogue == toPlay)
             return;
@@ -38,8 +35,7 @@ public class DialogueManager : MonoBehaviour
             return;
 
         //* Get la ref du descriptor pour reset le conditionel des interactions
-        if(descriptor)
-            _descriptor = descriptor;
+
 
         GameManager.instance.SetPlayerControleAbility(false);
         InteractibleManager.instance.SetInteractibleCapability(false);
@@ -79,13 +75,13 @@ public class DialogueManager : MonoBehaviour
     }
 
     [ContextMenu("iuehrgiuhegrhuigreuihegr")]
-    public void NextDialogueState()
+    private void NextDialogueState()
     {
         SetDialogueState(_stateIndex);
         _stateIndex++;
     }
 
-    public void SetDialogueState(int index)
+    private void SetDialogueState(int index)
     {
         _isCurrentStateFinish = false;
         PnjMood pnjMood;
@@ -117,7 +113,6 @@ public class DialogueManager : MonoBehaviour
         _currentDialogue = null;
         _stateIndex = 0;
 
-        _descriptor?.OnDialogueEnd();
         GameManager.instance.SetPlayerControleAbility(true);
         InteractibleManager.instance.SetInteractibleCapability(true);
     }

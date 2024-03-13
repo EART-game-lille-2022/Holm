@@ -87,7 +87,6 @@ public class InteractibleManager : MonoBehaviour
         if (_selected && _canPlayerInteract)
         {
             _selected.Interact();
-            _canPlayerInteract = false;
         }
     }
 

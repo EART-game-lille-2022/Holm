@@ -100,5 +100,7 @@ public class QuestPanel : MonoBehaviour
         bool input = inputValue.Get<float>() > .9f ? true : false;
         if (input)
             SetPanelSetup(false);
+        
+        InteractibleManager.instance.SetInteractibleCapability(true); 
     }
 }
