@@ -84,9 +84,11 @@ public class PlayerControler : MonoBehaviour
     {
         if (!GameManager.instance.CanPlayerMove)
         {
-            _rigidbody.velocity = Vector3.zero;
+            // _rigidbody.useGravity = false;
             return;
         }
+        // _rigidbody.useGravity = true;
+
 
         if (transform.position.y < -_worldYLimite)
         {
@@ -256,7 +258,7 @@ public class PlayerControler : MonoBehaviour
 
         //! Décrochage !
         // if (_xAngle > _stallingAngleThresold || (_velocityMagnitude < _stallingMagnitudeThresold && _xAngle > 0))
-        if(_rigidbody.velocity.magnitude < _stallingVelocityThresold)
+        if (_rigidbody.velocity.magnitude < _stallingVelocityThresold)
         {
             _stallTimer += Time.deltaTime;
             _isStalling = _stallTimer > .2f ? true : false;
@@ -285,6 +287,9 @@ public class PlayerControler : MonoBehaviour
 
     private void OnMove(InputValue value)
     {
+        if (!GameManager.instance.CanPlayerMove)
+            return;
+
         Vector2 valueVector = value.Get<Vector2>();
         _playerInput = valueVector;
 
@@ -300,6 +305,12 @@ public class PlayerControler : MonoBehaviour
             _rigidbody.AddForce(Vector3.up * _jumpForce, ForceMode.VelocityChange);
             _animation.SetJump(true);
         }
+    }
+
+    public void SetPlayerPosition(Vector3 value)
+    {
+        _rigidbody.velocity = Vector3.zero;
+        transform.position = value + new Vector3(0, ((CapsuleCollider)_collider).height / 2, 0);
     }
 
     void OnDrawGizmos()

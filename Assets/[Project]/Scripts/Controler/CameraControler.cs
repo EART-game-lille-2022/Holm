@@ -114,10 +114,10 @@ public class CameraControler : MonoBehaviour
 
 
 
-    public void SetCameraTaret(Transform newTarget, Transform newLookAt)
+    public void SetCameraTaret(Transform newTarget)
     {
         _virtualCam.Follow = newTarget;
-        _virtualCam.LookAt = newLookAt;
+        _virtualCam.LookAt = newTarget;
     }
 
     public void ResetCameraTarget()

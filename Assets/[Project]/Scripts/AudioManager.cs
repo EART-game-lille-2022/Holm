@@ -45,7 +45,7 @@ public class AudioManager : MonoBehaviour
         // }
 
         float volumeOnSpeed = Mathf.InverseLerp(_windSpeedMin, _windSpeedMax, value);
-        print(volumeOnSpeed);
+        // print(volumeOnSpeed);
 
         // _windLightSource.volume = Mathf.InverseLerp(1, 0, _lightWindVolumeCurve.Evaluate(volumeOnSpeed)) * _globalVolume;
         // _windLightSource.volume = Mathf.InverseLerp(1, 0, volumeOnSpeed) * _globalVolume;

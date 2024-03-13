@@ -42,4 +42,10 @@ public class MeshOutline : MonoBehaviour
                 _rendererList[i].materials[1].SetFloat("_Scale", time);
         }, 1.2f, 0, _animationDuration).SetEase(Ease.Linear);
     }
+
+    public void HideOutline()
+    {
+        for (int i = 0; i < _rendererList.Count; i++)
+            _rendererList[i].materials[1].SetFloat("_Scale", 0);
+    }
 }
