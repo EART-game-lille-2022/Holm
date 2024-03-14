@@ -269,10 +269,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _minVelocity: 30
   _maxVelocity: 70
-  _maxFov: 100
+  _maxFov: 150
   _minFov: 70
-  _maxAmplitude: 1.5
-  _maxFrequency: 10
+  _maxAmplitude: 0.8
+  _maxFrequency: 20
 --- !u!1 &7049185468582247266
 GameObject:
   m_ObjectHideFlags: 0

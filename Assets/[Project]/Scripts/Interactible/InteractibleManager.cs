@@ -83,10 +83,10 @@ public class InteractibleManager : MonoBehaviour
 
     private void OnInteract()
     {
+        // entrain de fix la cappaciter a call l'event ReInteract   
         if (_selected && _canPlayerInteract)
         {
             _selected.Interact();
-            _canPlayerInteract = false;
         }
     }
 

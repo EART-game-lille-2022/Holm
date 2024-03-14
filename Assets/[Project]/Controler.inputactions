@@ -196,6 +196,74 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "QuestPanel_Map",
+            "id": "c8523ab9-3960-4ea1-96a1-1894e982f95d",
+            "actions": [
+                {
+                    "name": "Direction",
+                    "type": "Value",
+                    "id": "ce14273b-f7ae-441f-98fa-b9ad837e6489",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Selecte",
+                    "type": "Button",
+                    "id": "62aecf42-4c64-4432-aeb9-c6fe05ba98dc",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Back",
+                    "type": "Button",
+                    "id": "4e10667f-95b8-4dd0-88ee-679aa4cedf8f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "9dd329ca-6996-47de-a461-de08c602216b",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Direction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f5898c9d-eb1e-44bb-9920-ee015467fac1",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Selecte",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "36abaca9-aac2-4ab0-ab11-6cd9fdf3e1bd",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Back",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

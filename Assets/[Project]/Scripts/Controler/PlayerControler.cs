@@ -15,11 +15,9 @@ public enum PlayerState
 
 public class PlayerControler : MonoBehaviour
 {
-    //TODO raycast pour voire si le joueur est bloqué contre un mur = nerf la force pour avancer
-
     //TODO RETOUR CHRIS : on peut remonter trop fascilement en restant vers le haut
     //TODO RETOUR CHRIS : TROP de perte de vitesse donc on peut pas remonter avec notre gain de vitesse apres une "chute"
-    //TODO RETOUR CHRIS : super flight : plus t'es rapide 
+    //TODO RETOUR CHRIS : super flight : plus t'es rapide plus controle son sensible
 
     [Header("Reference :")]
     [SerializeField] private CameraControler _cameraControler;
@@ -40,8 +38,9 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] private float _upForce = 30;
     [SerializeField] private float _liftForce = 3;
     [SerializeField] private Vector3 _flyCenterOfMass = Vector3.zero;
-    [SerializeField] private float _stallingThresold = 70;
-    [SerializeField] private float _noseFallingForce;
+    [SerializeField] private float _stallingAngleThresold = 70;
+    [SerializeField] private float _stallingVelocityThresold = 5;
+    [SerializeField] private float _noseFallingForce = 1;
     [SerializeField] private float _minAngleRatioMultiplier = -1;
     [SerializeField] private float _maxAngleRatioMultiplier = 5;
     [SerializeField] private PhysicMaterial _flyPhysicMaterial;
@@ -56,7 +55,6 @@ public class PlayerControler : MonoBehaviour
     [Space]
 
     public float _stallingMagnitudeThresold;
-    public float _velocityMagnitude;
     private Vector3 _playerInput;
     public float _xAngle;
     private float _yAngle;
@@ -70,6 +68,7 @@ public class PlayerControler : MonoBehaviour
     private Rigidbody _rigidbody;
     private Transform _orientation;
     private Collider _collider;
+    private PlayerAnimation _animation;
 
 
     void Start()
@@ -78,15 +77,18 @@ public class PlayerControler : MonoBehaviour
         _groundCheck = GetComponent<GroundCheck>();
         _orientation = GameObject.FindGameObjectWithTag("Orientation").transform;
         _collider = GetComponent<Collider>();
+        _animation = GetComponentInChildren<PlayerAnimation>();
     }
 
     void FixedUpdate()
     {
         if (!GameManager.instance.CanPlayerMove)
         {
-            _rigidbody.velocity = Vector3.zero;
+            // _rigidbody.useGravity = false;
             return;
         }
+        // _rigidbody.useGravity = true;
+
 
         if (transform.position.y < -_worldYLimite)
         {
@@ -98,10 +100,16 @@ public class PlayerControler : MonoBehaviour
         ComputeOrientation();
 
         if (_currentState == PlayerState.Grounded)
+        {
+            _animation.SetGround(true);
             GroundControler();
+        }
 
         if (_currentState == PlayerState.Flying)
+        {
+            _animation.SetGround(false);
             FlyControler();
+        }
     }
 
     void RecenterPlayerUp()
@@ -137,10 +145,8 @@ public class PlayerControler : MonoBehaviour
                 transform.up = Vector3.up;
 
                 if (_trailList.Count != 0)
-                {
                     foreach (var item in _trailList)
-                        item.enabled = false;
-                }
+                        item.gameObject.SetActive(false);
 
                 _currentState = PlayerState.Grounded;
                 break;
@@ -152,9 +158,9 @@ public class PlayerControler : MonoBehaviour
                 _rigidbody.centerOfMass = _flyCenterOfMass;
                 _collider.material = _flyPhysicMaterial;
 
-                //TODO animé l'épaiseur dur trail pour son apprarition
-                foreach (var item in _trailList)
-                    item.enabled = true;
+                if (_trailList.Count != 0)
+                    foreach (var item in _trailList)
+                        item.gameObject.SetActive(true);
 
                 DOTween.To((time) =>
                 {
@@ -251,10 +257,12 @@ public class PlayerControler : MonoBehaviour
             _rigidbody.AddForceAtPosition(Vector3.down * _noseFallingForce * .2f, transform.TransformPoint(Vector3.up), ForceMode.Acceleration);
 
         //! Décrochage !
-        if (_xAngle > _stallingThresold || (_velocityMagnitude < _stallingMagnitudeThresold && _xAngle > 0))
+        // if (_xAngle > _stallingAngleThresold || (_velocityMagnitude < _stallingMagnitudeThresold && _xAngle > 0))
+        if (_rigidbody.velocity.magnitude < _stallingVelocityThresold)
         {
             _stallTimer += Time.deltaTime;
             _isStalling = _stallTimer > .2f ? true : false;
+            // _isStalling = true;
         }
         else
             _stallTimer = 0;
@@ -279,8 +287,15 @@ public class PlayerControler : MonoBehaviour
 
     private void OnMove(InputValue value)
     {
+        if (!GameManager.instance.CanPlayerMove)
+            return;
+
         Vector2 valueVector = value.Get<Vector2>();
         _playerInput = valueVector;
+
+        _animation.SetRun(_playerInput == Vector3.zero ? false : true);
+        _animation.SetXVector(_playerInput.x);
+        _animation.SetYVector(_playerInput.y);
     }
 
     private void OnJump(InputValue value)
@@ -288,7 +303,14 @@ public class PlayerControler : MonoBehaviour
         if ((value.Get<float>() == 1 ? true : false) && _groundCheck.CanJump())
         {
             _rigidbody.AddForce(Vector3.up * _jumpForce, ForceMode.VelocityChange);
+            _animation.SetJump(true);
         }
+    }
+
+    public void SetPlayerPosition(Vector3 value)
+    {
+        _rigidbody.velocity = Vector3.zero;
+        transform.position = value + new Vector3(0, ((CapsuleCollider)_collider).height / 2, 0);
     }
 
     void OnDrawGizmos()
@@ -304,5 +326,12 @@ public class PlayerControler : MonoBehaviour
 
         // Gizmos.color = Color.blue;
         // Gizmos.DrawSphere(_hat, .1f);
+    }
+
+    private void OnGUI()
+    {
+        GUI.skin.label.fontSize = Screen.width / 40;
+
+        GUILayout.Label("Velocity Mag: " + _rigidbody.velocity.magnitude);
     }
 }

@@ -809,7 +809,8 @@ PlayerSettings:
   webGLMemoryGeometricGrowthStep: 0.2
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    Standalone: AURA_IN_PROJECT;AURA_IN_SCENEVIEW
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}

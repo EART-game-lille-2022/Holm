@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1802562646551401619}
   - component: {fileID: 1060080759859187251}
+  - component: {fileID: 6756310207852049573}
   - component: {fileID: 4183236002165202323}
   m_Layer: 0
   m_Name: Interactible
@@ -49,27 +50,39 @@ MonoBehaviour:
   _onInteract:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6756310207852049573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2369736501052295224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0134eeeb7b3df004392369e0736fc52d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   _outLineAnimationDuration: 0.2
   _outlinePopCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
-      inSlope: 2.9570277
-      outSlope: 2.9570277
+      value: 0.0017089844
+      inSlope: 5.2873898
+      outSlope: 5.2873898
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.050251238
+      outWeight: 0.022020726
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: -0.71763426
-      outSlope: -0.71763426
+      inSlope: 4.089761
+      outSlope: 4.089761
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.061558127
+      inWeight: 0.016839385
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
