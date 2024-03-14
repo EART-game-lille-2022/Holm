@@ -17,7 +17,7 @@ public class PlayerControler : MonoBehaviour
 {
     //TODO RETOUR CHRIS : on peut remonter trop fascilement en restant vers le haut
     //TODO RETOUR CHRIS : TROP de perte de vitesse donc on peut pas remonter avec notre gain de vitesse apres une "chute"
-    //TODO RETOUR CHRIS : super flight : plus t'es rapide 
+    //TODO RETOUR CHRIS : super flight : plus t'es rapide plus controle son sensible
 
     [Header("Reference :")]
     [SerializeField] private CameraControler _cameraControler;
@@ -146,7 +146,7 @@ public class PlayerControler : MonoBehaviour
 
                 if (_trailList.Count != 0)
                     foreach (var item in _trailList)
-                        item.enabled = false;
+                        item.gameObject.SetActive(false);
 
                 _currentState = PlayerState.Grounded;
                 break;
@@ -160,7 +160,7 @@ public class PlayerControler : MonoBehaviour
 
                 if (_trailList.Count != 0)
                     foreach (var item in _trailList)
-                        item.enabled = true;
+                        item.gameObject.SetActive(true);
 
                 DOTween.To((time) =>
                 {
