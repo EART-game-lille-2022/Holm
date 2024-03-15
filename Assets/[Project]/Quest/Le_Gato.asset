@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb17b758538d060499835c1a7cd78a6f, type: 3}
-  m_Name: Le Gato
+  m_Name: Le_Gato
   m_EditorClassIdentifier: 
   type: Collect
   title: "F\xE9 le Gato"

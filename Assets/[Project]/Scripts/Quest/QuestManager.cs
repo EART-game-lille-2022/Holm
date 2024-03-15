@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -39,14 +38,19 @@ public class QuestManager : MonoBehaviour
         }
     }
 
-    public void CheckAllQuestCollectible()
+    public void CheckAllQuestCollectible(string ID, ScriptableDialogue dialogue)
     {
+        if(!_currentQuest)
+            return;
+
         foreach (var item in _collectibleList)
-            if (item.QUEST_ID == _currentQuest.QUEST_ID)
+            if (item.QUEST_ID == ID)
                 if (item.hasBeenTaken == false)
                     return;
 
         print("GG ta fini !");
+        DialogueManager.instance.PlayDialogue(dialogue);
         CanvasManager.instance.ClearQuestInformation();
+        _currentQuest = null;
     }
 }
