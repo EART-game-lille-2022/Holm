@@ -9,6 +9,8 @@ using UnityEngine.PlayerLoop;
 public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager instance;
+    [SerializeField] private Canvas _dialogueCanvas;
+    [Space]
     [SerializeField] private float _charDelay;
     [SerializeField] private TextMeshProUGUI _textBloc;
     [SerializeField] private Image _pnjImage;
@@ -40,7 +42,7 @@ public class DialogueManager : MonoBehaviour
         GameManager.instance.SetPlayerControleAbility(false);
         InteractibleManager.instance.SetInteractibleCapability(false);
 
-        gameObject.SetActive(true);
+        _dialogueCanvas.gameObject.SetActive(true);
         _textBloc.text = " ";
         _pnjImage.sprite = null;
 
@@ -105,11 +107,12 @@ public class DialogueManager : MonoBehaviour
 
     public void QuitDialogue()
     {
-        gameObject.SetActive(false);
+        _dialogueCanvas.gameObject.SetActive(false);
         _textBloc.text = " ";
         _pnjImage.sprite = null;
 
-        _currentDialogue.hasBeenPlayed = true;
+        if(_currentDialogue)
+            _currentDialogue.hasBeenPlayed = true;
         _currentDialogue = null;
         _stateIndex = 0;
 

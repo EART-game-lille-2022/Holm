@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 using UnityEngine.InputSystem;
 
 public class QuestPanel : MonoBehaviour
@@ -22,13 +20,16 @@ public class QuestPanel : MonoBehaviour
         _canChangeIndex = true;
         foreach (var item in _questSelectorList)
             _questOutlineList.Add(item.GetComponent<MeshOutline>());
-
     }
 
     private void SelecteQuest()
     {
-        if(_questSelectorList[_selectorIndex].Quest)
-            print(_questSelectorList[_selectorIndex].Quest.name);
+        if (_questSelectorList[_selectorIndex].Quest)
+        {
+            // print(_questSelectorList[_selectorIndex].Quest.name);
+            QuestManager.instance.SelectQuest(_questSelectorList[_selectorIndex].Quest);
+            SetPanelSetup(false);
+        }
         else
             print("No Quest Set");
     }
@@ -89,10 +90,10 @@ public class QuestPanel : MonoBehaviour
 
     private void OnSelecte(InputValue inputValue)
     {
-        print("A : " + inputValue.Get<float>());
+        // print("A : " + inputValue.Get<float>());
         bool input = inputValue.Get<float>() > .9f ? true : false;
         if (input)
-            SelecteQuest();     
+            SelecteQuest();
     }
 
     private void OnBack(InputValue inputValue)
@@ -100,7 +101,7 @@ public class QuestPanel : MonoBehaviour
         bool input = inputValue.Get<float>() > .9f ? true : false;
         if (input)
             SetPanelSetup(false);
-        
-        InteractibleManager.instance.SetInteractibleCapability(true); 
+
+        InteractibleManager.instance.SetInteractibleCapability(true);
     }
 }

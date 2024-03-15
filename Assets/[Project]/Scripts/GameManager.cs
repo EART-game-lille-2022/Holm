@@ -7,8 +7,10 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public bool CanPlayerMove => _canPlayerMove;
+    public bool IsGamePause => _isGamePause;
 
     private bool _canPlayerMove = true;
+    private bool _isGamePause = false;
     private GameObject _player;
     private CameraControler _cameraControler;
 
@@ -24,13 +26,17 @@ public class GameManager : MonoBehaviour
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-
-
     }
 
     public void SetPlayerControleAbility(bool value)
     {
         _canPlayerMove = value;
         _player.GetComponent<PlayerInput>().enabled = value;
+    }
+
+    private void OnPauseGame(InputValue inputValue)
+    {
+        _isGamePause = !_isGamePause;
+        CanvasManager.instance.SetPauseGame(_isGamePause);
     }
 }

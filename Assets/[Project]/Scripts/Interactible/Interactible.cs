@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using TMPro;
 
 public class Interactible : MonoBehaviour
 {
@@ -12,7 +9,7 @@ public class Interactible : MonoBehaviour
     void Start()
     {
         _meshOutline = GetComponent<MeshOutline>();
-        InteractibleManager.AddInteractible(this);
+        InteractibleManager.instance.AddInteractible(this);
     }
 
     public void Interact()
@@ -33,6 +30,6 @@ public class Interactible : MonoBehaviour
 
     void OnDestroy()
     {
-        InteractibleManager.RemoveInteractible(this);
+        InteractibleManager.instance.RemoveInteractible(this);
     }
 }

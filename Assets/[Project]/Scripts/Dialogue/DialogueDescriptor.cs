@@ -8,11 +8,13 @@ public class DialogueDescriptor : MonoBehaviour
 
     void Start()
     {
-        _dialogue.hasBeenPlayed = false;
+        if(_dialogue)
+            _dialogue.hasBeenPlayed = false;
     }
 
     public void PlayDialogue()
     {
+        print("Play dialogue : " + _dialogue.name);
         DialogueManager.instance.PlayDialogue(_dialogue);
     }
 }

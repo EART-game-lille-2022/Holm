@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewQuest", menuName = "Quest")]
 public class ScriptableQuest : ScriptableObject
 {
-    public string questTitle;
-
+    public string type;
+    public string title;
+    public string description;
 }
