@@ -29,6 +29,13 @@ public class CanvasManager : MonoBehaviour
         _questDescription.text = quest.description;
     }
 
+    public void ClearQuestInformation()
+    {
+        _questTitle.text = "";
+        _questType.text = "";
+        _questDescription.text = "";
+    }
+
     public void SetPauseGame(bool value)
     {
         _panelPauseMenu.gameObject.SetActive(value);

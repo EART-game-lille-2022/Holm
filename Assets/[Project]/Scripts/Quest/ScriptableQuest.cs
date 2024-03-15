@@ -8,4 +8,6 @@ public class ScriptableQuest : ScriptableObject
     public string type;
     public string title;
     public string description;
+    [Space]
+    public string QUEST_ID;
 }
