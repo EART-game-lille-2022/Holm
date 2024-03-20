@@ -59,6 +59,7 @@ public class QuestManager : MonoBehaviour
         print("Quete Fini : " + _currentQuest.name);
         DialogueManager.instance.PlayDialogue(data.dialogue);
         CanvasManager.instance.ClearQuestInformation();
+        CanvasManager.instance.ActiveEndQuestPanel(_currentQuest);
         _currentQuest = null;
     }
 }

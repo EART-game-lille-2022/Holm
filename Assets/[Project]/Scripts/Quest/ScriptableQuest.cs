@@ -9,5 +9,7 @@ public class ScriptableQuest : ScriptableObject
     public string title;
     public string description;
     [Space]
+    [TextArea] public string endText;
+    [Space]
     public string QUEST_ID;
 }

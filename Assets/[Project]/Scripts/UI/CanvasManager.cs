@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Runtime.CompilerServices;
+using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
 
@@ -7,10 +10,16 @@ public class CanvasManager : MonoBehaviour
 
     [SerializeField] private RectTransform _panelPauseMenu;
 
-    [Header("Quest Reference : ")]
+    [Header("Quest Info Pause Menu Reference : ")]
     [SerializeField] private TextMeshProUGUI _questTitle;
     [SerializeField] private TextMeshProUGUI _questType;
     [SerializeField] private TextMeshProUGUI _questDescription;
+
+    [Header("Quest End Panel : ")]
+    [SerializeField] private Canvas _questEndCanvas;
+    [SerializeField] private TextMeshProUGUI _questEndText;
+
+
 
     void Awake()
     {
@@ -36,8 +45,22 @@ public class CanvasManager : MonoBehaviour
         _questDescription.text = "";
     }
 
+    public void ActiveEndQuestPanel(ScriptableQuest quest)
+    {
+        _questEndCanvas.gameObject.SetActive(true);
+        _questEndText.text = quest.endText;
+        StartCoroutine(DelayAndOff());
+
+        IEnumerator DelayAndOff()
+        {
+            yield return new WaitForSeconds(4);
+            _questEndCanvas.gameObject.SetActive(false);
+        }
+    }
+
     public void SetPauseGame(bool value)
     {
+        //TODO Animate pause UI
         _panelPauseMenu.gameObject.SetActive(value);
         // Vector2 startPos = _panelPauseMenu.anchoredPosition;
         // Vector2 endPos = Vector2.zero; 
@@ -46,14 +69,14 @@ public class CanvasManager : MonoBehaviour
 
         // _panelPauseMenu.anchoredPosition = endPos;
 
-            // if (value)
-            // {
-            //     ((RectTransform)_panelPauseMenu.transform).anchoredPosition = Vector3.zero;
-            // }
-            // else
-            // {
-            //     Vector3 newPosition = new Vector3(Camera.main.pixelWidth, Camera.main.pixelHeight, 0);
-            //     ((RectTransform)_panelPauseMenu.transform).anchoredPosition = newPosition;
-            // }
+        // if (value)
+        // {
+        //     ((RectTransform)_panelPauseMenu.transform).anchoredPosition = Vector3.zero;
+        // }
+        // else
+        // {
+        //     Vector3 newPosition = new Vector3(Camera.main.pixelWidth, Camera.main.pixelHeight, 0);
+        //     ((RectTransform)_panelPauseMenu.transform).anchoredPosition = newPosition;
+        // }
     }
 }
