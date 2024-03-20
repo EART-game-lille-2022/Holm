@@ -29,6 +29,9 @@ public class QuestManager : MonoBehaviour
     private void TurnOnCollectible()
     {
         foreach (var item in _collectibleList)
+            item.gameObject.SetActive(false);
+
+        foreach (var item in _collectibleList)
         {
             if (item.QUEST_ID == _currentQuest.QUEST_ID)
             {
@@ -38,18 +41,23 @@ public class QuestManager : MonoBehaviour
         }
     }
 
-    public void CheckAllQuestCollectible(string ID, ScriptableDialogue dialogue)
+    public void CheckAllQuestCollectible(QuestTargetData data)
     {
-        if(!_currentQuest)
+        if (!_currentQuest)
             return;
 
         foreach (var item in _collectibleList)
-            if (item.QUEST_ID == ID)
+            if (item.QUEST_ID == data.ID)
                 if (item.hasBeenTaken == false)
                     return;
 
-        print("GG ta fini !");
-        DialogueManager.instance.PlayDialogue(dialogue);
+        FinishQuest(data);
+    }
+
+    private void FinishQuest(QuestTargetData data)
+    {
+        print("Quete Fini : " + _currentQuest.name);
+        DialogueManager.instance.PlayDialogue(data.dialogue);
         CanvasManager.instance.ClearQuestInformation();
         _currentQuest = null;
     }

@@ -6,11 +6,11 @@ public class DialogueDescriptor : MonoBehaviour
 {
     [SerializeField] private ScriptableDialogue _dialogue;
 
-    void Start()
-    {
-        if(_dialogue)
-            _dialogue.hasBeenPlayed = false;
-    }
+    // void Start()
+    // {
+    //     if(_dialogue)
+    //         _dialogue.hasBeenPlayed = false;
+    // }
 
     public void PlayDialogue()
     {

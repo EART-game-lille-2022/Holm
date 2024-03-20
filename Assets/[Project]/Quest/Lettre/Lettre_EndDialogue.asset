@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ea06d6ca7f8b484b8a5ac86b6ba859b, type: 3}
   m_Name: Lettre_EndDialogue
   m_EditorClassIdentifier: 
-  hasBeenPlayed: 0
+  hasBeenPlayed: 1
   stateList:
   - mood: 4
     pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
     text: Ta retrouver la lettre !!!!!
   - mood: 1
-    pnj: {fileID: 0}
+    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
     text: Merci !

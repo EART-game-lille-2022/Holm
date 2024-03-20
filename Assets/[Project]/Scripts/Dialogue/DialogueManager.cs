@@ -33,16 +33,16 @@ public class DialogueManager : MonoBehaviour
         if(_currentDialogue == toPlay)
             return;
 
-        if(toPlay.hasBeenPlayed)
-            return;
+        // if(toPlay.hasBeenPlayed)
+        //     return;
 
         //* Get la ref du descriptor pour reset le conditionel des interactions
 
 
+        _dialogueCanvas.gameObject.SetActive(true);
         GameManager.instance.SetPlayerControleAbility(false);
         InteractibleManager.instance.SetInteractibleCapability(false);
 
-        _dialogueCanvas.gameObject.SetActive(true);
         _textBloc.text = " ";
         _pnjImage.sprite = null;
 
@@ -111,8 +111,8 @@ public class DialogueManager : MonoBehaviour
         _textBloc.text = " ";
         _pnjImage.sprite = null;
 
-        if(_currentDialogue)
-            _currentDialogue.hasBeenPlayed = true;
+        // if(_currentDialogue)
+        //     _currentDialogue.hasBeenPlayed = true;
         _currentDialogue = null;
         _stateIndex = 0;
 
