@@ -6,6 +6,7 @@ public class QuestManager : MonoBehaviour
     public static QuestManager instance;
     [SerializeField] private ScriptableQuest _currentQuest;
     [SerializeField] private List<Collectible> _collectibleList;
+    private CollectibleCompasse _compasse;
 
     void Awake()
     {
@@ -37,6 +38,7 @@ public class QuestManager : MonoBehaviour
             {
                 item.gameObject.SetActive(true);
                 item.hasBeenTaken = false;
+                // _compasse.AddCollectibleTransform(item.transform);
             }
         }
     }
@@ -57,7 +59,7 @@ public class QuestManager : MonoBehaviour
     private void FinishQuest(QuestTargetData data)
     {
         print("Quete Fini : " + _currentQuest.name);
-        
+
         DialogueManager.instance.PlayDialogue(data.dialogue, () 
         => { CanvasManager.instance.ActiveEndQuestPanel(_currentQuest); });
 
