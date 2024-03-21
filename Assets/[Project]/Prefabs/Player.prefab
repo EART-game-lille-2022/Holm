@@ -149,7 +149,6 @@ GameObject:
   - component: {fileID: 1078326050562177572}
   - component: {fileID: 6292274478634928469}
   - component: {fileID: 8638740810310440649}
-  - component: {fileID: 147157684505009539}
   - component: {fileID: 8865421231721314167}
   - component: {fileID: 7185390002104477702}
   m_Layer: 0
@@ -275,28 +274,13 @@ MonoBehaviour:
   _noseFallingForce: 1
   _minAngleRatioMultiplier: -1
   _maxAngleRatioMultiplier: 10
-  _flyPhysicMaterial: {fileID: 13400000, guid: b1cc9a07893cdc249a27c8949bfff0f6, type: 2}
+  _flyPhysicMaterial: {fileID: 13400000, guid: 9cc2bab43b542bc44b4aa477128c2d1b, type: 2}
   _fallingStartConservationThresold: 0
   _fallingConservationRate: 0
   _fallingConservationValue: 0
   _stallingMagnitudeThresold: 5
   _velocityMagnitude: 10
   _xAngle: 0
---- !u!114 &147157684505009539
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1819533472033459452}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebe8d5d31004b0d44a7d058dea11a07c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _windAreasList: []
-  _maxChaos: 0.15
-  _minChaos: -0.15
 --- !u!54 &8865421231721314167
 Rigidbody:
   m_ObjectHideFlags: 0

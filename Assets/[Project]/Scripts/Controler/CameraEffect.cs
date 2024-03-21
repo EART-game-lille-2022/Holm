@@ -24,6 +24,7 @@ public class CameraEffect : MonoBehaviour
 
     public void SetCameraFovWithVelocity(float velocityMag)
     {
+        //TODO Ajouter un parametre pour ajuster l'interavle de velociter utiliser (en proportion)
         float newFov = Mathf.Lerp(_minFov, _maxFov, Mathf.InverseLerp(_minVelocity, _maxVelocity, velocityMag));
         _virtualCam.m_Lens.FieldOfView = newFov;
     }
