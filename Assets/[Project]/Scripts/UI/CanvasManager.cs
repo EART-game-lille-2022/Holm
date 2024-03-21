@@ -21,7 +21,7 @@ public class CanvasManager : MonoBehaviour
 
     [Header("Quest End Panel : ")]
     [SerializeField] private Canvas _questEndCanvas;
-    [SerializeField] private TextMeshProUGUI _questEndText;
+    [SerializeField] private float _endPanelDuration = 3;
 
 
     void Awake()
@@ -59,12 +59,11 @@ public class CanvasManager : MonoBehaviour
     public void ActiveEndQuestPanel(ScriptableQuest quest)
     {
         _questEndCanvas.gameObject.SetActive(true);
-        _questEndText.text = quest.endText;
         StartCoroutine(DelayAndOff());
 
         IEnumerator DelayAndOff()
         {
-            yield return new WaitForSeconds(4);
+            yield return new WaitForSeconds(_endPanelDuration);
             _questEndCanvas.gameObject.SetActive(false);
         }
     }

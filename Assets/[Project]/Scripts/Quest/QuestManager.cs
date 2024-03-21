@@ -57,9 +57,12 @@ public class QuestManager : MonoBehaviour
     private void FinishQuest(QuestTargetData data)
     {
         print("Quete Fini : " + _currentQuest.name);
-        DialogueManager.instance.PlayDialogue(data.dialogue);
+        
+        DialogueManager.instance.PlayDialogue(data.dialogue, () 
+        => { CanvasManager.instance.ActiveEndQuestPanel(_currentQuest); });
+
         CanvasManager.instance.ClearQuestInformation();
-        CanvasManager.instance.ActiveEndQuestPanel(_currentQuest);
+
         _currentQuest = null;
     }
 
