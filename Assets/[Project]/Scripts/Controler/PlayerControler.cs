@@ -37,6 +37,7 @@ public class PlayerControler : MonoBehaviour
     [Header("Fly Parametre :")]
     [SerializeField] private float _upForce = 30;
     [SerializeField] private float _liftForce = 3;
+    [SerializeField] private float _yLiftMultiplier = 3;
     [SerializeField] private Vector3 _flyCenterOfMass = Vector3.zero;
     [SerializeField] private float _stallingAngleThresold = 70;
     [SerializeField] private float _stallingVelocityThresold = 5;
@@ -46,9 +47,7 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] private PhysicMaterial _flyPhysicMaterial;
 
     [Header("WIP :")]
-    public float _fallingStartConservationThresold;
-    public float _fallingConservationRate;
-    public float _fallingConservationValue;
+
 
     [Space]
     [Space]
@@ -218,31 +217,15 @@ public class PlayerControler : MonoBehaviour
         Vector3 velocityXZ = _rigidbody.velocity;
         velocityXZ.y = 0;
 
-        if (_xAngle < _fallingStartConservationThresold)
-        {
-            // print("speed up");
-            _fallingConservationValue += Time.deltaTime * _fallingConservationRate;
-        }
-        else if (_fallingConservationValue > 0)
-        {
-            _fallingConservationValue -= Time.deltaTime * _fallingConservationRate;
-        }
-
         //! Rotate le player
         if (!_isStalling)
         {
-            // _positionToAddForce = transform.TransformPoint(new Vector2(_playerInput.x, 0));
-            _positionToAddForce = transform.TransformPoint(_playerInput);
-
-            //! Z
+            //! Lift
+            _positionToAddForce = transform.TransformPoint(new Vector3(_playerInput.x, _playerInput.y * _yLiftMultiplier, 0));
             _rigidbody.AddForceAtPosition(-transform.forward * _liftForce * -_playerInput.magnitude, _positionToAddForce
                                         , ForceMode.Acceleration);
-
-            //! X
-            // Vector3 xToAddForce = new Vector3(transform.position.x + _playerInput.x, transform.position.y, transform.position.z);
-            // _rigidbody.AddForceAtPosition(-transform.forward * _liftForce * -_playerInput.magnitude, xToAddForce
-            //                             , ForceMode.Acceleration);
         }
+
 
         //! force sur le yaw en fonction du roll
         float yawForce = Mathf.Lerp(0, 3, Mathf.InverseLerp(0, 90, Mathf.Abs(_yAngle)));
@@ -250,11 +233,13 @@ public class PlayerControler : MonoBehaviour
                                     , transform.TransformPoint(Vector3.up)
                                     , ForceMode.Acceleration);
 
+
         //!empeche le nez de remonter tout seul et le fait doucement chuté
         if (_xAngle > 0)
             _rigidbody.AddForceAtPosition(Vector3.down * _noseFallingForce, transform.TransformPoint(Vector3.up), ForceMode.Acceleration);
         if (_xAngle < 0)
             _rigidbody.AddForceAtPosition(Vector3.down * _noseFallingForce * .2f, transform.TransformPoint(Vector3.up), ForceMode.Acceleration);
+
 
         //! Décrochage !
         // if (_xAngle > _stallingAngleThresold || (_velocityMagnitude < _stallingMagnitudeThresold && _xAngle > 0))
@@ -276,14 +261,21 @@ public class PlayerControler : MonoBehaviour
                 _isStalling = false;
         }
 
+
         //! Convertie l'angle en un multiplicateur en fonction de l'incilinaison
         float angleRatioMultiplier =
         Mathf.Lerp(_maxAngleRatioMultiplier, _minAngleRatioMultiplier, Mathf.InverseLerp(-90, 90, _xAngle));
+
         _rigidbody.AddForce(transform.up * _upForce * angleRatioMultiplier, ForceMode.Acceleration);
         if (_xAngle > 0)
-            _rigidbody.AddForce(transform.up * _fallingConservationValue, ForceMode.Acceleration);
+            _rigidbody.AddForce(transform.up, ForceMode.Acceleration);
         // print(angleRatioMultiplier);
     }
+
+    // public float _fallingStartConservationThresold;
+    // public float _fallingConservationRate;
+    // public float _fallingConservationCurrentValue;
+    // public float _fallingConservationMax;
 
     private void OnMove(InputValue value)
     {
