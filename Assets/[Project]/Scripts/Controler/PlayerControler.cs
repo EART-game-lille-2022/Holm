@@ -328,10 +328,10 @@ public class PlayerControler : MonoBehaviour
         // Gizmos.DrawSphere(_hat, .1f);
     }
 
-    private void OnGUI()
-    {
-        GUI.skin.label.fontSize = Screen.width / 40;
+    // private void OnGUI()
+    // {
+    //     GUI.skin.label.fontSize = Screen.width / 40;
 
-        GUILayout.Label("Velocity Mag: " + _rigidbody.velocity.magnitude);
-    }
+    //     GUILayout.Label("Velocity Mag: " + _rigidbody.velocity.magnitude);
+    // }
 }

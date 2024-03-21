@@ -9,6 +9,8 @@ public class QuestPanel : MonoBehaviour
     [SerializeField] private Transform _cameraTarget;
     [SerializeField] private Transform _playerTarget;
     [SerializeField] private List<QuestSelector> _questSelectorList;
+    [Space]
+    [SerializeField] private string _popupMessage;
     private List<MeshOutline> _questOutlineList = new List<MeshOutline>();
     private int _selectorIndex = 0;
     private PlayerInput _panelInput;
@@ -68,7 +70,10 @@ public class QuestPanel : MonoBehaviour
     public void OpenPanel()
     {
         if (QuestManager.instance.HasCurrentQuest())
+        {
+            CanvasManager.instance.PrintPopup(_popupMessage);
             return;
+        }
 
         GameManager.instance.SetPlayerControleAbility(false);
         _panelInput.enabled = true;
@@ -114,11 +119,11 @@ public class QuestPanel : MonoBehaviour
             _canChangeIndex = false;
             int lastIndex = _selectorIndex;
             _selectorIndex = (_selectorIndex + (int)Mathf.Sign(inputVector.x)) % _questSelectorList.Count;
+            //! % boucle au dessut de 0
 
+            //! boucle si plus petit que 0
             if (_selectorIndex < 0)
-            {
                 _selectorIndex = _questSelectorList.Count - 1;
-            }
 
             OverSelector(_selectorIndex, lastIndex);
             return;

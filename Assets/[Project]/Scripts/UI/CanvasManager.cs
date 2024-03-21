@@ -9,6 +9,10 @@ public class CanvasManager : MonoBehaviour
     public static CanvasManager instance;
 
     [SerializeField] private Canvas _canvasPauseMenu;
+    [Header("In Game :")]
+    [SerializeField] private Canvas _canvasInGame;
+    [SerializeField] private GameObject _popup;
+
 
     [Header("Quest Info Pause Menu Reference : ")]
     [SerializeField] private TextMeshProUGUI _questTitle;
@@ -20,7 +24,6 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _questEndText;
 
 
-
     void Awake()
     {
         instance = this;
@@ -29,6 +32,14 @@ public class CanvasManager : MonoBehaviour
     void Start()
     {
         SetPauseGame(false);
+    }
+
+    public void PrintPopup(string toSay)
+    {
+        //TODO ajouter une liste de string et lacher les popup dans un par un
+        GameObject newPop = Instantiate(_popup, _canvasInGame.transform);
+        newPop.GetComponent<TextMeshProUGUI>().text = toSay;
+
     }
 
     public void SetQuestInformation(ScriptableQuest quest)

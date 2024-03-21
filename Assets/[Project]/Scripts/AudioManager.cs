@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class AudioManager : MonoBehaviour
     void Awake()
     {
         instance = this;
+        // DontDestroyOnLoad(gameObject);
     }
 
     void Start()

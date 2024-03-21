@@ -12,6 +12,7 @@ public struct QuestTargetData
 
 public class QuestTarget : MonoBehaviour
 {
+    //TODO dialogue si all collectible non get
     [SerializeField] private List<QuestTargetData> _dataList = new List<QuestTargetData>();
 
     void Start()
