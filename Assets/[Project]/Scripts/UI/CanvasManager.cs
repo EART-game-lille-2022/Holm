@@ -8,7 +8,7 @@ public class CanvasManager : MonoBehaviour
 {
     public static CanvasManager instance;
 
-    [SerializeField] private RectTransform _panelPauseMenu;
+    [SerializeField] private Canvas _canvasPauseMenu;
 
     [Header("Quest Info Pause Menu Reference : ")]
     [SerializeField] private TextMeshProUGUI _questTitle;
@@ -61,22 +61,6 @@ public class CanvasManager : MonoBehaviour
     public void SetPauseGame(bool value)
     {
         //TODO Animate pause UI
-        _panelPauseMenu.gameObject.SetActive(value);
-        // Vector2 startPos = _panelPauseMenu.anchoredPosition;
-        // Vector2 endPos = Vector2.zero; 
-        // if(value)
-        //     endPos = new Vector2((1000 / 2) + _panelPauseMenu.rect.width, -1000 / 2);
-
-        // _panelPauseMenu.anchoredPosition = endPos;
-
-        // if (value)
-        // {
-        //     ((RectTransform)_panelPauseMenu.transform).anchoredPosition = Vector3.zero;
-        // }
-        // else
-        // {
-        //     Vector3 newPosition = new Vector3(Camera.main.pixelWidth, Camera.main.pixelHeight, 0);
-        //     ((RectTransform)_panelPauseMenu.transform).anchoredPosition = newPosition;
-        // }
+        _canvasPauseMenu.gameObject.SetActive(value);
     }
 }

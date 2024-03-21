@@ -62,4 +62,9 @@ public class QuestManager : MonoBehaviour
         CanvasManager.instance.ActiveEndQuestPanel(_currentQuest);
         _currentQuest = null;
     }
+
+    public bool HasCurrentQuest()
+    {
+        return _currentQuest;
+    }
 }

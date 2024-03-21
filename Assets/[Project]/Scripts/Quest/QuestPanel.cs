@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,10 +13,13 @@ public class QuestPanel : MonoBehaviour
     private int _selectorIndex = 0;
     private PlayerInput _panelInput;
     private bool _canChangeIndex = true;
+    private MeshOutline _meshOutline;
 
     void Start()
     {
         _panelInput = GetComponent<PlayerInput>();
+        GetComponent<Interactible>()._onInteract.AddListener(OpenPanel);
+        _meshOutline = GetComponent<MeshOutline>();
         _panelInput.enabled = false;
         _canChangeIndex = true;
         foreach (var item in _questSelectorList)
@@ -28,34 +32,71 @@ public class QuestPanel : MonoBehaviour
         {
             // print(_questSelectorList[_selectorIndex].Quest.name);
             QuestManager.instance.SelectQuest(_questSelectorList[_selectorIndex].Quest);
-            SetPanelSetup(false);
+            ClosePanel();
         }
         else
             print("No Quest Set");
     }
 
-    public void SetPanelSetup(bool openQuestPanel)
+    // public void SetPanelSetup(bool openQuestPanel)
+    // {
+    //     if (QuestManager.instance.HasCurrentQuest())
+    //         return;
+
+    //     GameManager.instance.SetPlayerControleAbility(!openQuestPanel);
+    //     _panelInput.enabled = openQuestPanel;
+
+    //     //! Hide Player meshs;
+    //     foreach (var item in _player.GetComponentsInChildren<SkinnedMeshRenderer>())
+    //         item.enabled = !openQuestPanel;
+
+    //     if (openQuestPanel)
+    //     {
+    //         _player.GetComponent<CameraControler>().SetCameraTaret(_cameraTarget);
+    //         _selectorIndex = 0;
+    //         OverSelector(_selectorIndex, _selectorIndex);
+    //     }
+
+    //     if (!openQuestPanel)
+    //     {
+    //         _player.GetComponent<CameraControler>().ResetCameraTarget();
+    //         foreach (var item in _questOutlineList)
+    //             item.HideOutline();
+    //     }
+    // }
+
+    public void OpenPanel()
     {
-        GameManager.instance.SetPlayerControleAbility(!openQuestPanel);
-        _panelInput.enabled = openQuestPanel;
+        if (QuestManager.instance.HasCurrentQuest())
+            return;
+
+        GameManager.instance.SetPlayerControleAbility(false);
+        _panelInput.enabled = true;
+        _meshOutline.OnUnselected();
 
         //! Hide Player meshs;
         foreach (var item in _player.GetComponentsInChildren<SkinnedMeshRenderer>())
-            item.enabled = !openQuestPanel;
+            item.enabled = false;
 
-        if (openQuestPanel)
-        {
-            _player.GetComponent<CameraControler>().SetCameraTaret(_cameraTarget);
-            _selectorIndex = 0;
-            OverSelector(_selectorIndex, _selectorIndex);
-        }
+        _player.GetComponent<CameraControler>().SetCameraTaret(_cameraTarget);
+        _selectorIndex = 0;
+        foreach (var item in _questOutlineList)
+            item.OnUnselected();
+        OverSelector(0, 0);
+    }
 
-        if (!openQuestPanel)
-        {
-            _player.GetComponent<CameraControler>().ResetCameraTarget();
-            foreach (var item in _questOutlineList)
-                item.HideOutline();
-        }
+    public void ClosePanel()
+    {
+        GameManager.instance.SetPlayerControleAbility(true);
+        _panelInput.enabled = false;
+
+        //! Show Player meshs;
+        foreach (var item in _player.GetComponentsInChildren<SkinnedMeshRenderer>())
+            item.enabled = true;
+
+        _player.GetComponent<CameraControler>().ResetCameraTarget();
+        foreach (var item in _questOutlineList)
+            item.HideOutline();
     }
 
     public void OverSelector(int index, int lastIndex)
@@ -100,7 +141,7 @@ public class QuestPanel : MonoBehaviour
     {
         bool input = inputValue.Get<float>() > .9f ? true : false;
         if (input)
-            SetPanelSetup(false);
+            ClosePanel();
 
         InteractibleManager.instance.SetInteractibleCapability(true);
     }

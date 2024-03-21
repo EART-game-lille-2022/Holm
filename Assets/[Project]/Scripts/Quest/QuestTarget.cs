@@ -14,6 +14,11 @@ public class QuestTarget : MonoBehaviour
 {
     [SerializeField] private List<QuestTargetData> _dataList = new List<QuestTargetData>();
 
+    void Start()
+    {
+        GetComponent<Interactible>()._onInteract.AddListener(Interact);
+    }
+
     public void Interact()
     {
         foreach (var item in _dataList)

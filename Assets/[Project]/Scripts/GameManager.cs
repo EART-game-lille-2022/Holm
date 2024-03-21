@@ -38,5 +38,6 @@ public class GameManager : MonoBehaviour
     {
         _isGamePause = !_isGamePause;
         CanvasManager.instance.SetPauseGame(_isGamePause);
+        Time.timeScale = _isGamePause ? 0 : 1;
     }
 }
