@@ -8,6 +8,12 @@ public class AudioManager : MonoBehaviour
     public static AudioManager instance;
     [SerializeField] private float _globalVolume = .4f;
 
+    [Header("FX :")]
+    [SerializeField] private AudioSource _fxAudioSource;
+    [SerializeField] private AudioClip _pauseMenuSound;
+    public AudioClip PauseMenuSound => _pauseMenuSound;
+
+
     [Header("Wind Sound On Speed Parametre :")]
     [SerializeField] private float _windSpeedMin;
     [SerializeField] private float _windSpeedMax;
@@ -55,4 +61,8 @@ public class AudioManager : MonoBehaviour
         _windHeavySource.volume = _heavyWindVolumeCurve.Evaluate(volumeOnSpeed) * _globalVolume;
     }
 
+    public void PlaySFX(AudioClip clip)
+    {
+        _fxAudioSource.PlayOneShot(clip);
+    }
 }

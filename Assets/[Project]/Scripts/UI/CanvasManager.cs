@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Runtime.CompilerServices;
+using DG.Tweening;
 using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
@@ -9,10 +10,13 @@ public class CanvasManager : MonoBehaviour
     public static CanvasManager instance;
 
     [SerializeField] private Canvas _canvasPauseMenu;
+
     [Header("In Game :")]
     [SerializeField] private Canvas _canvasInGame;
     [SerializeField] private GameObject _popup;
 
+    [Header("Pause Menu : ")]
+    [SerializeField] RectTransform _pauseMenuBackground;
 
     [Header("Quest Info Pause Menu Reference : ")]
     [SerializeField] private TextMeshProUGUI _questTitle;
@@ -23,6 +27,8 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private Canvas _questEndCanvas;
     [SerializeField] private float _endPanelDuration = 3;
 
+    private Vector2 _pauseMenuStartPosition;
+
 
     void Awake()
     {
@@ -31,7 +37,8 @@ public class CanvasManager : MonoBehaviour
 
     void Start()
     {
-        SetPauseGame(false);
+        _pauseMenuStartPosition = _pauseMenuBackground.anchoredPosition;
+        SetPauseGame(false, false);
     }
 
     public void PrintPopup(string toSay)
@@ -39,7 +46,6 @@ public class CanvasManager : MonoBehaviour
         //TODO ajouter une liste de string et lacher les popup dans un par un
         GameObject newPop = Instantiate(_popup, _canvasInGame.transform);
         newPop.GetComponent<TextMeshProUGUI>().text = toSay;
-
     }
 
     public void SetQuestInformation(ScriptableQuest quest)
@@ -68,9 +74,23 @@ public class CanvasManager : MonoBehaviour
         }
     }
 
-    public void SetPauseGame(bool value)
+    public void SetPauseGame(bool value, bool playSound = true)
     {
-        //TODO Animate pause UI
-        _canvasPauseMenu.gameObject.SetActive(value);
+        print("PAUSE : " + value);
+        // _canvasPauseMenu.gameObject.SetActive(value);
+
+        if(playSound)
+            AudioManager.instance.PlaySFX(AudioManager.instance.PauseMenuSound);
+
+        Vector2 startAnimationPos = _pauseMenuBackground.anchoredPosition;
+        Vector2 target = value ? Vector2.zero : _pauseMenuStartPosition;
+        DOTween.To((time) =>
+        {
+            _pauseMenuBackground.anchoredPosition = 
+            Vector2.Lerp(startAnimationPos, target, time);
+        }, 0, 1, 7)
+        .SetEase(Ease.Linear)
+        .SetSpeedBased(true)
+        .SetUpdate(true);
     }
 }
