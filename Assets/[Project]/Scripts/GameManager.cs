@@ -1,11 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+
+    [SerializeField] private Menu _pauseMenu;
+
     public bool CanPlayerMove => _canPlayerMove;
     public bool IsGamePause => _isGamePause;
 
@@ -37,7 +38,13 @@ public class GameManager : MonoBehaviour
     private void OnPauseGame(InputValue inputValue)
     {
         _isGamePause = !_isGamePause;
+        _player.GetComponent<PlayerInput>().enabled = _isGamePause;
         CanvasManager.instance.SetPauseGame(_isGamePause);
         Time.timeScale = _isGamePause ? 0 : 1;
+
+        if(_isGamePause)
+            MenuManager.instance.SelectMenu(_pauseMenu);
+        else
+            MenuManager.instance.CloseMenu();
     }
 }
