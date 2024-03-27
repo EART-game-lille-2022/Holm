@@ -12,7 +12,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource _fxAudioSource;
     [SerializeField] private AudioClip _pauseMenuSound;
     public AudioClip PauseMenuSound => _pauseMenuSound;
-
+    [SerializeField] private AudioClip _finishQuestSound;
+    public AudioClip FinishQuestSound => _finishQuestSound;
 
     [Header("Wind Sound On Speed Parametre :")]
     [SerializeField] private float _windSpeedMin;
