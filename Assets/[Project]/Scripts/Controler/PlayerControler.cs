@@ -40,7 +40,7 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] private float _liftForce = 3;
     [SerializeField] private float _yLiftMultiplier = 3;
     [SerializeField] private Vector3 _flyCenterOfMass = Vector3.zero;
-    [SerializeField] private float _stallingAngleThresold = 70;
+    // [SerializeField] private float _stallingAngleThresold = 70;
     [SerializeField] private float _stallingVelocityThresold = 5;
     [SerializeField] private float _noseFallingForce = 1;
     [SerializeField] private float _minAngleRatioMultiplier = -1;
