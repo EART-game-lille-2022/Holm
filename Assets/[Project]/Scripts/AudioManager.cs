@@ -27,8 +27,15 @@ public class AudioManager : MonoBehaviour
 
     void Awake()
     {
-        instance = this;
-        // DontDestroyOnLoad(gameObject);
+        if(instance) {
+            Destroy(gameObject);
+        } else {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
+    public void SetVolume(float volume){
+        
     }
 
     void Start()
