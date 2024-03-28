@@ -119,7 +119,7 @@ public class CanvasManager : MonoBehaviour
 
     public void SetPauseGame(bool value, bool playSound = true)
     {
-        print("PAUSE : " + value);
+        // print("PAUSE : " + value);
         // _canvasPauseMenu.gameObject.SetActive(value);
 
         if (playSound)
