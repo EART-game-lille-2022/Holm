@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 959678154011374829}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.43, y: 1.29, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -53,7 +53,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 24151e6520e2a3c4eb8173d37278cc83, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -74,7 +74,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 100
+  m_Time: 0.15
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
@@ -84,21 +84,39 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0
+        inSlope: 0.15918362
+        outSlope: 0.15918362
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.9937881
+      - serializedVersion: 3
+        time: 0.36581627
+        value: 0.05170662
         inSlope: 0
         outSlope: 0
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: -0.09726626
+        outSlope: -0.09726626
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 1
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
-      key2: {r: 0, g: 0, b: 0, a: 0}
+      key1: {r: 1, g: 1, b: 1, a: 0}
+      key2: {r: 0, g: 0, b: 0, a: 1}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
@@ -112,16 +130,16 @@ TrailRenderer:
       ctime5: 0
       ctime6: 0
       ctime7: 0
-      atime0: 0
+      atime0: 32896
       atime1: 65535
-      atime2: 0
-      atime3: 0
+      atime2: 30455
+      atime3: 61937
       atime4: 0
       atime5: 0
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_ColorSpace: -1
+      m_ColorSpace: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0
@@ -219,9 +237,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8de9f2ea49104ee44a415bb2f949386b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sensivity: 100
-  _xUpCap: 50
-  _xDownCap: -40
+  _sensivity: 150
+  _xUpCap: 65
+  _xDownCap: -80
   _currentX: 0
   _groundShoulderOffset: 1.5
   _flyShoulderOffset: -1.5
@@ -238,7 +256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d2fa63dacfddb14c97dd0545726bef3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _groundCheckDistance: 5
+  _groundCheckDistance: 10
   _jumpGroundCheckDistance: 1
   _groundLayer:
     serializedVersion: 2
@@ -260,6 +278,7 @@ MonoBehaviour:
   _trailList:
   - {fileID: 3970015580852426893}
   - {fileID: 206977073151992743}
+  _meshTransform: {fileID: 4237524952369133177}
   _worldYLimite: 500
   _groundMoveSpeed: 40
   _jumpForce: 15
@@ -268,18 +287,16 @@ MonoBehaviour:
   _groundPhysicMaterial: {fileID: 13400000, guid: 28758832965e7f541bb0f8ca56c4682d,
     type: 2}
   _upForce: 20
-  _liftForce: 2
+  _liftForce: 2.6
+  _yLiftMultiplier: 3
   _flyCenterOfMass: {x: 0, y: 0, z: 0}
-  _stallingThresold: 70
+  _stallingAngleThresold: 70
+  _stallingVelocityThresold: 5
   _noseFallingForce: 1
   _minAngleRatioMultiplier: -1
   _maxAngleRatioMultiplier: 10
   _flyPhysicMaterial: {fileID: 13400000, guid: 9cc2bab43b542bc44b4aa477128c2d1b, type: 2}
-  _fallingStartConservationThresold: 0
-  _fallingConservationRate: 0
-  _fallingConservationValue: 0
   _stallingMagnitudeThresold: 5
-  _velocityMagnitude: 10
   _xAngle: 0
 --- !u!54 &8865421231721314167
 Rigidbody:
@@ -328,9 +345,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 2
+  m_Height: 3
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.4, z: 0}
 --- !u!1 &8594129221859478848
 GameObject:
   m_ObjectHideFlags: 0
@@ -357,7 +374,7 @@ Transform:
   m_GameObject: {fileID: 8594129221859478848}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1.35, y: 1.31, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -384,7 +401,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 24151e6520e2a3c4eb8173d37278cc83, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -405,7 +422,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 100
+  m_Time: 0.15
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
@@ -415,21 +432,39 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0
+        inSlope: 0.15918362
+        outSlope: 0.15918362
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.9937881
+      - serializedVersion: 3
+        time: 0.36581627
+        value: 0.05170662
         inSlope: 0
         outSlope: 0
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: -0.09726626
+        outSlope: -0.09726626
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 1
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
-      key2: {r: 0, g: 0, b: 0, a: 0}
+      key1: {r: 1, g: 1, b: 1, a: 0}
+      key2: {r: 0, g: 0, b: 0, a: 1}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
@@ -443,16 +478,16 @@ TrailRenderer:
       ctime5: 0
       ctime6: 0
       ctime7: 0
-      atime0: 0
+      atime0: 32896
       atime1: 65535
-      atime2: 0
-      atime3: 0
+      atime2: 30455
+      atime3: 61937
       atime4: 0
       atime5: 0
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_ColorSpace: -1
+      m_ColorSpace: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0
@@ -477,13 +512,28 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 086365c0295b5394abae90d1afd4363b,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.6481968
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 086365c0295b5394abae90d1afd4363b,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.6481968
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 086365c0295b5394abae90d1afd4363b,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.6481968
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 086365c0295b5394abae90d1afd4363b,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 086365c0295b5394abae90d1afd4363b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.033
+      value: -1.042
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 086365c0295b5394abae90d1afd4363b,
         type: 3}
@@ -585,6 +635,8 @@ MonoBehaviour:
   _xVectorName: Xvector
   _yVectorName: Yvector
   _groundName: grounded
+  _runName: Run
+  _jumpName: Jump
 --- !u!4 &4237524952369133177 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 086365c0295b5394abae90d1afd4363b,
