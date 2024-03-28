@@ -18,7 +18,7 @@ public class GroundCheck : MonoBehaviour
     void Start()
     {
         _playerControler = GetComponent<PlayerControler>();
-        _animation = GetComponentInChildren<PlayerAnimation>();
+        _animation = transform.parent.GetComponentInChildren<PlayerAnimation>();
     }
 
     void FixedUpdate()

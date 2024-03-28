@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using DG.Tweening;
 using System.Collections.Generic;
-using Cinemachine;
 
 [Serializable]
 public enum PlayerState
@@ -77,7 +76,7 @@ public class PlayerControler : MonoBehaviour
         _groundCheck = GetComponent<GroundCheck>();
         _orientation = GameObject.FindGameObjectWithTag("Orientation").transform;
         _collider = GetComponent<Collider>();
-        _animation = GetComponentInChildren<PlayerAnimation>();
+        _animation = transform.parent.GetComponentInChildren<PlayerAnimation>();
     }
 
     void FixedUpdate()
