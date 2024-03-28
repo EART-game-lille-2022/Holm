@@ -155,8 +155,8 @@ public class PlayerControler : MonoBehaviour
                 Quaternion startOrientation = transform.rotation;
                 Quaternion targetOrientation = Quaternion.LookRotation(-Vector3.up, transform.forward);
 
-                Quaternion startMeshOrientation = _meshTransform.rotation;
-                Quaternion targetMeshOrientation = Quaternion.LookRotation(transform.up, -transform.forward);
+                // Quaternion startMeshOrientation = _meshTransform.rotation;
+                // Quaternion targetMeshOrientation = Quaternion.LookRotation(transform.up, -transform.forward);
 
                 _rigidbody.centerOfMass = _flyCenterOfMass;
                 _collider.material = _flyPhysicMaterial;
@@ -167,7 +167,7 @@ public class PlayerControler : MonoBehaviour
 
                 DOTween.To((time) =>
                 {
-                    _meshTransform.rotation = Quaternion.Slerp(startMeshOrientation, targetMeshOrientation, time);
+                    // _meshTransform.rotation = Quaternion.Slerp(startMeshOrientation, targetMeshOrientation, time);
                     transform.rotation = Quaternion.Slerp(startOrientation, targetOrientation, time);
                 }, 0, 1, .5f)
                 .OnComplete(() => _cameraControler.SetCameraParameter(_currentState));
