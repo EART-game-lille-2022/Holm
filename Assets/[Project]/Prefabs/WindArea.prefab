@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6934838580039675030}
-  - component: {fileID: 2867328169934642038}
+  - component: {fileID: 8316987692603410214}
   - component: {fileID: 6065773135641421384}
   - component: {fileID: 2298749768289489757}
   - component: {fileID: 2115094079549773534}
@@ -28,15 +28,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 55130523106466434}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.9997759, z: -0, w: -0.021168808}
-  m_LocalPosition: {x: -2.3, y: -1, z: -42.9}
-  m_LocalScale: {x: 24.857323, y: 71.72487, z: 9.986432}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 15, y: 15, z: 15}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 7972892689872040644}
+  m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: -182.426, z: 0}
---- !u!114 &2867328169934642038
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8316987692603410214
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -45,11 +44,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 55130523106466434}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c3675b43f3f6fb448a4abd7bca3aeef, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b0747241640a9f48a5cab7a58cbd8f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _direction: {fileID: 7972892689872040644}
-  _force: 50
+  force: {x: 0, y: 100, z: 0}
+  directivity: 0.1
 --- !u!65 &6065773135641421384
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -121,34 +120,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &5166231913260004829
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7972892689872040644}
-  m_Layer: 0
-  m_Name: Direction
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7972892689872040644
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5166231913260004829}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.32207045, y: 0.000000016763806, z: -0.01364487, w: 0.94661736}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6934838580039675030}
-  m_LocalEulerAnglesHint: {x: 37.572, y: -0.635, z: -1.868}

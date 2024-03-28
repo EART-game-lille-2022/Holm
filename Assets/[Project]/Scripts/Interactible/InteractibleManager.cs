@@ -1,17 +1,12 @@
-using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class InteractibleManager : MonoBehaviour
 {
     public static InteractibleManager instance;
-    public static List<Interactible> InteractibleList = new List<Interactible>();
-
-
     [Header("Parameter :")]
     [SerializeField] private float _minimumDistanceToInteract;
+    [SerializeField] private List<Interactible> _interactibleList = new List<Interactible>();
 
     private Interactible _selected;
     private Interactible _lastFramSelected;
@@ -21,8 +16,11 @@ public class InteractibleManager : MonoBehaviour
     void Awake()
     {
         instance = this;
-        if (InteractibleList.Count > 0)
-            InteractibleList.Clear();
+        if (_interactibleList.Count > 0)
+        {
+            print("Clean inter list");
+            _interactibleList.Clear();
+        }
     }
 
     void Start()
@@ -35,23 +33,24 @@ public class InteractibleManager : MonoBehaviour
         _canPlayerInteract = value;
     }
 
-    public static void AddInteractible(Interactible toAdd)
+    public void AddInteractible(Interactible toAdd)
     {
-        if (!InteractibleList.Contains(toAdd))
-            InteractibleList.Add(toAdd);
+        // print(toAdd.name);
+        if (!_interactibleList.Contains(toAdd))
+            _interactibleList.Add(toAdd);
     }
 
-    public static void RemoveInteractible(Interactible toRemove)
+    public void RemoveInteractible(Interactible toRemove)
     {
-        if (InteractibleList.Contains(toRemove))
-            InteractibleList.Remove(toRemove);
+        if (_interactibleList.Contains(toRemove))
+            _interactibleList.Remove(toRemove);
     }
 
     private Interactible GetNearestInteractible(Vector3 position)
     {
         float minDistance = Mathf.Infinity;
         Interactible toReturn = null;
-        foreach (var item in InteractibleList)
+        foreach (var item in _interactibleList)
         {
             float distance = Vector3.Distance(position, item.transform.position);
             if (distance < minDistance)
@@ -67,7 +66,7 @@ public class InteractibleManager : MonoBehaviour
 
     void Update()
     {
-        if (InteractibleList.Count <= 0)
+        if (_interactibleList.Count <= 0)
             return;
 
         _selected = GetNearestInteractible(_playerTransform.position);
@@ -83,10 +82,12 @@ public class InteractibleManager : MonoBehaviour
 
     private void OnInteract()
     {
+        if(GameManager.instance.IsGamePause)
+            return;
+
         if (_selected && _canPlayerInteract)
         {
             _selected.Interact();
-            _canPlayerInteract = false;
         }
     }
 
@@ -98,10 +99,13 @@ public class InteractibleManager : MonoBehaviour
 
     private void DebugInteractibleSelection(Interactible nearest)
     {
-        if (InteractibleList.Count <= 0)
+        if (_interactibleList.Count <= 0)
+        {
+            print("gjnklsdfbdsldddddnslkjdfngklsjndglkjsndfgklsjndfgklsjdnfgklsjdnfgklsjdnfgklsjnfgklsdjnfgikljn");
             return;
+        }
 
-        foreach (var item in InteractibleList)
+        foreach (var item in _interactibleList)
             Debug.DrawLine(_playerTransform.position, item.transform.position, Color.red);
 
         if (nearest)

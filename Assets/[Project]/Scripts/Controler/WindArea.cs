@@ -4,34 +4,36 @@ using UnityEngine;
 
 public class WindArea : MonoBehaviour
 {
-    [SerializeField] private float _force;
-    [SerializeField] private bool _isChaos;
-    [SerializeField] private List<Rigidbody> _rigidbodyList = new List<Rigidbody>();
+    // public Vector3 _force = Vector3.up * 100;
+    [SerializeField] private float _force = 50;
+    [SerializeField, Range(0, 1)] private float directivity = .1f;
+    private List<Rigidbody> bodies = new List<Rigidbody>();
 
-    void Update()
+
+    void FixedUpdate()
     {
-        if(_rigidbodyList.Count == 0)
-            return;
-        
-        foreach (var item in _rigidbodyList)
+        foreach (var item in bodies)
         {
-            item.AddForceAtPosition(transform.forward * _force
-                                  , item.transform.TransformPoint(Vector3.up)
-                                  , ForceMode.Force);
+            // b.AddForce(transform.rotation * force);
+            item.velocity = Vector3.Slerp(item.velocity, transform.up * _force, directivity);
         }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        Rigidbody rb = other.GetComponent<Rigidbody>();
-        if(rb && !_rigidbodyList.Contains(rb))
-            _rigidbodyList.Add(rb);
+        Rigidbody body = other.gameObject.GetComponentInParent<Rigidbody>();
+        if (body && !bodies.Contains(body))
+        {
+            bodies.Add(body);
+        }
     }
 
     void OnTriggerExit(Collider other)
     {
-        Rigidbody rb = other.GetComponent<Rigidbody>();
-        if(rb && _rigidbodyList.Contains(rb))
-            _rigidbodyList.Remove(rb);
+        Rigidbody body = other.gameObject.GetComponentInParent<Rigidbody>();
+        if (body && bodies.Contains(body))
+        {
+            bodies.Remove(body);
+        }
     }
 }

@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: b2f1a98efccfb644f8e084200a249527, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.45065767, g: 0.668982, b: 0.65595955, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -37454,7 +37454,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98e7d4f0875089b4daa7a39309d68851, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectID: Panties
 --- !u!65 &1160983482
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -44302,6 +44301,51 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &1313264811
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1313264813}
+  - component: {fileID: 1313264812}
+  m_Layer: 0
+  m_Name: PauseManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1313264812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1313264811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1920a7ce8ff1295469bc54595d3eeea7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pauseMenu: {fileID: 1451878690}
+--- !u!4 &1313264813
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1313264811}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 822.1565, y: 529.8103, z: -10.307197}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1336404113
 Mesh:
   m_ObjectHideFlags: 0
@@ -45831,7 +45875,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _optionCanvas: {fileID: 0}
-  _pauseMenu: {fileID: 1451878690}
 --- !u!43 &1387310279
 Mesh:
   m_ObjectHideFlags: 0
@@ -62400,6 +62443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f39c6f132687d24da5f85264b15dcf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _followPlayer: 0
   _target: {fileID: 4696880450011191481}
   _offSet: {x: 0, y: 1.5, z: 0}
 --- !u!4 &1874373074
@@ -66274,7 +66318,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c6a78ce6d69c1140a516cdbf7fe18ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  missionStart: {fileID: 11400000, guid: 0c38ad26a1699cd4a9b302e74e4c790e, type: 2}
 --- !u!4 &1969854042
 Transform:
   m_ObjectHideFlags: 0
@@ -68220,6 +68263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f39c6f132687d24da5f85264b15dcf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _followPlayer: 0
   _target: {fileID: 4696880450011191481}
   _offSet: {x: 0, y: 0, z: 0}
 --- !u!4 &2021383739
@@ -77695,3 +77739,4 @@ SceneRoots:
   - {fileID: 1969854042}
   - {fileID: 414705902}
   - {fileID: 1451878694}
+  - {fileID: 1313264813}

@@ -4,47 +4,50 @@ using TMPro;
 using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.InputSystem;
+using UnityEngine.PlayerLoop;
+using System;
 
 public class DialogueManager : MonoBehaviour
 {
-    //! Un dialogue peut etre appeler de deux facon :
-    //! Via un DialogueDescriptor
-    //! Via MissionStart
     public static DialogueManager instance;
+    [SerializeField] private Canvas _dialogueCanvas;
+    [Space]
     [SerializeField] private float _charDelay;
     [SerializeField] private TextMeshProUGUI _textBloc;
     [SerializeField] private Image _pnjImage;
     [SerializeField] private ScriptableDialogue _currentDialogue;
     [SerializeField] private int _stateIndex = 0;
     private bool _isCurrentStateFinish = true;
-    private DialogueDescriptor _descriptor;
+    private Action _onEndDialogue;
 
-    void Awake()
+    private void Awake()
     {
         instance = this;
     }
 
-    void Start()
+    private void Start()
     {
         QuitDialogue();
     }
 
-    public void PlayDialogue(ScriptableDialogue toPlay, DialogueDescriptor descriptor = null)
+    public void PlayDialogue(ScriptableDialogue toPlay, Action toDoAfter = null)
     {
         if(_currentDialogue == toPlay)
             return;
 
-        if(toPlay.hasBeenPlayed)
-            return;
+        // if(toPlay.hasBeenPlayed)
+        //     return;
+    
+        if(toDoAfter != null)
+            _onEndDialogue = toDoAfter;
 
         //* Get la ref du descriptor pour reset le conditionel des interactions
-        if(descriptor)
-            _descriptor = descriptor;
 
+
+        _dialogueCanvas.gameObject.SetActive(true);
         GameManager.instance.SetPlayerControleAbility(false);
         InteractibleManager.instance.SetInteractibleCapability(false);
 
-        gameObject.SetActive(true);
         _textBloc.text = " ";
         _pnjImage.sprite = null;
 
@@ -79,13 +82,13 @@ public class DialogueManager : MonoBehaviour
     }
 
     [ContextMenu("iuehrgiuhegrhuigreuihegr")]
-    public void NextDialogueState()
+    private void NextDialogueState()
     {
         SetDialogueState(_stateIndex);
         _stateIndex++;
     }
 
-    public void SetDialogueState(int index)
+    private void SetDialogueState(int index)
     {
         _isCurrentStateFinish = false;
         PnjMood pnjMood;
@@ -109,15 +112,19 @@ public class DialogueManager : MonoBehaviour
 
     public void QuitDialogue()
     {
-        gameObject.SetActive(false);
+        _dialogueCanvas.gameObject.SetActive(false);
         _textBloc.text = " ";
         _pnjImage.sprite = null;
 
-        _currentDialogue.hasBeenPlayed = true;
+        if(_onEndDialogue != null)
+            _onEndDialogue.Invoke();
+        _onEndDialogue = null;
+
+        // if(_currentDialogue)
+        //     _currentDialogue.hasBeenPlayed = true;
         _currentDialogue = null;
         _stateIndex = 0;
 
-        _descriptor?.OnDialogueEnd();
         GameManager.instance.SetPlayerControleAbility(true);
         InteractibleManager.instance.SetInteractibleCapability(true);
     }

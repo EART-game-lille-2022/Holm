@@ -50,6 +50,6 @@ public class DialogueState
 [CreateAssetMenu(fileName = "Dialogue")]
 public class ScriptableDialogue : ScriptableObject
 {
-    public bool hasBeenPlayed = false;
+    // public bool hasBeenPlayed = false;
     public List<DialogueState> stateList;
 }

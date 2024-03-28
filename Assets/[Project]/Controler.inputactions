@@ -33,15 +33,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Interact",
-                    "type": "Button",
-                    "id": "aec86994-4b14-48f8-8af5-75f0ea1370fc",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "ResetFly",
                     "type": "Button",
                     "id": "c616dea2-3445-4cbc-a16b-12d975d63011",
@@ -164,7 +155,176 @@
                 },
                 {
                     "name": "",
-                    "id": "e9153a92-82a7-47f9-9b78-5884175c28ee",
+                    "id": "dac2369f-9399-4a85-a8c4-d080e6ef1b3b",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ResetFly",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "QuestPanel_Map",
+            "id": "c8523ab9-3960-4ea1-96a1-1894e982f95d",
+            "actions": [
+                {
+                    "name": "Direction",
+                    "type": "Value",
+                    "id": "ce14273b-f7ae-441f-98fa-b9ad837e6489",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Selecte",
+                    "type": "Value",
+                    "id": "62aecf42-4c64-4432-aeb9-c6fe05ba98dc",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Back",
+                    "type": "Button",
+                    "id": "4e10667f-95b8-4dd0-88ee-679aa4cedf8f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "9dd329ca-6996-47de-a461-de08c602216b",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Direction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "190a2f96-4590-4b53-989e-7896b868cac7",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Direction",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "left",
+                    "id": "c872c58e-e774-4731-8a54-d298ba3c5fde",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Direction",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "5003f9f2-bfa7-4ed9-987f-a9b88397d960",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Direction",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "f5898c9d-eb1e-44bb-9920-ee015467fac1",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Selecte",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c13208ae-fb6e-4c19-8230-a26fabfa92fc",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Selecte",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "36abaca9-aac2-4ab0-ab11-6cd9fdf3e1bd",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Back",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4d9a3d18-91a3-44a5-80ea-8e035bb99320",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Back",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "GameManager",
+            "id": "1d85e46f-e76c-4c30-8722-a4ea67c384a4",
+            "actions": [
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "ed904743-352a-4637-aeba-0b9ab78c2391",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PauseGame",
+                    "type": "Button",
+                    "id": "b84f643d-d562-4bed-ab7f-73e051e5c46e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MenuDirection",
+                    "type": "Value",
+                    "id": "8476a455-1c7a-4429-856c-0fa40735c397",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "99eb7e05-be6e-4ff4-9e71-3829ee2378ea",
                     "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
@@ -175,7 +335,7 @@
                 },
                 {
                     "name": "",
-                    "id": "b939c38b-bda1-42d6-ad57-adb6dff043f3",
+                    "id": "44165886-0357-4ded-afd2-668e41ca0a1c",
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
@@ -186,12 +346,45 @@
                 },
                 {
                     "name": "",
-                    "id": "dac2369f-9399-4a85-a8c4-d080e6ef1b3b",
-                    "path": "<Gamepad>/buttonSouth",
+                    "id": "1dd754fb-953f-47d5-82af-314424eb5fb6",
+                    "path": "<Keyboard>/p",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ResetFly",
+                    "action": "PauseGame",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e0e06aed-b65c-41fd-b497-ca974d1b92e3",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PauseGame",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c1a49512-db74-476f-89a0-36d10f96c63e",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PauseGame",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5bedf64c-312d-4183-b309-6b06e3109ad4",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MenuDirection",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
