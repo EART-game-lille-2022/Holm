@@ -1,11 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
     [SerializeField] private float _globalVolume = .4f;
+
+    [Header("FX :")]
+    [SerializeField] private AudioSource _fxAudioSource;
+    [SerializeField] private AudioClip _pauseMenuSound;
+    public AudioClip PauseMenuSound => _pauseMenuSound;
+    [SerializeField] private AudioClip _finishQuestSound;
+    public AudioClip FinishQuestSound => _finishQuestSound;
 
     [Header("Wind Sound On Speed Parametre :")]
     [SerializeField] private float _windSpeedMin;
@@ -20,6 +28,7 @@ public class AudioManager : MonoBehaviour
     void Awake()
     {
         instance = this;
+        // DontDestroyOnLoad(gameObject);
     }
 
     void Start()
@@ -53,4 +62,8 @@ public class AudioManager : MonoBehaviour
         _windHeavySource.volume = _heavyWindVolumeCurve.Evaluate(volumeOnSpeed) * _globalVolume;
     }
 
+    public void PlaySFX(AudioClip clip)
+    {
+        _fxAudioSource.PlayOneShot(clip);
+    }
 }

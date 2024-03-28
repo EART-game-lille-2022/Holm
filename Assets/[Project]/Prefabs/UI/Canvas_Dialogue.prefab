@@ -294,7 +294,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6511945176354962523}
-  - component: {fileID: 3182293202106016301}
   - component: {fileID: 2903611033415407087}
   - component: {fileID: 3953287475223806207}
   - component: {fileID: 1342050330636966459}
@@ -304,7 +303,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6511945176354962523
 RectTransform:
   m_ObjectHideFlags: 0
@@ -326,23 +325,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &3182293202106016301
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8026357311273147875}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db6574e79260dbd428bacbe287a74a7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _charDelay: 0.03
-  _textBloc: {fileID: 3197035973420501946}
-  _pnjImage: {fileID: 7727153588906479739}
-  _currentDialogue: {fileID: 11400000, guid: 393310cccfad2524483a0ba9c027dc9a, type: 2}
-  _stateIndex: 0
 --- !u!223 &2903611033415407087
 Canvas:
   m_ObjectHideFlags: 0

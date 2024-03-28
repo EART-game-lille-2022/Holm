@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.InputSystem;
 using UnityEngine.PlayerLoop;
+using System;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private ScriptableDialogue _currentDialogue;
     [SerializeField] private int _stateIndex = 0;
     private bool _isCurrentStateFinish = true;
+    private Action _onEndDialogue;
 
     private void Awake()
     {
@@ -28,13 +30,16 @@ public class DialogueManager : MonoBehaviour
         QuitDialogue();
     }
 
-    public void PlayDialogue(ScriptableDialogue toPlay)
+    public void PlayDialogue(ScriptableDialogue toPlay, Action toDoAfter = null)
     {
         if(_currentDialogue == toPlay)
             return;
 
         // if(toPlay.hasBeenPlayed)
         //     return;
+    
+        if(toDoAfter != null)
+            _onEndDialogue = toDoAfter;
 
         //* Get la ref du descriptor pour reset le conditionel des interactions
 
@@ -110,6 +115,10 @@ public class DialogueManager : MonoBehaviour
         _dialogueCanvas.gameObject.SetActive(false);
         _textBloc.text = " ";
         _pnjImage.sprite = null;
+
+        if(_onEndDialogue != null)
+            _onEndDialogue.Invoke();
+        _onEndDialogue = null;
 
         // if(_currentDialogue)
         //     _currentDialogue.hasBeenPlayed = true;
