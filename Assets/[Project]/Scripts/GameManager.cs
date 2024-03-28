@@ -5,8 +5,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    [SerializeField] private Menu _pauseMenu;
-
     public bool CanPlayerMove => _canPlayerMove;
     public bool IsGamePause => _isGamePause;
 
@@ -43,5 +41,6 @@ public class GameManager : MonoBehaviour
         Time.timeScale = _isGamePause ? 0 : 1;
 
         CanvasManager.instance.SetPauseGame(_isGamePause);
+        MenuManager.instance.SetFirstSelectedObject(MenuManager.instance.FirstPauseButton);
     }
 }
