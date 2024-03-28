@@ -25,7 +25,7 @@ public class MenuManager : MonoBehaviour
 
         foreach (var item in _menuElementList)
             item.UnOver();
-        
+
         _currentIndex = 0;
         _menuElementList[0].Over();
     }
@@ -38,9 +38,9 @@ public class MenuManager : MonoBehaviour
 
     private void OverElement(int currentIndex, int lastIndex)
     {
-        print("Over : " +_menuElementList[_currentIndex]);
+        // print("Over : " +_menuElementList[_currentIndex]);
         _menuElementList[lastIndex].UnOver();
-        _menuElementList[_currentIndex].Over();
+        _menuElementList[currentIndex].Over();
     }
 
     private void OnInteract(InputValue inputValue)
@@ -69,11 +69,9 @@ public class MenuManager : MonoBehaviour
 
             //! % boucle au dessut de 0
             if(_currentMenu._isMenuVertical)
-                _currentIndex = _currentIndex + 
-                (int)Mathf.Sign(_currentMenu._isMenuVertical ? inputVector.y : inputVector.x) 
-                % _menuElementList.Count;
-            // else
-            //     _currentIndex = (_currentIndex + (int)Mathf.Sign(inputVector.x)) % _menuElementList.Count;
+                _currentIndex = (_currentIndex + (int)Mathf.Sign(inputVector.y)) % _menuElementList.Count;
+            else
+                _currentIndex = (_currentIndex + (int)Mathf.Sign(inputVector.x)) % _menuElementList.Count;
 
             //! boucle en dessout de 0
             if (_currentIndex < 0)
