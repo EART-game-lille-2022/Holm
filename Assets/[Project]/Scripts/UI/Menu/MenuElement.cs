@@ -4,7 +4,6 @@ using UnityEngine.Events;
 
 public class MenuElement : MonoBehaviour
 {
-    [SerializeField] private UnityEvent _onSelected;
     [SerializeField] private Color _unSelectedColor = Color.white;
     [SerializeField] private Color _selectedColor = Color.green;
     private Image _image;
@@ -17,7 +16,7 @@ public class MenuElement : MonoBehaviour
     public void Select()
     {
         print(name + " Selected !");
-        _onSelected.Invoke();
+        GetComponent<Button>().onClick.Invoke();
     }
 
     public void Over()
