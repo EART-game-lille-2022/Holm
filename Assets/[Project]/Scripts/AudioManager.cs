@@ -27,20 +27,23 @@ public class AudioManager : MonoBehaviour
 
     void Awake()
     {
-        if(instance) {
+        if (instance)
             Destroy(gameObject);
-        } else {
+        else
+        {
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
     }
-    public void SetVolume(float volume){
-        
+    public void SetVolume(float volume)
+    {
+
     }
 
     void Start()
     {
-        _playerRigidbody = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
+        if(PlayerInstance.instance)
+            _playerRigidbody = PlayerInstance.instance.GetComponent<Rigidbody>();
 
         _windLightSource.volume = 0;
         _windHeavySource.volume = 0;
@@ -48,7 +51,8 @@ public class AudioManager : MonoBehaviour
 
     void Update()
     {
-        SetWindSoundFxWithSpeed(_playerRigidbody.velocity.magnitude);
+        if(PlayerInstance.instance)
+            SetWindSoundFxWithSpeed(_playerRigidbody.velocity.magnitude);
     }
 
     public void SetWindSoundFxWithSpeed(float value)
