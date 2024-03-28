@@ -43,9 +43,5 @@ public class GameManager : MonoBehaviour
         Time.timeScale = _isGamePause ? 0 : 1;
 
         CanvasManager.instance.SetPauseGame(_isGamePause);
-        if(_isGamePause)
-            MenuManager.instance.SelectMenu(_pauseMenu);
-        else
-            MenuManager.instance.CloseMenu();
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 public class MenuManager : MonoBehaviour
 {
     public static MenuManager instance;
+    
     [SerializeField] private GameObject _firstSelectedButton;
     [Space]
     [SerializeField] private GameObject _firstSelectedPauseMenu;
@@ -16,7 +17,8 @@ public class MenuManager : MonoBehaviour
 
     void Start()
     {
-        EventSystem.current.SetSelectedGameObject(_firstSelectedButton);
+        if(_firstSelectedButton)
+            EventSystem.current.SetSelectedGameObject(_firstSelectedButton);
     }
 
     public void SetFirstSelectedObject(GameObject toSet)
