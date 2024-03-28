@@ -38,10 +38,11 @@ public class GameManager : MonoBehaviour
     private void OnPauseGame(InputValue inputValue)
     {
         _isGamePause = !_isGamePause;
-        _player.GetComponent<PlayerInput>().enabled = _isGamePause;
-        CanvasManager.instance.SetPauseGame(_isGamePause);
+
+        _player.GetComponent<PlayerInput>().enabled = !_isGamePause;
         Time.timeScale = _isGamePause ? 0 : 1;
 
+        CanvasManager.instance.SetPauseGame(_isGamePause);
         if(_isGamePause)
             MenuManager.instance.SelectMenu(_pauseMenu);
         else

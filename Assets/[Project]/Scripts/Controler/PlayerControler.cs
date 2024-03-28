@@ -22,6 +22,7 @@ public class PlayerControler : MonoBehaviour
     [Header("Reference :")]
     [SerializeField] private CameraControler _cameraControler;
     [SerializeField] private List<TrailRenderer> _trailList;
+    [SerializeField] private Transform _meshTransform;
 
     [Header("Global Parameter :")]
     [Space]
@@ -154,15 +155,19 @@ public class PlayerControler : MonoBehaviour
                 Quaternion startOrientation = transform.rotation;
                 Quaternion targetOrientation = Quaternion.LookRotation(-Vector3.up, transform.forward);
 
+                Quaternion startMeshOrientation = _meshTransform.rotation;
+                Quaternion targetMeshOrientation = Quaternion.LookRotation(transform.up, -transform.forward);
+
                 _rigidbody.centerOfMass = _flyCenterOfMass;
                 _collider.material = _flyPhysicMaterial;
-
+                                        // ajuster le controler pour integrer de l'IK et fix l'orientationd du mesh
                 if (_trailList.Count != 0)
                     foreach (var item in _trailList)
                         item.gameObject.SetActive(true);
 
                 DOTween.To((time) =>
                 {
+                    _meshTransform.rotation = Quaternion.Slerp(startMeshOrientation, targetMeshOrientation, time);
                     transform.rotation = Quaternion.Slerp(startOrientation, targetOrientation, time);
                 }, 0, 1, .5f)
                 .OnComplete(() => _cameraControler.SetCameraParameter(_currentState));

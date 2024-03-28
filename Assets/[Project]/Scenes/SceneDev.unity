@@ -26533,6 +26533,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52e2fed74e444fe4ca01259ef72868fc, type: 3}
+--- !u!4 &1020791635 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4237524952369133177, guid: cd32517c7629ca647ba5ccfca98efd76,
+    type: 3}
+  m_PrefabInstance: {fileID: 4696880450011191476}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1039711864
 Mesh:
   m_ObjectHideFlags: 0
@@ -65257,6 +65263,11 @@ PrefabInstance:
       propertyPath: _liftForce
       value: 2.6
       objectReference: {fileID: 0}
+    - target: {fileID: 8638740810310440649, guid: cd32517c7629ca647ba5ccfca98efd76,
+        type: 3}
+      propertyPath: _meshTransform
+      value: 
+      objectReference: {fileID: 1020791635}
     - target: {fileID: 8638740810310440649, guid: cd32517c7629ca647ba5ccfca98efd76,
         type: 3}
       propertyPath: _flyCenterOfMass.y
