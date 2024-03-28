@@ -52,7 +52,12 @@ public class AudioManager : MonoBehaviour
     void Update()
     {
         if(PlayerInstance.instance)
+        {
+            if(!_playerRigidbody)
+                PlayerInstance.instance.GetComponent<Rigidbody>();
+            
             SetWindSoundFxWithSpeed(_playerRigidbody.velocity.magnitude);
+        }
     }
 
     public void SetWindSoundFxWithSpeed(float value)
