@@ -18,6 +18,9 @@ public class PlayerControler : MonoBehaviour
     //TODO RETOUR CHRIS : TROP de perte de vitesse donc on peut pas remonter avec notre gain de vitesse apres une "chute"
     //TODO RETOUR CHRIS : super flight : plus t'es rapide plus controle son sensible
 
+    //TODO drag en fonction de l'angle
+    //TODO du coup mettre un velocity cap
+
     [Header("Reference :")]
     [SerializeField] private CameraControler _cameraControler;
     [SerializeField] private List<TrailRenderer> _trailList;
@@ -303,10 +306,14 @@ public class PlayerControler : MonoBehaviour
         }
     }
 
-    public void SetPlayerPosition(Vector3 value)
+    public Vector2 GetPlayerInput()
     {
-        _rigidbody.velocity = Vector3.zero;
-        transform.position = value + new Vector3(0, ((CapsuleCollider)_collider).height / 2, 0);
+        return _playerInput;
+    }
+
+    public PlayerState GetPlayerState()
+    {
+        return _currentState;
     }
 
     void OnDrawGizmos()
@@ -324,10 +331,10 @@ public class PlayerControler : MonoBehaviour
         // Gizmos.DrawSphere(_hat, .1f);
     }
 
-    // private void OnGUI()
-    // {
-    //     GUI.skin.label.fontSize = Screen.width / 40;
+    private void OnGUI()
+    {
+        GUI.skin.label.fontSize = Screen.width / 40;
 
-    //     GUILayout.Label("Velocity Mag: " + _rigidbody.velocity.magnitude);
-    // }
+        GUILayout.Label("Velocity Mag: " + _rigidbody.velocity.magnitude);
+    }
 }
