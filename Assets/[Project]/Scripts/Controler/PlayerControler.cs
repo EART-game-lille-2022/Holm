@@ -20,6 +20,7 @@ public class PlayerControler : MonoBehaviour
 
     //TODO drag en fonction de l'angle
     //TODO du coup mettre un velocity cap
+    //TODO ajouté la cappacité de ralentir avec B en vol
 
     [Header("Reference :")]
     [SerializeField] private CameraControler _cameraControler;
@@ -41,21 +42,16 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] private float _upForce = 30;
     [SerializeField] private float _liftForce = 3;
     [SerializeField] private float _yLiftMultiplier = 3;
-    [SerializeField] private Vector3 _flyCenterOfMass = Vector3.zero;
-    // [SerializeField] private float _stallingAngleThresold = 70;
+    [SerializeField] private float _velocityConcervationRate = 2;
+    [Space]
     [SerializeField] private float _stallingVelocityThresold = 5;
     [SerializeField] private float _noseFallingForce = 1;
+    [Space]
     [SerializeField] private float _minAngleRatioMultiplier = -1;
     [SerializeField] private float _maxAngleRatioMultiplier = 5;
     [SerializeField] private PhysicMaterial _flyPhysicMaterial;
 
-    [Header("WIP :")]
-
-
-    [Space]
-    [Space]
-    [Space]
-
+    private Vector3 _flyCenterOfMass = Vector3.zero;
     public float _stallingMagnitudeThresold;
     private Vector3 _playerInput;
     public float _xAngle;
@@ -71,7 +67,8 @@ public class PlayerControler : MonoBehaviour
     private Transform _orientation;
     private Collider _collider;
     private PlayerAnimation _animation;
-
+    private float _startDrag;
+    private float _angleRatioMultiplier = 0;
 
     void Start()
     {
@@ -80,17 +77,16 @@ public class PlayerControler : MonoBehaviour
         _orientation = GameObject.FindGameObjectWithTag("Orientation").transform;
         _collider = GetComponent<Collider>();
         _animation = transform.parent.GetComponentInChildren<PlayerAnimation>();
+
+        _startDrag = _rigidbody.drag;
     }
 
     void FixedUpdate()
     {
         if (!GameManager.instance.CanPlayerMove)
         {
-            // _rigidbody.useGravity = false;
             return;
         }
-        // _rigidbody.useGravity = true;
-
 
         if (transform.position.y < -_worldYLimite)
         {
@@ -140,7 +136,6 @@ public class PlayerControler : MonoBehaviour
             case PlayerState.Grounded:
                 _cameraControler.SetCameraParameter(_currentState);
 
-                // _rigidbody.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
                 _rigidbody.velocity = Vector3.zero;
                 _rigidbody.centerOfMass = _groundCenterOfMass;
                 _collider.material = _groundPhysicMaterial;
@@ -157,19 +152,15 @@ public class PlayerControler : MonoBehaviour
                 Quaternion startOrientation = transform.rotation;
                 Quaternion targetOrientation = Quaternion.LookRotation(-Vector3.up, transform.forward);
 
-                // Quaternion startMeshOrientation = _meshTransform.rotation;
-                // Quaternion targetMeshOrientation = Quaternion.LookRotation(transform.up, -transform.forward);
-
                 _rigidbody.centerOfMass = _flyCenterOfMass;
                 _collider.material = _flyPhysicMaterial;
-                                        // ajuster le controler pour integrer de l'IK et fix l'orientationd du mesh
+
                 if (_trailList.Count != 0)
                     foreach (var item in _trailList)
                         item.gameObject.SetActive(true);
 
                 DOTween.To((time) =>
                 {
-                    // _meshTransform.rotation = Quaternion.Slerp(startMeshOrientation, targetMeshOrientation, time);
                     transform.rotation = Quaternion.Slerp(startOrientation, targetOrientation, time);
                 }, 0, 1, .5f)
                 .OnComplete(() => _cameraControler.SetCameraParameter(_currentState));
@@ -181,7 +172,6 @@ public class PlayerControler : MonoBehaviour
     {
         Vector3 viewDirection = transform.position - new Vector3(Camera.main.transform.position.x, transform.position.y, Camera.main.transform.position.z);
         viewDirection = viewDirection.normalized;
-
         _orientation.forward = viewDirection;
     }
 
@@ -200,7 +190,6 @@ public class PlayerControler : MonoBehaviour
         _rigidbody.AddForce(moveDireciton, ForceMode.Acceleration);
         _rigidbody.AddForce(Vector3.down * _fallingForce, ForceMode.Acceleration);
 
-
         //! Slow down the player on ground
         if (_playerInput.magnitude == 0)
         {
@@ -215,46 +204,68 @@ public class PlayerControler : MonoBehaviour
 
     private void FlyControler()
     {
-        //TODO fonction de "reset" l'orientation du joueur en maintenant "B" par exemple
-
-        //TODO Ajouter de l'inercie velociter
         _xAngle = Vector3.Angle(transform.up, Vector3.down) - 90;
         _yAngle = Vector3.Angle(transform.right, Vector3.down) - 90;
-
         Vector3 velocityXZ = _rigidbody.velocity;
         velocityXZ.y = 0;
 
-        //! Rotate le player
-        if (!_isStalling)
-        {
-            //! Lift
-            _positionToAddForce = transform.TransformPoint(new Vector3(_playerInput.x, _playerInput.y * _yLiftMultiplier, 0));
-            _rigidbody.AddForceAtPosition(-transform.forward * _liftForce * -_playerInput.magnitude, _positionToAddForce
-                                        , ForceMode.Acceleration);
-        }
+        InputPushRotate();
+        PassiveYawPushRotate();
+        FallingNose();
+        Stalling();
+        MovePushUp();
+    }
 
+    private void MovePushUp()
+    {
+        //! Convertie l'angle en un multiplicateur en fonction de l'incilinaison
 
-        //! force sur le yaw en fonction du roll
-        float yawForce = Mathf.Lerp(0, 3, Mathf.InverseLerp(0, 90, Mathf.Abs(_yAngle)));
-        _rigidbody.AddForceAtPosition((_yAngle > 0 ? -_orientation.right : _orientation.right) * yawForce
-                                    , transform.TransformPoint(Vector3.up)
-                                    , ForceMode.Acceleration);
+        _velocityConcervationRate = (_xAngle > 0 && _rigidbody.velocity.magnitude > 20f) ? .5f : 1;
 
+        _angleRatioMultiplier = Mathf.Lerp(_angleRatioMultiplier,
+        Mathf.Lerp(_maxAngleRatioMultiplier, _minAngleRatioMultiplier, Mathf.InverseLerp(-90, 90, _xAngle))
+        , Time.fixedDeltaTime * _velocityConcervationRate);
 
+        // angleRatioMultiplier = Mathf.Lerp(_maxAngleRatioMultiplier, _minAngleRatioMultiplier, Mathf.InverseLerp(-90, 90, _xAngle));
+        _rigidbody.AddForce(transform.up * ((_upForce * _angleRatioMultiplier) + 0), ForceMode.Acceleration);
+    }
+
+    private void FallingNose()
+    {
         //!empeche le nez de remonter tout seul et le fait doucement chuté
         if (_xAngle > 0)
             _rigidbody.AddForceAtPosition(Vector3.down * _noseFallingForce, transform.TransformPoint(Vector3.up), ForceMode.Acceleration);
         if (_xAngle < 0)
             _rigidbody.AddForceAtPosition(Vector3.down * _noseFallingForce * .2f, transform.TransformPoint(Vector3.up), ForceMode.Acceleration);
+    }
 
+    private void PassiveYawPushRotate()
+    {
+        //! force sur le yaw en fonction du roll
+        float yawForce = Mathf.Lerp(0, 3, Mathf.InverseLerp(0, 90, Mathf.Abs(_yAngle)));
+        _rigidbody.AddForceAtPosition((_yAngle > 0 ? -_orientation.right : _orientation.right) * yawForce
+                                    , transform.TransformPoint(Vector3.up)
+                                    , ForceMode.Acceleration);
+    }
 
+    private void InputPushRotate()
+    {
+        if (_isStalling)
+            return;
+
+        //! Lift
+        _positionToAddForce = transform.TransformPoint(new Vector3(_playerInput.x, _playerInput.y * _yLiftMultiplier, 0));
+        _rigidbody.AddForceAtPosition(-transform.forward * _liftForce * -_playerInput.magnitude, _positionToAddForce
+                                    , ForceMode.Acceleration);
+    }
+
+    private void Stalling()
+    {
         //! Décrochage !
-        // if (_xAngle > _stallingAngleThresold || (_velocityMagnitude < _stallingMagnitudeThresold && _xAngle > 0))
         if (_rigidbody.velocity.magnitude < _stallingVelocityThresold)
         {
             _stallTimer += Time.deltaTime;
             _isStalling = _stallTimer > .2f ? true : false;
-            // _isStalling = true;
         }
         else
             _stallTimer = 0;
@@ -262,27 +273,11 @@ public class PlayerControler : MonoBehaviour
         if (_isStalling)
         {
             //TODO mettre en stalling seulement en fonction de la vitesse du joueur !
-            // print("Stall !!!");
             _rigidbody.AddForceAtPosition(Vector3.down * _noseFallingForce * 5, transform.TransformPoint(Vector3.up), ForceMode.Acceleration);
             if (_xAngle < -80)
                 _isStalling = false;
         }
-
-
-        //! Convertie l'angle en un multiplicateur en fonction de l'incilinaison
-        float angleRatioMultiplier =
-        Mathf.Lerp(_maxAngleRatioMultiplier, _minAngleRatioMultiplier, Mathf.InverseLerp(-90, 90, _xAngle));
-
-        _rigidbody.AddForce(transform.up * _upForce * angleRatioMultiplier, ForceMode.Acceleration);
-        if (_xAngle > 0)
-            _rigidbody.AddForce(transform.up, ForceMode.Acceleration);
-        // print(angleRatioMultiplier);
     }
-
-    // public float _fallingStartConservationThresold;
-    // public float _fallingConservationRate;
-    // public float _fallingConservationCurrentValue;
-    // public float _fallingConservationMax;
 
     private void OnMove(InputValue value)
     {
