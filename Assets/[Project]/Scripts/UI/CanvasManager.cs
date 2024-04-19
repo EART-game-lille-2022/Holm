@@ -45,6 +45,7 @@ public class CanvasManager : MonoBehaviour
         _pauseMenuStartPosition = _pauseMenuBackground.anchoredPosition;
         _endQuestPanelStartPosition = _endQuestPanel.anchoredPosition;
         SetPauseGame(false, false);
+        ClearQuestInformation();
     }
 
     public void PrintPopup(string toSay)
@@ -65,7 +66,7 @@ public class CanvasManager : MonoBehaviour
     {
         _questTitle.text = "";
         _questType.text = "";
-        _questDescription.text = "";
+        _questDescription.text = "Tu n'as pas de livraisons en cours. Va au bureau de poste pour en récupérer.";
     }
 
     public void EndQuestAnimation(ScriptableQuest data)

@@ -1,12 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
     [SerializeField] private float _globalVolume = .4f;
+    
+    [Header("Music :")]
+    [SerializeField] private AudioSource _musicSource;
+    [SerializeField] public AudioClip _menuMusic;
+    [SerializeField] public AudioClip _inGameMusic;
+
 
     [Header("FX :")]
     [SerializeField] private AudioSource _fxAudioSource;
@@ -35,6 +38,7 @@ public class AudioManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
     }
+
     public void SetVolume(float volume)
     {
 
@@ -42,7 +46,7 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
-        if(PlayerInstance.instance)
+        if (PlayerInstance.instance)
             _playerRigidbody = PlayerInstance.instance.GetComponent<Rigidbody>();
 
         _windLightSource.volume = 0;
@@ -51,13 +55,18 @@ public class AudioManager : MonoBehaviour
 
     void Update()
     {
-        if(PlayerInstance.instance)
+        if (PlayerInstance.instance)
         {
-            if(!_playerRigidbody)
+            if (!_playerRigidbody)
                 _playerRigidbody = PlayerInstance.instance.GetComponent<Rigidbody>();
-            
+
             SetWindSoundFxWithSpeed(_playerRigidbody.velocity.magnitude);
         }
+    }
+
+    public void SetMusic(AudioClip clipToSet)
+    {
+        _musicSource.clip = clipToSet;
     }
 
     public void SetWindSoundFxWithSpeed(float value)
