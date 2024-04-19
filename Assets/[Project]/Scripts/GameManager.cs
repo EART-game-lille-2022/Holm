@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    [SerializeField] private bool DEBUG_dontMenuOnStart = true;
+    [SerializeField] private MenuSetup _menuSetup;
 
     public bool CanPlayerMove => _canPlayerMove;
     public bool IsGamePause => _isGamePause;
@@ -25,12 +27,16 @@ public class GameManager : MonoBehaviour
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        if(DEBUG_dontMenuOnStart)
+            _menuSetup.SetMenu();
     }
 
     public void SetPlayerControleAbility(bool value)
     {
         _canPlayerMove = value;
         _player.GetComponent<PlayerInput>().enabled = value;
+        _player.GetComponent<GroundCheck>().enabled = value;
     }
 
     private void OnPauseGame(InputValue inputValue)
