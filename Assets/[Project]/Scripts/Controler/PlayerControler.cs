@@ -22,14 +22,12 @@ public class PlayerControler : MonoBehaviour
     //TODO du coup mettre un velocity cap
     //TODO ajouté la cappacité de ralentir avec B en vol
 
+    //TODO timer pour le stall
+
     [Header("Reference :")]
     [SerializeField] private CameraControler _cameraControler;
     [SerializeField] private List<TrailRenderer> _trailList;
     [SerializeField] private Transform _meshTransform;
-
-    [Header("Global Parameter :")]
-    [Space]
-    [SerializeField] private float _worldYLimite = 1000;
 
     [Header("Ground Parametre :")]
     [SerializeField] private float _groundMoveSpeed = 40;
@@ -84,15 +82,7 @@ public class PlayerControler : MonoBehaviour
     void FixedUpdate()
     {
         if (!GameManager.instance.CanPlayerMove)
-        {
             return;
-        }
-
-        if (transform.position.y < -_worldYLimite)
-        {
-            transform.position = new Vector3(transform.position.x, _worldYLimite, transform.position.z);
-            _rigidbody.velocity = Vector3.zero;
-        }
 
         RecenterPlayerUp();
         ComputeOrientation();

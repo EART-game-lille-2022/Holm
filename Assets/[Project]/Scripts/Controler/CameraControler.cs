@@ -30,6 +30,7 @@ public class CameraControler : MonoBehaviour
     private CinemachineVirtualCamera _virtualCam;
     private Transform _cameraTarget;
     private CameraEffect _cameraEffect;
+    private bool _playCameraEffect = true;
 
     private void Start()
     {
@@ -44,12 +45,12 @@ public class CameraControler : MonoBehaviour
 
     private void Update()
     {
-        if (!GameManager.instance.CanPlayerMove)
-            return;
-
         _velocityMag = _rigidbody.velocity.magnitude;
         _cameraEffect.SetCameraFovWithVelocity(_velocityMag);
         _cameraEffect.ShakeCameraWithVelocity(_velocityMag);
+
+        if (!GameManager.instance.CanPlayerMove)
+            return;
 
         if (_currentPlayerState == PlayerState.Flying)
         {
@@ -112,7 +113,10 @@ public class CameraControler : MonoBehaviour
         .OnComplete(() => _currentPlayerState = playerState);
     }
 
-
+    public void EnableCameraEffect(bool value)
+    {
+        _playCameraEffect = value;
+    }
 
     public void SetCameraTaret(Transform newTarget)
     {

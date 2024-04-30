@@ -16,7 +16,7 @@ public class MenuManager : MonoBehaviour
     }
 
     void Start()
-    {
+    { 
         if (_firstSelectedButton)
             EventSystem.current.SetSelectedGameObject(_firstSelectedButton);
     }
