@@ -5,7 +5,7 @@ using UnityEngine;
 public class WindArea : MonoBehaviour
 {
     // public Vector3 _force = Vector3.up * 100;
-    [SerializeField] private float _force = 50;
+    [SerializeField] public float _force = 50;
     [SerializeField, Range(0, 1)] private float directivity = .1f;
     private List<Rigidbody> bodies = new List<Rigidbody>();
 

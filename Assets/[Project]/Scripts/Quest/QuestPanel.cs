@@ -40,33 +40,6 @@ public class QuestPanel : MonoBehaviour
             print("No Quest Set");
     }
 
-    // public void SetPanelSetup(bool openQuestPanel)
-    // {
-    //     if (QuestManager.instance.HasCurrentQuest())
-    //         return;
-
-    //     GameManager.instance.SetPlayerControleAbility(!openQuestPanel);
-    //     _panelInput.enabled = openQuestPanel;
-
-    //     //! Hide Player meshs;
-    //     foreach (var item in _player.GetComponentsInChildren<SkinnedMeshRenderer>())
-    //         item.enabled = !openQuestPanel;
-
-    //     if (openQuestPanel)
-    //     {
-    //         _player.GetComponent<CameraControler>().SetCameraTaret(_cameraTarget);
-    //         _selectorIndex = 0;
-    //         OverSelector(_selectorIndex, _selectorIndex);
-    //     }
-
-    //     if (!openQuestPanel)
-    //     {
-    //         _player.GetComponent<CameraControler>().ResetCameraTarget();
-    //         foreach (var item in _questOutlineList)
-    //             item.HideOutline();
-    //     }
-    // }
-
     public void OpenPanel()
     {
         if (QuestManager.instance.HasCurrentQuest())

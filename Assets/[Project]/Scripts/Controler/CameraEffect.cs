@@ -16,6 +16,7 @@ public class CameraEffect : MonoBehaviour
 
     private CinemachineVirtualCamera _virtualCam;
     private CinemachineBasicMultiChannelPerlin _perlin;
+
     void Start()
     {
         _virtualCam = GameObject.FindGameObjectWithTag("CameraSetup").GetComponentInChildren<CinemachineVirtualCamera>();
