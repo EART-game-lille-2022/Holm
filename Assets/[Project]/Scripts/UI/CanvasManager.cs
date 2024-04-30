@@ -42,7 +42,10 @@ public class CanvasManager : MonoBehaviour
 
     void Start()
     {
+        if(GameManager.instance.DEBUG_MenuOnStart)
+            SetPauseMenu(false);
         _pauseMenuStartPosition = _pauseMenuBackground.anchoredPosition;
+
         _endQuestPanelStartPosition = _endQuestPanel.anchoredPosition;
         SetPauseGame(false, false);
         ClearQuestInformation();
@@ -136,5 +139,10 @@ public class CanvasManager : MonoBehaviour
         .SetEase(Ease.Linear)
         .SetSpeedBased(true)
         .SetUpdate(true);
+    }
+
+    public void SetPauseMenu(bool value)
+    {
+        _pauseMenuBackground.gameObject.SetActive(value);
     }
 }

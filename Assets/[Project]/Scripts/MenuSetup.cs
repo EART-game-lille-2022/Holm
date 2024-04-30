@@ -6,18 +6,21 @@ using UnityEngine.UI;
 
 public class MenuSetup : MonoBehaviour
 {
+    //TODO fondu en noire au start
+
     [SerializeField] private Canvas _mainMenuCanvas;
     [Space]
     [SerializeField] private Transform _cameraTarget;
     [SerializeField] private Transform _playerTarget;
     [Space]
     [SerializeField] private Button _menuFirstSelected;
-
     private Rigidbody _playerRB;
     private CameraControler _cameraControler;
+    public bool _isInMenu = true;
 
     void Start()
     {
+        _isInMenu = GameManager.instance.DEBUG_MenuOnStart;
         _mainMenuCanvas.gameObject.SetActive(false);
 
         _playerRB = PlayerInstance.instance.GetComponent<Rigidbody>();
@@ -53,12 +56,16 @@ public class MenuSetup : MonoBehaviour
         _mainMenuCanvas.gameObject.SetActive(false);
 
         AudioManager.instance.SetMusic(AudioManager.instance._inGameMusic);
-        GameManager.instance.SetPlayerControleAbility(true);
+        _cameraControler.LerpCameraToPlayer(_cameraTarget, () =>
+        {
+            GameManager.instance.SetPlayerControleAbility(true);
+            CanvasManager.instance.SetPauseMenu(true);
 
-        _cameraControler.ResetCameraTarget();
-        _cameraControler.EnableCameraEffect(true);
+            _cameraControler.EnableCameraEffect(true);
+            _playerRB.GetComponent<PlayerControler>().enabled = true;
+            _playerRB.GetComponent<GroundCheck>().enabled = true;
 
-        _playerRB.GetComponent<PlayerControler>().enabled = true;
-        _playerRB.GetComponent<GroundCheck>().enabled = true;
+            _isInMenu = false;
+        });
     }
 }
