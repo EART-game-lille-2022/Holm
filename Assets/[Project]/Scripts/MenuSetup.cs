@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class MenuSetup : MonoBehaviour
 {
+    //TODO fondu en noire au start
+
     [SerializeField] private Canvas _mainMenuCanvas;
     [Space]
     [SerializeField] private Transform _cameraTarget;
@@ -53,12 +55,13 @@ public class MenuSetup : MonoBehaviour
         _mainMenuCanvas.gameObject.SetActive(false);
 
         AudioManager.instance.SetMusic(AudioManager.instance._inGameMusic);
-        GameManager.instance.SetPlayerControleAbility(true);
-
-        _cameraControler.ResetCameraTarget();
-        _cameraControler.EnableCameraEffect(true);
-
-        _playerRB.GetComponent<PlayerControler>().enabled = true;
-        _playerRB.GetComponent<GroundCheck>().enabled = true;
+        _cameraControler.LerpCameraToPlayer(_cameraTarget, () =>
+        {
+            print("Player get control");
+            GameManager.instance.SetPlayerControleAbility(true);
+            _cameraControler.EnableCameraEffect(true);
+            _playerRB.GetComponent<PlayerControler>().enabled = true;
+            _playerRB.GetComponent<GroundCheck>().enabled = true;
+        });
     }
 }

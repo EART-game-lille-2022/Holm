@@ -1,10 +1,13 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
-    [SerializeField] private float _globalVolume = .4f;
-    
+    [SerializeField, Range(0, 1)] private float _globalVolume = .4f;
+    [SerializeField, Range(0, 1)] private float _musicVolume = .4f;
+    [SerializeField, Range(0, 1)] private float _fxVolume = .4f;
+
     [Header("Music :")]
     [SerializeField] private AudioSource _musicSource;
     [SerializeField] public AudioClip _menuMusic;
@@ -30,18 +33,26 @@ public class AudioManager : MonoBehaviour
 
     void Awake()
     {
-        if (instance)
-            Destroy(gameObject);
-        else
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
+        instance = this;
+        // if (instance)
+        //     Destroy(gameObject);
+        // else
+        // {
+        //     instance = this;
+        //     DontDestroyOnLoad(gameObject);
+        // }
+    }
+
+    void OnValidate()
+    {
+        _fxAudioSource.volume = _fxVolume * _globalVolume;
+        _musicSource.volume = _musicVolume * _globalVolume;
     }
 
     public void SetVolume(float volume)
     {
-
+        _fxAudioSource.volume = volume * _fxVolume * _globalVolume;
+        _musicSource.volume = volume * _musicVolume * _globalVolume;
     }
 
     void Start()
@@ -51,6 +62,7 @@ public class AudioManager : MonoBehaviour
 
         _windLightSource.volume = 0;
         _windHeavySource.volume = 0;
+        SetVolume(.5f);
     }
 
     void Update()
@@ -66,7 +78,14 @@ public class AudioManager : MonoBehaviour
 
     public void SetMusic(AudioClip clipToSet)
     {
-        _musicSource.clip = clipToSet;
+        float volumeBackup = _musicSource.volume;
+        DOTween.To((time) => _musicSource.volume = time, volumeBackup, 0, 1)
+        .OnComplete(() =>
+        {
+            _musicSource.clip = clipToSet;
+            _musicSource.Play();
+            _musicSource.volume = volumeBackup;
+        });
     }
 
     public void SetWindSoundFxWithSpeed(float value)
