@@ -14,11 +14,12 @@ public class GroundCheck : MonoBehaviour
     PlayerControler _playerControler;
     private bool _hasGrounded;
     private PlayerAnimation _animation;
+    public bool _hisGrounded;
 
     void Start()
     {
         _playerControler = GetComponent<PlayerControler>();
-        _animation = GetComponentInChildren<PlayerAnimation>();
+        _animation = transform.parent.GetComponentInChildren<PlayerAnimation>();
     }
 
     void FixedUpdate()
@@ -65,6 +66,11 @@ public class GroundCheck : MonoBehaviour
 
         // print(_checkHit.collider ? "Hit" : "No Hit");
         Debug.DrawRay(transform.position, Vector3.down * _groundCheckDistance, Color.red);
+
+        _hisGrounded = _checkHit.collider;
+        
+        _animation.SetJump(_checkHit.collider);
+
         return _checkHit.collider;
     }
 

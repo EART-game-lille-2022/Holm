@@ -14,7 +14,7 @@ public class Interactible : MonoBehaviour
 
     public void Interact()
     {
-        print("Interact with : " + name);
+        // print("Interact with : " + name);
         _onInteract.Invoke();
     }
 
