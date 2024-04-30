@@ -40,6 +40,8 @@ public class CameraControler : MonoBehaviour
         _cameraTarget = GameObject.FindGameObjectWithTag("CameraTarget").transform;
         _virtualCam = GameObject.FindGameObjectWithTag("CameraSetup").GetComponentInChildren<CinemachineVirtualCamera>();
         _cameraEffect = GameObject.FindGameObjectWithTag("CameraSetup").GetComponentInChildren<CameraEffect>();
+
+        ResetCameraTarget();
     }
 
     private void Update()
@@ -123,7 +125,7 @@ public class CameraControler : MonoBehaviour
         _virtualCam.LookAt = newTarget;
     }
 
-    public void LerpCameraToPlayer(Transform menuTrarget, Action toDoAfter)
+    public void LerpCameraToPlayer(Transform menuTrarget, Action toDoAfter = null)
     {
         _dynamicCameraTarget.position = menuTrarget.position;
         _dynamicCameraTarget.rotation = menuTrarget.rotation;
@@ -139,7 +141,8 @@ public class CameraControler : MonoBehaviour
         }, 0, 1, 5)
         .OnComplete(() =>
         {
-            ResetCameraTarget();
+            if(toDoAfter != null)
+                ResetCameraTarget();
             toDoAfter();
         });
     }

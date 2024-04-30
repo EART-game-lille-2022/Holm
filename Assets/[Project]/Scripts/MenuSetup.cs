@@ -57,7 +57,6 @@ public class MenuSetup : MonoBehaviour
         AudioManager.instance.SetMusic(AudioManager.instance._inGameMusic);
         _cameraControler.LerpCameraToPlayer(_cameraTarget, () =>
         {
-            print("Player get control");
             GameManager.instance.SetPlayerControleAbility(true);
             _cameraControler.EnableCameraEffect(true);
             _playerRB.GetComponent<PlayerControler>().enabled = true;
