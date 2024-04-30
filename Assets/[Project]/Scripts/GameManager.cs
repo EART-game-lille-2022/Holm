@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    [SerializeField] private bool DEBUG_dontMenuOnStart = true;
+    [SerializeField] private bool DEBUG_MenuOnStart = true;
     [SerializeField] private MenuSetup _menuSetup;
 
     public bool CanPlayerMove => _canPlayerMove;
@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
-        if(DEBUG_dontMenuOnStart)
+        if(DEBUG_MenuOnStart)
             _menuSetup.SetMenu();
     }
 
