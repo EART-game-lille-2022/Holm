@@ -2,6 +2,7 @@ using UnityEngine;
 using Cinemachine;
 using UnityEngine.InputSystem;
 using DG.Tweening;
+using System;
 
 public class CameraControler : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class CameraControler : MonoBehaviour
     [SerializeField] private float _xUpCap;
     [SerializeField] private float _xDownCap;
     [SerializeField] private float _currentX;
+    [SerializeField] private Transform _dynamicCameraTarget;
+    [SerializeField] private Transform _inGameCameraTarget;
 
 
     [Header("Ground Parametre :")]
@@ -22,11 +25,9 @@ public class CameraControler : MonoBehaviour
     private Vector3 _inputAxis;
     private Vector3 _inputTargetEulerAngles;
     private Vector3 _inputTargetOrientation;
-    private Transform _startTarget;
-    private Transform _startLookAt;
     private PlayerState _currentPlayerState = PlayerState.None;
     private float _velocityMag;
-    private Rigidbody _rigidbody;
+    private Rigidbody _playerRigidbody;
     private CinemachineVirtualCamera _virtualCam;
     private Transform _cameraTarget;
     private CameraEffect _cameraEffect;
@@ -34,18 +35,16 @@ public class CameraControler : MonoBehaviour
 
     private void Start()
     {
-        _rigidbody = GetComponent<Rigidbody>();
+        _playerRigidbody = GetComponent<Rigidbody>();
+
         _cameraTarget = GameObject.FindGameObjectWithTag("CameraTarget").transform;
         _virtualCam = GameObject.FindGameObjectWithTag("CameraSetup").GetComponentInChildren<CinemachineVirtualCamera>();
         _cameraEffect = GameObject.FindGameObjectWithTag("CameraSetup").GetComponentInChildren<CameraEffect>();
-        _startTarget = _cameraTarget;
-        _startLookAt = _virtualCam.LookAt;
     }
-
 
     private void Update()
     {
-        _velocityMag = _rigidbody.velocity.magnitude;
+        _velocityMag = _playerRigidbody.velocity.magnitude;
         _cameraEffect.SetCameraFovWithVelocity(_velocityMag);
         _cameraEffect.ShakeCameraWithVelocity(_velocityMag);
 
@@ -124,10 +123,33 @@ public class CameraControler : MonoBehaviour
         _virtualCam.LookAt = newTarget;
     }
 
+    public void LerpCameraToPlayer(Transform menuTrarget, Action toDoAfter)
+    {
+        _dynamicCameraTarget.position = menuTrarget.position;
+        _dynamicCameraTarget.rotation = menuTrarget.rotation;
+
+        _virtualCam.Follow = _dynamicCameraTarget;
+        _virtualCam.LookAt = _dynamicCameraTarget;
+
+        DOTween.To((time) =>
+        {
+            print("YAAAAAAAAAAAA");
+            _dynamicCameraTarget.position = Vector3.Lerp(menuTrarget.position, _inGameCameraTarget.position, time);
+            _dynamicCameraTarget.rotation = Quaternion.Lerp(menuTrarget.rotation, _inGameCameraTarget.rotation, time);
+        }, 0, 1, 5)
+        .OnComplete(() =>
+        {
+            ResetCameraTarget();
+            toDoAfter();
+        });
+    }
+
     public void ResetCameraTarget()
     {
-        _virtualCam.Follow = _startTarget;
-        _virtualCam.LookAt = _startLookAt;
+        _cameraTarget = _inGameCameraTarget;
+
+        _virtualCam.Follow = _cameraTarget;
+        _virtualCam.LookAt = _cameraTarget;
     }
 
     private void OnLook(InputValue value)

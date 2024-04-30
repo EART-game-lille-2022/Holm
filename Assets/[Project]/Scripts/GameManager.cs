@@ -25,8 +25,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        // Cursor.visible = false;
+        // Cursor.lockState = CursorLockMode.Locked;
 
         if(DEBUG_MenuOnStart)
             _menuSetup.SetMenu();
