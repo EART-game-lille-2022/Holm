@@ -14,12 +14,13 @@ public class MenuSetup : MonoBehaviour
     [SerializeField] private Transform _playerTarget;
     [Space]
     [SerializeField] private Button _menuFirstSelected;
-
     private Rigidbody _playerRB;
     private CameraControler _cameraControler;
+    public bool _isInMenu = true;
 
     void Start()
     {
+        _isInMenu = GameManager.instance.DEBUG_MenuOnStart;
         _mainMenuCanvas.gameObject.SetActive(false);
 
         _playerRB = PlayerInstance.instance.GetComponent<Rigidbody>();
@@ -58,9 +59,13 @@ public class MenuSetup : MonoBehaviour
         _cameraControler.LerpCameraToPlayer(_cameraTarget, () =>
         {
             GameManager.instance.SetPlayerControleAbility(true);
+            CanvasManager.instance.SetPauseMenu(true);
+
             _cameraControler.EnableCameraEffect(true);
             _playerRB.GetComponent<PlayerControler>().enabled = true;
             _playerRB.GetComponent<GroundCheck>().enabled = true;
+
+            _isInMenu = false;
         });
     }
 }

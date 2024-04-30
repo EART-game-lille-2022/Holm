@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    [SerializeField] private bool DEBUG_MenuOnStart = true;
+    [SerializeField] public bool DEBUG_MenuOnStart = true;
     [SerializeField] private MenuSetup _menuSetup;
 
     public bool CanPlayerMove => _canPlayerMove;
@@ -41,6 +41,9 @@ public class GameManager : MonoBehaviour
 
     private void OnPauseGame(InputValue inputValue)
     {
+        if(_menuSetup._isInMenu)
+            return;
+            
         _isGamePause = !_isGamePause;
 
         _player.GetComponent<PlayerInput>().enabled = !_isGamePause;
