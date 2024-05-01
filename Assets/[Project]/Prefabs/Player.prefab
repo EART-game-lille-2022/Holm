@@ -450,6 +450,7 @@ GameObject:
   - component: {fileID: 7443354334764024420}
   - component: {fileID: 972718206229623464}
   - component: {fileID: 814622514819536819}
+  - component: {fileID: 2627670266063608803}
   - component: {fileID: 470077216780793014}
   m_Layer: 0
   m_Name: Controler
@@ -521,6 +522,7 @@ MonoBehaviour:
   _xDownCap: -80
   _currentX: 0
   _dynamicCameraTarget: {fileID: 0}
+  _inGameCameraTarget: {fileID: 0}
   _groundShoulderOffset: 1.5
   _flyShoulderOffset: -1.5
   _cameraTrakingSpeed: 15
@@ -627,6 +629,20 @@ CapsuleCollider:
   m_Height: 3
   m_Direction: 1
   m_Center: {x: 0, y: 0.4, z: 0}
+--- !u!114 &2627670266063608803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4287142795877056434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c86bd12cc66f04887173fe8033962a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _min: {x: -1500, y: -1500, z: -1500}
+  _max: {x: 1500, y: 1500, z: 1500}
 --- !u!114 &470077216780793014
 MonoBehaviour:
   m_ObjectHideFlags: 0

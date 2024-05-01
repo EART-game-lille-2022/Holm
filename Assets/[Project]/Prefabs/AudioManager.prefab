@@ -175,16 +175,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1d91f4b357edac4d9324b0de415d3f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _globalVolume: 0.4
-  _musicVolume: 0.4
-  _fxVolume: 0.4
+  _globalVolume: 0.697
+  _musicVolume: 0.8
+  _fxVolume: 0.523
+  _windVolume: 0.12
   _musicSource: {fileID: 5742937234577708827}
   _menuMusic: {fileID: 8300000, guid: a5862a09e74007d4b94098fb0d4a5721, type: 3}
   _inGameMusic: {fileID: 8300000, guid: f9471fead7b6b7f4fbfbde789364ace0, type: 3}
   _fxAudioSource: {fileID: 7793169661476927953}
   _pauseMenuSound: {fileID: 8300000, guid: efb794b01d4a77543b8f3822a88a775f, type: 3}
   _finishQuestSound: {fileID: 8300000, guid: e54f3775ee6aa444ea8a7d67b2788535, type: 3}
-  _windSpeedMin: 15
+  _startGameSound: {fileID: 8300000, guid: 5cc30948f78ce8648b5ed234e1dba0a8, type: 3}
+  _windSpeedMin: 10
   _windSpeedMax: 60
   _windLightSource: {fileID: 4617089998920402808}
   _windHeavySource: {fileID: 5810649292898130617}
@@ -194,15 +196,15 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0.00032505393
       value: -0.005168259
-      inSlope: 0.021374622
-      outSlope: 0.021374622
+      inSlope: 0.06466509
+      outSlope: 0.06466509
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.36046767
+      outWeight: 0.34519133
     - serializedVersion: 3
-      time: 0.30896127
-      value: 1
+      time: 0.18211505
+      value: 1.0017211
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -298,7 +300,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.16000001
+  m_Volume: 0.364531
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -554,7 +556,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.16000001
+  m_Volume: 0.5576
   m_Pitch: 1
   Loop: 1
   Mute: 0

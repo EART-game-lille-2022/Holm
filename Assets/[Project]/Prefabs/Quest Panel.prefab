@@ -150,8 +150,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 9133104598061400647}
         m_TargetAssemblyTypeName: QuestPanel, Assembly-CSharp
-        m_MethodName: SetPanelSetup
-        m_Mode: 6
+        m_MethodName: OpenPanel
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
