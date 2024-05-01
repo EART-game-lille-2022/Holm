@@ -8,7 +8,10 @@ public class QuestManager : MonoBehaviour
     [SerializeField] private ScriptableQuest _currentQuest;
     [SerializeField] private List<Collectible> _collectibleList;
 
+    //! OnQuestStart est call dans OnQuestStartEvent(), il renvois la list des collectible lié a la quete en cours
     public UnityEvent<List<Collectible>> OnQuestStart;
+
+    //! OnQuestEnd est caLL dans FinishQuest()
     public UnityEvent OnQuestEnd;
 
 
