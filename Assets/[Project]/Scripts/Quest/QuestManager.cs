@@ -28,7 +28,6 @@ public class QuestManager : MonoBehaviour
         }
 
         OnQuestStart.Invoke(collectibleToSend);
-        oefeio = collectibleToSend;
     }
 
     public void AddCollectible(Collectible toAdd)
