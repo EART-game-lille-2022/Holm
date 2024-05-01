@@ -400,16 +400,6 @@ PrefabInstance:
       propertyPath: m_DefaultActionMap
       value: GameManager
       objectReference: {fileID: 0}
-    - target: {fileID: 1437571836585525076, guid: 0beeb10e59146574b9d26fed7292bbc0,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1437571836585525076, guid: 0beeb10e59146574b9d26fed7292bbc0,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2992277233984569521, guid: 0beeb10e59146574b9d26fed7292bbc0,
         type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
@@ -503,16 +493,6 @@ PrefabInstance:
     - target: {fileID: 3778622846415095438, guid: 0beeb10e59146574b9d26fed7292bbc0,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6046278747113208693, guid: 0beeb10e59146574b9d26fed7292bbc0,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6046278747113208693, guid: 0beeb10e59146574b9d26fed7292bbc0,
-        type: 3}
-      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6372993048968025442, guid: 0beeb10e59146574b9d26fed7292bbc0,

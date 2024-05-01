@@ -44,6 +44,7 @@ public class PlayerControler : MonoBehaviour
     [Space]
     [SerializeField] private float _stallingVelocityThresold = 5;
     [SerializeField] private float _noseFallingForce = 1;
+    [SerializeField] private float _flyTimeBeforeCanStall = 3;
     [Space]
     [SerializeField] private float _minAngleRatioMultiplier = -1;
     [SerializeField] private float _maxAngleRatioMultiplier = 5;
@@ -66,6 +67,7 @@ public class PlayerControler : MonoBehaviour
     private Collider _collider;
     private PlayerAnimation _animation;
     private float _angleRatioMultiplier = 0;
+    private float _flyingTime;
 
     void Start()
     {
@@ -248,6 +250,14 @@ public class PlayerControler : MonoBehaviour
 
     private void Stalling()
     {
+        if(_groundCheck._hisGrounded)
+            _flyingTime = 0;
+        else
+            _flyingTime += Time.fixedDeltaTime;
+        
+        if(_flyingTime < _flyTimeBeforeCanStall)
+            return;
+
         //! Décrochage !
         if (_rigidbody.velocity.magnitude < _stallingVelocityThresold)
         {

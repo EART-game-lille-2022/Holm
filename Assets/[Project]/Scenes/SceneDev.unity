@@ -63919,16 +63919,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: \\\\_CORE_GAME_////
       objectReference: {fileID: 0}
-    - target: {fileID: 438433205503672935, guid: 1d953390bbb40654f8af17b36ceebaf1,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 438433205503672935, guid: 1d953390bbb40654f8af17b36ceebaf1,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 976289053074828400, guid: 1d953390bbb40654f8af17b36ceebaf1,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -63969,36 +63959,16 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1287624330}
-    - target: {fileID: 4574944965048134211, guid: 1d953390bbb40654f8af17b36ceebaf1,
-        type: 3}
-      propertyPath: m_text
-      value: Restart Game
-      objectReference: {fileID: 0}
     - target: {fileID: 4970608273465595182, guid: 1d953390bbb40654f8af17b36ceebaf1,
         type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1287624330}
-    - target: {fileID: 5048065867106764358, guid: 1d953390bbb40654f8af17b36ceebaf1,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5048065867106764358, guid: 1d953390bbb40654f8af17b36ceebaf1,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5271606578584409310, guid: 1d953390bbb40654f8af17b36ceebaf1,
         type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 451645406}
-    - target: {fileID: 6367771841291907899, guid: 1d953390bbb40654f8af17b36ceebaf1,
-        type: 3}
-      propertyPath: DEBUG_MenuOnStart
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7029362161299898268, guid: 1d953390bbb40654f8af17b36ceebaf1,
         type: 3}
       propertyPath: m_AnchorMax.y
