@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ea06d6ca7f8b484b8a5ac86b6ba859b, type: 3}
+  m_Name: Dialogue_Tuto
+  m_EditorClassIdentifier: 
+  stateList:
+  - mood: 1
+    pnj: {fileID: 0}
+    text: "Salut salut ! Pr\xEAte pour ton premier jour ?"
+  - mood: 1
+    pnj: {fileID: 0}
+    text: "Depuis que les d\xE9placement entre \xEEle sont limit\xE9, nos service
+      postal ce sont varier."
+  - mood: 4
+    pnj: {fileID: 0}
+    text: "Mais rien de bien compliqu\xE9 rassure toi !"
+  - mood: 4
+    pnj: {fileID: 0}
+    text: "Mais rien de bien compliqu\xE9 rassure toi !"
+  - mood: 1
+    pnj: {fileID: 0}
+    text: "On va commencer simple, tu vas trouver un colis qui a \xE9t\xE9 perdu
+      sur cette \xEEle."
+  - mood: 1
+    pnj: {fileID: 0}
+    text: "La boussole de ton \xE9quipement t'indique ou chercher."
+  - mood: 1
+    pnj: {fileID: 0}
+    text: "Une fois le colis r\xE9cup\xE9rer, la boussole indiquera l\xE0 o\xF9 tu
+      doit l'amener.\nC'est s\xFBr l'\xEEle du phare !"
+  - mood: 1
+    pnj: {fileID: 0}
+    text: "Si tu a oublier comment t'envoler, utilise le panneau d'affichage \xE0
+      c\xF4t\xE9 de celui des qu\xEAtes.\_"
+  - mood: 1
+    pnj: {fileID: 0}
+    text: "Quand tu as fini, pas la peine de revenir vers moi, prend juste une nouvelle
+      qu\xEAte sur le tableau !"
+  - mood: 1
+    pnj: {fileID: 0}
+    text: "Les informations concernant la qu\xEAte en cours son dans ton journal
+      de bord !"
