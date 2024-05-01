@@ -14,20 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateList:
   - mood: 4
-    pnj: {fileID: 0}
+    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
     text: M-merci ! Je ne pensais pas recevoir de nouvelles lettres.
   - mood: 2
-    pnj: {fileID: 0}
+    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
     text: "Depuis le d\xE9but de l'occupation, pas mal de colis et de lettres se
       perdent en route"
   - mood: 2
-    pnj: {fileID: 0}
+    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
     text: "Vous...pensez que c'est possible que je vous donne directement une lettre
       pour la livr\xE9 personnellement ?"
   - mood: 1
-    pnj: {fileID: 0}
+    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
     text: "Histoire d'\xEAtre s\xFBr qu'elle arrivera \xE0 son destinataire."
+  - mood: 1
+    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
+    text: "Il habite sur l'autre archipel d'\xEEle citadine de l'autre c\xF4t\xE9
+      de l'\xEEle posti\xE8re !"
   - mood: 2
-    pnj: {fileID: 0}
-    text: "C'\xE9tait bien plus simple qu'on on pouvait encore voyager d'\xEEle en
+    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
+    text: "C'\xE9tait bien plus simple quand on pouvait encore voyager d'\xEEle en
       \xEEle dans la r\xE9gion"

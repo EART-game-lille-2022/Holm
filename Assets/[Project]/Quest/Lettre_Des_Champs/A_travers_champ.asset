@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: Colis perdu
   title: A travers champ
-  description: '"Retrouver une aiguille dans une botte de foin ou un colis dans un
-    champ...C''est tout aussi long ?"'
+  description: "\"Retrouver une aiguille dans une botte de foin ou un colis dans
+    un champ...C'est tout aussi long ? Il faut ramener ce colis \xE0 la poste\"\""
   QUEST_ID: CHAMP

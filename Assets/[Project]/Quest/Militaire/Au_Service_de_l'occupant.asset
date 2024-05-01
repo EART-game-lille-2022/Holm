@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb17b758538d060499835c1a7cd78a6f, type: 3}
   m_Name: Au_Service_de_l'occupant
   m_EditorClassIdentifier: 
-  type: Livraison de colis
+  type: Colis perdus
   title: Au service de l'occupant
-  description: "\"Je dois livrer une caisse de ravitaillement \xE0 un grad\xE9 de
-    l'arm\xE9e...M\xEAme si il prennent dans nos ressources au moins ils sont sympa
-    avec nous.\""
+  description: "\"Je dois retrouver des caisse de ravitaillement et les ramener \xE0
+    un grad\xE9 de l'arm\xE9e...M\xEAme si il prennent dans nos ressources au moins
+    ils sont sympa avec nous.\""
   QUEST_ID: RATIONS

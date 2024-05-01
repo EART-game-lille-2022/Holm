@@ -14,17 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateList:
   - mood: 3
-    pnj: {fileID: 0}
+    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
     text: Plusieurs personne se plaigne de la poste depuis l'occupation...
   - mood: 1
-    pnj: {fileID: 0}
+    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
     text: "Force est de constat\xE9 qu'ils n'y a jamais eu de probl\xE8me avec nous
       !"
   - mood: 5
-    pnj: {fileID: 0}
+    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
     text: Il faut croire qu'il n'y a pas de cas de conscience dans vos rangs.
   - mood: 5
-    pnj: {fileID: 0}
+    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
     text: Il faut croire qu'il n'y a pas de cas de conscience dans vos rangs.
   - mood: 5
     pnj: {fileID: 0}

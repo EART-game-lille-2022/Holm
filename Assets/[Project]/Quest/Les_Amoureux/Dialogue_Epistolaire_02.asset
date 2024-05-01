@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateList:
   - mood: 4
-    pnj: {fileID: 0}
+    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
     text: "D-D\xE9j\xE0 ?! La poste a fait vite cette fois ci !"
   - mood: 1
-    pnj: {fileID: 0}
+    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
     text: Excusez ma surprise, ce n'est pas moi qui vais vous apprendre que le traffic
       postal a du mal en ce moment.
   - mood: 1
-    pnj: {fileID: 0}
+    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
     text: "Merci beaucoup en tout cas ! C'est gr\xE2ce \xE0 vous qu'on peut encore
       nou\xE9 des liens \xE0 travers la r\xE9gion."
