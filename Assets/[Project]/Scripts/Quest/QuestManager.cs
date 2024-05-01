@@ -1,16 +1,34 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class QuestManager : MonoBehaviour
 {
     public static QuestManager instance;
     [SerializeField] private ScriptableQuest _currentQuest;
     [SerializeField] private List<Collectible> _collectibleList;
-    private CollectibleCompasse _compasse;
+
+    public UnityEvent<List<Collectible>> OnQuestStart;
+    public UnityEvent OnQuestEnd;
+
 
     void Awake()
     {
         instance = this;
+    }
+
+    private void OnQuestStartEvent(string questID)
+    {
+        List<Collectible> collectibleToSend = new List<Collectible>();
+
+        foreach (var item in _collectibleList)
+        {
+            if(item.QUEST_ID == questID)
+                collectibleToSend.Add(item);
+        }
+
+        OnQuestStart.Invoke(collectibleToSend);
+        oefeio = collectibleToSend;
     }
 
     public void AddCollectible(Collectible toAdd)
@@ -22,9 +40,9 @@ public class QuestManager : MonoBehaviour
     public void SelectQuest(ScriptableQuest quest)
     {
         _currentQuest = quest;
-
         CanvasManager.instance.SetQuestInformation(quest);
         TurnOnCollectible();
+        OnQuestStartEvent(quest.QUEST_ID);
     }
 
     private void TurnOnCollectible()
@@ -105,6 +123,8 @@ public class QuestManager : MonoBehaviour
         }
 
         CanvasManager.instance.ClearQuestInformation();
+
+        OnQuestEnd.Invoke();
     }
 
     public bool HasCurrentQuest()
