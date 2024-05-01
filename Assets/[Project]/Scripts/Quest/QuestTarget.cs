@@ -8,6 +8,7 @@ public struct QuestTargetData
 {
     public string ID;
     public ScriptableDialogue dialogue;
+    public ScriptableQuest questAfterDialogue;
 }
 
 public class QuestTarget : MonoBehaviour

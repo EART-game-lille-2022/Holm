@@ -23901,8 +23901,10 @@ MonoBehaviour:
   _dataList:
   - ID: LETTRE
     dialogue: {fileID: 11400000, guid: 616e508b5790e1640935effa319faa76, type: 2}
+    questAfterDialogue: {fileID: 0}
   - ID: DEBUG
     dialogue: {fileID: 11400000, guid: aca8fb66ed29b544795ab3e78df7dda0, type: 2}
+    questAfterDialogue: {fileID: 0}
 --- !u!114 &976050031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44944,6 +44946,7 @@ MonoBehaviour:
   _dataList:
   - ID: GATO
     dialogue: {fileID: 0}
+    questAfterDialogue: {fileID: 0}
 --- !u!114 &1741815467 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1060080759859187251, guid: 096a84812b361514eaef9313c2e17e3f,

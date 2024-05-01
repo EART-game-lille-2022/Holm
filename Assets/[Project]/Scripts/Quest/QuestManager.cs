@@ -87,8 +87,15 @@ public class QuestManager : MonoBehaviour
             print("Quest Dialogue : " + data.dialogue.name);
             DialogueManager.instance.PlayDialogue(data.dialogue, () =>
             {
-                CanvasManager.instance.EndQuestAnimation(_currentQuest);
-                _currentQuest = null;
+                if (data.questAfterDialogue)
+                {
+                    SelectQuest(data.questAfterDialogue);
+                }
+                else
+                {
+                    CanvasManager.instance.EndQuestAnimation(_currentQuest);
+                    _currentQuest = null;
+                }
             });
         }
         else
