@@ -1,5 +1,7 @@
+using System;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
 {
@@ -8,6 +10,10 @@ public class AudioManager : MonoBehaviour
     [SerializeField, Range(0, 1)] private float _musicVolume = .4f;
     [SerializeField, Range(0, 1)] private float _fxVolume = .4f;
     [SerializeField, Range(0, 1)] private float _windVolume = .4f;
+    // [Space]
+    // [SerializeField] private Slider _musicOptionSlider;
+    // [SerializeField] private Slider _fxOptionSlider;
+
 
     [Header("Music :")]
     [SerializeField] private AudioSource _musicSource;
@@ -52,10 +58,22 @@ public class AudioManager : MonoBehaviour
         _musicSource.volume = _musicVolume * _globalVolume;
     }
 
-    public void SetVolume(float volume)
+    public void SetVolume(float fxVolume, float musicVolume)
     {
-        _fxAudioSource.volume = volume * _fxVolume * _globalVolume;
-        _musicSource.volume = volume * _musicVolume * _globalVolume;
+        _fxAudioSource.volume = fxVolume * _fxVolume * _globalVolume;
+        _musicSource.volume = musicVolume * _musicVolume * _globalVolume;
+    }
+
+    public void SetFxVolume(Single value)
+    {
+        _fxVolume = value;
+        _fxAudioSource.volume = _fxVolume * _globalVolume;
+    }
+
+    public void SetMusicVolume(Single value)
+    {
+        _musicVolume = value;
+        _musicSource.volume = _musicVolume * _globalVolume;
     }
 
     void Start()
@@ -65,7 +83,7 @@ public class AudioManager : MonoBehaviour
 
         _windLightSource.volume = 0;
         _windHeavySource.volume = 0;
-        SetVolume(.5f);
+        SetVolume(.5f, .5f);
     }
 
     void Update()

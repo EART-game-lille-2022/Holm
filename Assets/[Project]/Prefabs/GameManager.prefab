@@ -712,6 +712,8 @@ MonoBehaviour:
   _canvasInGame: {fileID: 254700802481737956}
   _popup: {fileID: 1428544805736437581, guid: 29b4236121cc5274482529648ebdc334, type: 3}
   _pauseMenuBackground: {fileID: 4789507254992098299}
+  _pauseMenuButton: {fileID: 3994869413974445474}
+  _pauseMenuOptionPanel: {fileID: 5642201288402779742}
   _questTitle: {fileID: 5150979087591270464}
   _questType: {fileID: 4884388368452027189}
   _questDescription: {fileID: 1711333756131977545}
@@ -836,8 +838,28 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 129749064680216352, guid: 623352d4b8c8c224db019a6449bddf2d,
         type: 3}
-      propertyPath: m_Value
-      value: 0.4
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 129749064680216352, guid: 623352d4b8c8c224db019a6449bddf2d,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 129749064680216352, guid: 623352d4b8c8c224db019a6449bddf2d,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 929409246800771429}
+    - target: {fileID: 129749064680216352, guid: 623352d4b8c8c224db019a6449bddf2d,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 129749064680216352, guid: 623352d4b8c8c224db019a6449bddf2d,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 191886797728146139, guid: 623352d4b8c8c224db019a6449bddf2d,
         type: 3}
@@ -954,10 +976,35 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4195542999451259278, guid: 623352d4b8c8c224db019a6449bddf2d,
+    - target: {fileID: 4303477122436868293, guid: 623352d4b8c8c224db019a6449bddf2d,
         type: 3}
-      propertyPath: m_Value
-      value: 0.4
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4303477122436868293, guid: 623352d4b8c8c224db019a6449bddf2d,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8182417875294121513, guid: 623352d4b8c8c224db019a6449bddf2d,
+        type: 3}
+      propertyPath: m_Name
+      value: Volume Music
+      objectReference: {fileID: 0}
+    - target: {fileID: 8864638125486806172, guid: 623352d4b8c8c224db019a6449bddf2d,
+        type: 3}
+      propertyPath: m_Name
+      value: Volume Sound
+      objectReference: {fileID: 0}
+    - target: {fileID: 8908947034090417380, guid: 623352d4b8c8c224db019a6449bddf2d,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8908947034090417380, guid: 623352d4b8c8c224db019a6449bddf2d,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -988,6 +1035,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &3994869413974445474 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2250360332429204019, guid: 623352d4b8c8c224db019a6449bddf2d,
+    type: 3}
+  m_PrefabInstance: {fileID: 2903205874293512081}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &4789507254992098299 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7655553275510539370, guid: 623352d4b8c8c224db019a6449bddf2d,
@@ -1018,6 +1071,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &5642201288402779742 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7351953157488388559, guid: 623352d4b8c8c224db019a6449bddf2d,
+    type: 3}
+  m_PrefabInstance: {fileID: 2903205874293512081}
+  m_PrefabAsset: {fileID: 0}
 --- !u!223 &8098316041617748257 stripped
 Canvas:
   m_CorrespondingSourceObject: {fileID: 6352535993248032432, guid: 623352d4b8c8c224db019a6449bddf2d,

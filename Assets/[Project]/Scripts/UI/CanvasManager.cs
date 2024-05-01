@@ -17,6 +17,8 @@ public class CanvasManager : MonoBehaviour
 
     [Header("Pause Menu : ")]
     [SerializeField] RectTransform _pauseMenuBackground;
+    [SerializeField] GameObject _pauseMenuButton;
+    [SerializeField] GameObject _pauseMenuOptionPanel;
 
     [Header("Quest Info Pause Menu Reference : ")]
     [SerializeField] private TextMeshProUGUI _questTitle;
@@ -123,8 +125,8 @@ public class CanvasManager : MonoBehaviour
 
     public void SetPauseGame(bool value, bool playSound = true)
     {
-        // print("PAUSE : " + value);
-        // _canvasPauseMenu.gameObject.SetActive(value);
+        _pauseMenuButton.SetActive(true);
+        _pauseMenuOptionPanel.SetActive(false);
 
         if (playSound)
             AudioManager.instance.PlaySFX(AudioManager.instance.PauseMenuSound);
