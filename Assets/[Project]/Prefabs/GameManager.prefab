@@ -976,16 +976,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4303477122436868293, guid: 623352d4b8c8c224db019a6449bddf2d,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4303477122436868293, guid: 623352d4b8c8c224db019a6449bddf2d,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8182417875294121513, guid: 623352d4b8c8c224db019a6449bddf2d,
         type: 3}
       propertyPath: m_Name
@@ -995,16 +985,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Volume Sound
-      objectReference: {fileID: 0}
-    - target: {fileID: 8908947034090417380, guid: 623352d4b8c8c224db019a6449bddf2d,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8908947034090417380, guid: 623352d4b8c8c224db019a6449bddf2d,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

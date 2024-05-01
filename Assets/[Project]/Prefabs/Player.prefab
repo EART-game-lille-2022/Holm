@@ -574,6 +574,7 @@ MonoBehaviour:
   _velocityConcervationRate: 2
   _stallingVelocityThresold: 8
   _noseFallingForce: 1
+  _flyTimeBeforeCanStall: 2
   _minAngleRatioMultiplier: -1
   _maxAngleRatioMultiplier: 10
   _flyPhysicMaterial: {fileID: 13400000, guid: 9cc2bab43b542bc44b4aa477128c2d1b, type: 2}
