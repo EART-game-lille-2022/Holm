@@ -65,7 +65,6 @@ public class PlayerControler : MonoBehaviour
     private Transform _orientation;
     private Collider _collider;
     private PlayerAnimation _animation;
-    private float _startDrag;
     private float _angleRatioMultiplier = 0;
 
     void Start()
@@ -75,8 +74,6 @@ public class PlayerControler : MonoBehaviour
         _orientation = GameObject.FindGameObjectWithTag("Orientation").transform;
         _collider = GetComponent<Collider>();
         _animation = transform.parent.GetComponentInChildren<PlayerAnimation>();
-
-        _startDrag = _rigidbody.drag;
     }
 
     void FixedUpdate()

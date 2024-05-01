@@ -21,9 +21,9 @@ public class Buttons : MonoBehaviour
 
     public void OpenOptions()
     {
-        print("OpenOptions");
+        // print("OpenOptions");
         _optionCanvas.SetActive(true);
-        Debug.Log("Option!");
+        // Debug.Log("Option!");
     }
 
     public void CloseOptions()
