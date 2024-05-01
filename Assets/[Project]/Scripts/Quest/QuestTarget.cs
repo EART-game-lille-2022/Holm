@@ -26,8 +26,5 @@ public class QuestTarget : MonoBehaviour
         {
             QuestManager.instance.CheckAllQuestCollectible(item);
         }
-
-        //TODO avoir un objet qui contient a la fois lq QUEST_ID et un diaogue de fin de mission
-        //! le dit dialogue lancer pas le quest manager
     }
 }

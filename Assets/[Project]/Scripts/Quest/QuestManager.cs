@@ -48,11 +48,32 @@ public class QuestManager : MonoBehaviour
         if (!_currentQuest)
             return;
 
-        foreach (var item in _collectibleList)
-            if (item.QUEST_ID == data.ID)
-                if (item.hasBeenTaken == false)
-                    return;
+        {
+            int collectibleNumber = 0;
+            foreach (var item in _collectibleList)
+                if (item.QUEST_ID == data.ID)
+                    collectibleNumber++;
 
+            if (collectibleNumber == 0)
+            {
+                print("THE QUEST WITH ID : | " + data.ID + " | DOES NOT HAVE COLLECTIBLE IN SCENE !");
+                return;
+            }
+        }
+
+        foreach (var item in _collectibleList)
+        {
+            if (item.QUEST_ID == data.ID)
+            {
+                if (item.hasBeenTaken == false)
+                {
+                    print("Not all colecible taken return");
+                    return;
+                }
+            }
+        }
+
+        print("Call Finish Quest !");
         FinishQuest(data);
     }
 
@@ -63,6 +84,7 @@ public class QuestManager : MonoBehaviour
 
         if (data.dialogue)
         {
+            print("Quest Dialogue : " + data.dialogue.name);
             DialogueManager.instance.PlayDialogue(data.dialogue, () =>
             {
                 CanvasManager.instance.EndQuestAnimation(_currentQuest);

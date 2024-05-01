@@ -141,9 +141,9 @@ public class CameraControler : MonoBehaviour
         }, 0, 1, 5)
         .OnComplete(() =>
         {
-            if(toDoAfter != null)
-                ResetCameraTarget();
-            toDoAfter();
+            ResetCameraTarget();
+            if (toDoAfter != null)
+                toDoAfter();
         });
     }
 
