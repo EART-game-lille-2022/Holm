@@ -56,6 +56,8 @@ public class MenuSetup : MonoBehaviour
         _mainMenuCanvas.gameObject.SetActive(false);
 
         AudioManager.instance.SetMusic(AudioManager.instance._inGameMusic);
+        AudioManager.instance.PlaySFX(AudioManager.instance.StartGameSound);
+        
         _cameraControler.LerpCameraToPlayer(_cameraTarget, () =>
         {
             GameManager.instance.SetPlayerControleAbility(true);

@@ -7,6 +7,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField, Range(0, 1)] private float _globalVolume = .4f;
     [SerializeField, Range(0, 1)] private float _musicVolume = .4f;
     [SerializeField, Range(0, 1)] private float _fxVolume = .4f;
+    [SerializeField, Range(0, 1)] private float _windVolume = .4f;
 
     [Header("Music :")]
     [SerializeField] private AudioSource _musicSource;
@@ -20,6 +21,8 @@ public class AudioManager : MonoBehaviour
     public AudioClip PauseMenuSound => _pauseMenuSound;
     [SerializeField] private AudioClip _finishQuestSound;
     public AudioClip FinishQuestSound => _finishQuestSound;
+    [SerializeField] private AudioClip _startGameSound;
+    public AudioClip StartGameSound => _startGameSound;
 
     [Header("Wind Sound On Speed Parametre :")]
     [SerializeField] private float _windSpeedMin;
@@ -102,8 +105,8 @@ public class AudioManager : MonoBehaviour
 
         // _windLightSource.volume = Mathf.InverseLerp(1, 0, _lightWindVolumeCurve.Evaluate(volumeOnSpeed)) * _globalVolume;
         // _windLightSource.volume = Mathf.InverseLerp(1, 0, volumeOnSpeed) * _globalVolume;
-        _windLightSource.volume = _lightWindVolumeCurve.Evaluate(volumeOnSpeed) * _globalVolume;
-        _windHeavySource.volume = _heavyWindVolumeCurve.Evaluate(volumeOnSpeed) * _globalVolume;
+        _windLightSource.volume = _lightWindVolumeCurve.Evaluate(volumeOnSpeed) * _globalVolume * _windVolume;
+        _windHeavySource.volume = _heavyWindVolumeCurve.Evaluate(volumeOnSpeed) * _globalVolume * _windVolume;
     }
 
     public void PlaySFX(AudioClip clip)
