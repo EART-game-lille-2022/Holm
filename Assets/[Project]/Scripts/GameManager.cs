@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
 
     private void OnPauseGame(InputValue inputValue)
     {
-        if(_menuSetup._isInMenu)
+        if(_menuSetup & _menuSetup._isInMenu)
             return;
             
         _isGamePause = !_isGamePause;
