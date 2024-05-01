@@ -7,14 +7,14 @@ public class QuestManager : MonoBehaviour
     public static QuestManager instance;
     [SerializeField] private ScriptableQuest _currentQuest;
     [SerializeField] private List<Collectible> _collectibleList;
+    [SerializeField] private List<QuestTarget> _targetList;
 
     //! OnQuestStart est call dans OnQuestStartEvent() quand une quete commence
     //! il renvois la list des collectible lié a la quete en cours
-    public UnityEvent<List<Collectible>> OnQuestStart;
+    public UnityEvent<List<Collectible>, QuestTarget> OnQuestStart;
 
     //! OnQuestEnd est caLL dans FinishQuest() quand une quete est fini
     public UnityEvent OnQuestEnd;
-
 
     void Awake()
     {
@@ -24,20 +24,39 @@ public class QuestManager : MonoBehaviour
     private void OnQuestStartEvent(string questID)
     {
         List<Collectible> collectibleToSend = new List<Collectible>();
+        QuestTarget targetToSend = null;
 
         foreach (var item in _collectibleList)
         {
-            if(item.QUEST_ID == questID)
+            if (item.QUEST_ID == questID)
                 collectibleToSend.Add(item);
         }
 
-        OnQuestStart.Invoke(collectibleToSend);
+        foreach (var item in _targetList)
+        {
+            foreach (var questData in item.DataList)
+            {
+                if(questData.ID == questID)
+                {
+                    targetToSend = item;
+                    return;
+                }
+            }
+        }
+
+        OnQuestStart.Invoke(collectibleToSend, targetToSend);
     }
 
     public void AddCollectible(Collectible toAdd)
     {
         if (!_collectibleList.Contains(toAdd))
             _collectibleList.Add(toAdd);
+    }
+
+    public void AddTaret(QuestTarget toAdd)
+    {
+        if (!_targetList.Contains(toAdd))
+            _targetList.Add(toAdd);
     }
 
     public void SelectQuest(ScriptableQuest quest)

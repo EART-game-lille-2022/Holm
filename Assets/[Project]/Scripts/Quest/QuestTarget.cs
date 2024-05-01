@@ -15,9 +15,11 @@ public class QuestTarget : MonoBehaviour
 {
     //TODO dialogue si all collectible non get
     [SerializeField] private List<QuestTargetData> _dataList = new List<QuestTargetData>();
+    public List<QuestTargetData> DataList {get => _dataList;}
 
     void Start()
     {
+        QuestManager.instance.AddTaret(this);
         GetComponent<Interactible>()._onInteract.AddListener(Interact);
     }
 
