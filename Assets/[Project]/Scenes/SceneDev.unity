@@ -31646,12 +31646,17 @@ PrefabInstance:
     - target: {fileID: 5742937234577708827, guid: 663786afd821fec48b89d34b2eecd1ff,
         type: 3}
       propertyPath: m_Volume
-      value: 0.4
+      value: 0.5576
       objectReference: {fileID: 0}
     - target: {fileID: 5807463593120822628, guid: 663786afd821fec48b89d34b2eecd1ff,
         type: 3}
       propertyPath: _fxVolume
-      value: 0.15
+      value: 0.523
+      objectReference: {fileID: 0}
+    - target: {fileID: 5807463593120822628, guid: 663786afd821fec48b89d34b2eecd1ff,
+        type: 3}
+      propertyPath: _windVolume
+      value: 0.12
       objectReference: {fileID: 0}
     - target: {fileID: 5807463593120822628, guid: 663786afd821fec48b89d34b2eecd1ff,
         type: 3}
@@ -31661,13 +31666,18 @@ PrefabInstance:
     - target: {fileID: 5807463593120822628, guid: 663786afd821fec48b89d34b2eecd1ff,
         type: 3}
       propertyPath: _globalVolume
-      value: 0.5
+      value: 0.697
       objectReference: {fileID: 0}
     - target: {fileID: 5807463593120822628, guid: 663786afd821fec48b89d34b2eecd1ff,
         type: 3}
       propertyPath: _windSpeedMin
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 5807463593120822628, guid: 663786afd821fec48b89d34b2eecd1ff,
+        type: 3}
+      propertyPath: _startGameSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 5cc30948f78ce8648b5ed234e1dba0a8, type: 3}
     - target: {fileID: 5807463593120822628, guid: 663786afd821fec48b89d34b2eecd1ff,
         type: 3}
       propertyPath: _lightWindVolumeCurve.m_Curve.Array.data[1].time
@@ -31746,7 +31756,7 @@ PrefabInstance:
     - target: {fileID: 7793169661476927953, guid: 663786afd821fec48b89d34b2eecd1ff,
         type: 3}
       propertyPath: m_Volume
-      value: 0.075
+      value: 0.364531
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -64384,7 +64394,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4287142795877056434, guid: 905878ca2c40e4549a3b7dacf0c69c87,
+        type: 3}
+      insertIndex: 7
+      addedObject: {fileID: 6372281139051631689}
   m_SourcePrefab: {fileID: 100100000, guid: 905878ca2c40e4549a3b7dacf0c69c87, type: 3}
 --- !u!1 &6372281139051631688 stripped
 GameObject:
@@ -64392,6 +64406,20 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5501271456345927205}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6372281139051631689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6372281139051631688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c86bd12cc66f04887173fe8033962a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _min: {x: -1500, y: -1500, z: -1500}
+  _max: {x: 1500, y: 1500, z: 1500}
 --- !u!1001 &7754581022123017049
 PrefabInstance:
   m_ObjectHideFlags: 0
