@@ -58120,6 +58120,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7178669513629122557, guid: 1d953390bbb40654f8af17b36ceebaf1,
+        type: 3}
+      propertyPath: targetObject
+      value: 
+      objectReference: {fileID: 1461789688}
     - target: {fileID: 7348853354639397948, guid: 1d953390bbb40654f8af17b36ceebaf1,
         type: 3}
       propertyPath: m_Mesh
