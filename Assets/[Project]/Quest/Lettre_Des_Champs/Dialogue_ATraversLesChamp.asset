@@ -12,4 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ea06d6ca7f8b484b8a5ac86b6ba859b, type: 3}
   m_Name: Dialogue_ATraversLesChamp
   m_EditorClassIdentifier: 
-  stateList: []
+  stateList:
+  - mood: 1
+    pnj: {fileID: 0}
+    text: "C'est du bon travail ! On va pouvoir r\xE9attribuer le colis !"
+  - mood: 2
+    pnj: {fileID: 0}
+    text: Enfin...si on trouve quelqu'un pour le faire...
+  - mood: 1
+    pnj: {fileID: 0}
+    text: Tu veux faire des heures sup ?
+  - mood: 1
+    pnj: {fileID: 0}
+    text: "H\xE9h\xE9, pas le peine de faire cette t\xEAte, je plaisante."

@@ -12,4 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ea06d6ca7f8b484b8a5ac86b6ba859b, type: 3}
   m_Name: Dialogue_Epistolaire_02
   m_EditorClassIdentifier: 
-  stateList: []
+  stateList:
+  - mood: 4
+    pnj: {fileID: 0}
+    text: "D-D\xE9j\xE0 ?! La poste a fait vite cette fois ci !"
+  - mood: 1
+    pnj: {fileID: 0}
+    text: Excusez ma surprise, ce n'est pas moi qui vais vous apprendre que le traffic
+      postal a du mal en ce moment.
+  - mood: 1
+    pnj: {fileID: 0}
+    text: "Merci beaucoup en tout cas ! C'est gr\xE2ce \xE0 vous qu'on peut encore
+      nou\xE9 des liens \xE0 travers la r\xE9gion."
