@@ -2,38 +2,70 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PoinAT : MonoBehaviour
+public class PointAt : MonoBehaviour
 {
-    public List<Collectible> targetList; // L'objet que la flèche doit pointer
+    public List<Collectible> targetList; // La liste des cibles
     public float rotationSpeed = 5f; // Vitesse de rotation de la flèche
+
     void Start()
     {
-        QuestManager.instance.OnQuestStart.AddListener(getTarget);
-
+        QuestManager.instance.OnQuestStart.AddListener(GetTarget);
+        QuestManager.instance.OnQuestEnd.AddListener(ClearTargets);
     }
-    public void getTarget(List<Collectible> targetList, QuestTarget questTarget)
+
+    public void GetTarget(List<Collectible> targets, QuestTarget questTarget)
     {
-        this.targetList = targetList;
-        print("YOOOOOO");
+        targetList = targets;
+        print("Targets updated");
     }
 
-    // void Update()
-    // {
-    //     // Vérifie si l'objet cible est défini
-    //     if (targetList != null)
-    //     {
-    //         // Calcul de la direction vers l'objet cible
-    //         Vector3 directionToTarget = targetList.position - transform.position;
+    public void ClearTargets()
+    {
+        targetList.Clear();
+        print("Targets cleared");
+    }
 
-    //         // Calcul de la rotation nécessaire pour faire pointer la flèche vers l'objet cible
-    //         Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+    void Update()
+    {
+        if (targetList != null && targetList.Count > 0)
+        {
+            // Trouver la cible la plus proche
+            Collectible nearestTarget = FindNearestTarget();
 
-    //         // Rotation progressive de la flèche vers la rotation cible
-    //         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-    //     }
-    //     else
-    //     {
-    //         Debug.LogWarning("L'objet cible n'est pas défini !");
-    //     }
-    // }
+            if (nearestTarget != null)
+            {
+                // Calculer la direction vers la cible la plus proche
+                Vector3 directionToTarget = nearestTarget.transform.position - transform.position;
+
+                // Calculer la rotation nécessaire pour pointer la flèche vers la cible
+                Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+
+                // Rotation progressive de la flèche vers la rotation cible
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Aucune cible disponible !");
+        }
+    }
+
+    // Méthode pour trouver la cible la plus proche
+    private Collectible FindNearestTarget()
+    {
+        Collectible nearestTarget = null;
+        float shortestDistance = Mathf.Infinity;
+
+        foreach (Collectible target in targetList)
+        {
+            float distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
+            if (distanceToTarget < shortestDistance)
+            {
+                shortestDistance = distanceToTarget;
+                nearestTarget = target;
+            }
+        }
+
+        return nearestTarget;
+    }
 }

@@ -10191,6 +10191,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Interactible Food (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2369736501052295224, guid: 096a84812b361514eaef9313c2e17e3f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3507066068040838075, guid: 096a84812b361514eaef9313c2e17e3f,
         type: 3}
       propertyPath: m_text
@@ -16033,6 +16038,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Interactible Food (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2369736501052295224, guid: 096a84812b361514eaef9313c2e17e3f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3507066068040838075, guid: 096a84812b361514eaef9313c2e17e3f,
         type: 3}
       propertyPath: m_text
@@ -20003,6 +20013,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Interactible Lettre
+      objectReference: {fileID: 0}
+    - target: {fileID: 2369736501052295224, guid: 096a84812b361514eaef9313c2e17e3f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3507066068040838075, guid: 096a84812b361514eaef9313c2e17e3f,
         type: 3}
@@ -30824,6 +30839,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Interactible Food
+      objectReference: {fileID: 0}
+    - target: {fileID: 2369736501052295224, guid: 096a84812b361514eaef9313c2e17e3f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3507066068040838075, guid: 096a84812b361514eaef9313c2e17e3f,
         type: 3}
@@ -58088,7 +58108,7 @@ PrefabInstance:
     - target: {fileID: 6367771841291907899, guid: 1d953390bbb40654f8af17b36ceebaf1,
         type: 3}
       propertyPath: DEBUG_MenuOnStart
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7029362161299898268, guid: 1d953390bbb40654f8af17b36ceebaf1,
         type: 3}
@@ -58125,6 +58145,11 @@ PrefabInstance:
       propertyPath: targetObject
       value: 
       objectReference: {fileID: 1461789688}
+    - target: {fileID: 7178669513629122557, guid: 1d953390bbb40654f8af17b36ceebaf1,
+        type: 3}
+      propertyPath: rotationSpeed
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 7348853354639397948, guid: 1d953390bbb40654f8af17b36ceebaf1,
         type: 3}
       propertyPath: m_Mesh
@@ -83179,6 +83204,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Interactible Boite au lettre
       objectReference: {fileID: 0}
+    - target: {fileID: 2369736501052295224, guid: 096a84812b361514eaef9313c2e17e3f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3507066068040838075, guid: 096a84812b361514eaef9313c2e17e3f,
         type: 3}
       propertyPath: m_text
@@ -87721,11 +87751,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 872c922190980bd4bb5ee9da862297a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dataList:
-  - ID: LOVE1
-    dialogue: {fileID: 11400000, guid: 585cc804320f91549acdc6066fc3cb16, type: 2}
-    questAfterDialogue: {fileID: 11400000, guid: a04327fe9ebd27946ab43eecb69600f9,
-      type: 2}
+  _dataList: []
 --- !u!1001 &1735242450
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -97695,6 +97721,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Interactible Quest
+      objectReference: {fileID: 0}
+    - target: {fileID: 2369736501052295224, guid: 096a84812b361514eaef9313c2e17e3f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
