@@ -64216,9 +64216,21 @@ PrefabInstance:
       objectReference: {fileID: 451645406}
     - target: {fileID: 6367771841291907899, guid: 1d953390bbb40654f8af17b36ceebaf1,
         type: 3}
+      propertyPath: _dialogueOnStart
+      value: 
+      objectReference: {fileID: 11400000, guid: 7161d95297a37fb48b9cb479fbaea575,
+        type: 2}
+    - target: {fileID: 6367771841291907899, guid: 1d953390bbb40654f8af17b36ceebaf1,
+        type: 3}
       propertyPath: DEBUG_MenuOnStart
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6367771841291907899, guid: 1d953390bbb40654f8af17b36ceebaf1,
+        type: 3}
+      propertyPath: _questOnGameStart
+      value: 
+      objectReference: {fileID: 11400000, guid: 97c10dbcc6b5b21499200f0625980989,
+        type: 2}
     - target: {fileID: 7029362161299898268, guid: 1d953390bbb40654f8af17b36ceebaf1,
         type: 3}
       propertyPath: m_AnchorMax.y

@@ -7,6 +7,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] public bool DEBUG_MenuOnStart = true;
     [SerializeField] private MenuSetup _menuSetup;
 
+    [Header("On Game Start Element :")]
+    [SerializeField] private ScriptableQuest _questOnGameStart;
+    [SerializeField] private ScriptableDialogue _dialogueOnStart;
+
+    [Header("On Game Start End Element :")]
+    [SerializeField] private ScriptableDialogue _endGameDialogue;
+
     public bool CanPlayerMove => _canPlayerMove;
     public bool IsGamePause => _isGamePause;
 
@@ -28,25 +35,35 @@ public class GameManager : MonoBehaviour
         // Cursor.visible = false;
         // Cursor.lockState = CursorLockMode.Locked;
 
-        if(DEBUG_MenuOnStart)
+        if (DEBUG_MenuOnStart)
         {
             _menuSetup.SetMenu();
             FadeoutScreen.instance.CloudFade(false, 5);
         }
     }
 
+    public void StartGame()
+    {
+        DialogueManager.instance.PlayDialogue(_dialogueOnStart, () =>
+        {
+            QuestManager.instance.SelectQuest(_questOnGameStart);
+            SetPlayerControleAbility(true);
+        });
+    }
+
     public void SetPlayerControleAbility(bool value)
     {
         _canPlayerMove = value;
         _player.GetComponent<PlayerInput>().enabled = value;
+        _player.GetComponent<PlayerControler>().enabled = value;
         _player.GetComponent<GroundCheck>().enabled = value;
     }
 
     private void OnPauseGame(InputValue inputValue)
     {
-        if(_menuSetup._isInMenu)
+        if (_menuSetup._isInMenu)
             return;
-            
+
         _isGamePause = !_isGamePause;
 
         _player.GetComponent<PlayerInput>().enabled = !_isGamePause;
