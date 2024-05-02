@@ -29,7 +29,10 @@ public class GameManager : MonoBehaviour
         // Cursor.lockState = CursorLockMode.Locked;
 
         if(DEBUG_MenuOnStart)
+        {
             _menuSetup.SetMenu();
+            FadeoutScreen.instance.FadeScreen(1, 0, 10);
+        }
     }
 
     public void SetPlayerControleAbility(bool value)
