@@ -24,6 +24,7 @@ public class FadeoutScreen : MonoBehaviour
     {
         _cloudLeft.gameObject.SetActive(true);
         _cloudRight.gameObject.SetActive(true);
+        _cloudBot.gameObject.SetActive(true);
 
         Vector3 startPos = Vector3.zero;
         Vector3 endPos = Vector3.zero;

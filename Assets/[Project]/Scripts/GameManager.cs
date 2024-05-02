@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    [SerializeField] public bool DEBUG_MenuOnStart = true;
+    [SerializeField] public bool DEBUG_StartGameEvent = true;
     [SerializeField] private MenuSetup _menuSetup;
 
     [Header("On Game Start Element :")]
@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
         // Cursor.visible = false;
         // Cursor.lockState = CursorLockMode.Locked;
 
-        if (DEBUG_MenuOnStart)
+        if (DEBUG_StartGameEvent)
         {
             _menuSetup.SetMenu();
             FadeoutScreen.instance.CloudFade(false, 5);

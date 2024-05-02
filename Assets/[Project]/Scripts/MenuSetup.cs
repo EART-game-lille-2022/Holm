@@ -20,7 +20,7 @@ public class MenuSetup : MonoBehaviour
 
     void Start()
     {
-        _isInMenu = GameManager.instance.DEBUG_MenuOnStart;
+        _isInMenu = GameManager.instance.DEBUG_StartGameEvent;
         _mainMenuCanvas.gameObject.SetActive(false);
 
         _playerRB = PlayerInstance.instance.GetComponent<Rigidbody>();
