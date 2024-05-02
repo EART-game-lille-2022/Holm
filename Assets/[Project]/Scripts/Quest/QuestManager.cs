@@ -24,6 +24,7 @@ public class QuestManager : MonoBehaviour
 
     private void OnQuestStartEvent(string questID)
     {
+        // print("OnQuestStartEvent Setup");
         List<Collectible> collectibleToSend = new List<Collectible>();
         QuestTarget targetToSend = null;
 
@@ -40,11 +41,12 @@ public class QuestManager : MonoBehaviour
                 if(questData.ID == questID)
                 {
                     targetToSend = item;
-                    return;
+                    break;
                 }
             }
         }
 
+        // print("OnQuestStart Call !");
         OnQuestStart.Invoke(collectibleToSend, targetToSend);
     }
 
