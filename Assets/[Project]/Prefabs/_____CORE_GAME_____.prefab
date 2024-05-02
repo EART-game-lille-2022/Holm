@@ -611,6 +611,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Iles Main Menu
       objectReference: {fileID: 0}
+    - target: {fileID: 2680785892739563577, guid: 1b7889dd31538a64d8f8bfbeab9ffcfb,
+        type: 3}
+      propertyPath: m_VersionIndex
+      value: 3564
+      objectReference: {fileID: 0}
     - target: {fileID: 4566835790589625303, guid: 1b7889dd31538a64d8f8bfbeab9ffcfb,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode

@@ -44,7 +44,7 @@ public class CanvasManager : MonoBehaviour
 
     void Start()
     {
-        if(GameManager.instance.DEBUG_MenuOnStart)
+        if(GameManager.instance.DEBUG_StartGameEvent)
             SetPauseMenu(false);
         _pauseMenuStartPosition = _pauseMenuBackground.anchoredPosition;
 
