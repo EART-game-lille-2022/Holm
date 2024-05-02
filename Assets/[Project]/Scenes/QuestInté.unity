@@ -58070,11 +58070,56 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 2129434792}
+    - target: {fileID: 1618205876300982477, guid: 1d953390bbb40654f8af17b36ceebaf1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2378879185311584566, guid: 1d953390bbb40654f8af17b36ceebaf1,
         type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 2129434792}
+    - target: {fileID: 3073201923795044737, guid: 1d953390bbb40654f8af17b36ceebaf1,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3073201923795044737, guid: 1d953390bbb40654f8af17b36ceebaf1,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3073201923795044737, guid: 1d953390bbb40654f8af17b36ceebaf1,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4289754291827973617, guid: 1d953390bbb40654f8af17b36ceebaf1,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4289754291827973617, guid: 1d953390bbb40654f8af17b36ceebaf1,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4289754291827973617, guid: 1d953390bbb40654f8af17b36ceebaf1,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4335306848202736836, guid: 1d953390bbb40654f8af17b36ceebaf1,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4335306848202736836, guid: 1d953390bbb40654f8af17b36ceebaf1,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4574944965048134211, guid: 1d953390bbb40654f8af17b36ceebaf1,
         type: 3}
       propertyPath: m_text
@@ -58209,6 +58254,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8551020621218410100, guid: 1d953390bbb40654f8af17b36ceebaf1,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8551020621218410100, guid: 1d953390bbb40654f8af17b36ceebaf1,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8652700734276340058, guid: 1d953390bbb40654f8af17b36ceebaf1,
         type: 3}
