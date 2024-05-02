@@ -24,18 +24,18 @@ MonoBehaviour:
     pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
     text: Il faut croire qu'il n'y a pas de cas de conscience dans vos rangs.
   - mood: 5
-    pnj: {fileID: 0}
+    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
     text: "Il s'agit tout de m\xEAme de ravitaill\xE9 ceux qui font la guerre \xE0
       votre nation"
   - mood: 3
-    pnj: {fileID: 0}
+    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
     text: "N'oubliez jamais que d\xE9sormais cette r\xE9gion fait partie de l'empire
       de Rodania.\_"
   - mood: 5
-    pnj: {fileID: 0}
+    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
     text: "M\xEAme si la ligne de front est bien loin d'ici...si votre ancienne arm\xE9e
       venait \xE0 vouloir reprendre cette endroit..."
   - mood: 1
-    pnj: {fileID: 0}
+    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
     text: "...\xE7a ne se ferait pas sans perte civil. Votre coop\xE9ration assure
       votre protection, gardez \xE7a en t\xEAte."
