@@ -28,19 +28,19 @@ public class DialogueState
         switch (mood)
         {
             case PnjMood.Happy :
-                return pnj.happy;
+                return pnj.happy != null ? pnj.happy : null;
 
             case PnjMood.Sad :
-                return pnj.sad;
+                return pnj.sad != null ? pnj.sad : null;
 
             case PnjMood.Surprised :
-                return pnj.surprised;
+                return pnj.surprised != null ? pnj.surprised : null;
             
             case PnjMood.Angry :
-                return pnj.angry;
+                return pnj.angry != null ? pnj.angry : null;
 
             case PnjMood.Hmmm :
-                return pnj.hmmm;
+                return pnj.hmmm != null ? pnj.hmmm : null;
         }
         // Debug.LogWarning("PNJ mood not set !!!");
         return null;

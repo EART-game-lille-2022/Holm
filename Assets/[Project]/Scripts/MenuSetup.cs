@@ -20,12 +20,11 @@ public class MenuSetup : MonoBehaviour
 
     void Start()
     {
-        _isInMenu = GameManager.instance.DEBUG_MenuOnStart;
+        _isInMenu = GameManager.instance.DEBUG_StartGameEvent;
         _mainMenuCanvas.gameObject.SetActive(false);
 
         _playerRB = PlayerInstance.instance.GetComponent<Rigidbody>();
         _cameraControler = _playerRB.GetComponent<CameraControler>();
-
         _menuFirstSelected.onClick.AddListener(StartGame);
     }
 
@@ -42,8 +41,6 @@ public class MenuSetup : MonoBehaviour
         GameManager.instance.SetPlayerControleAbility(false);
 
         _playerRB.MovePosition(_playerTarget.position);
-        _playerRB.GetComponent<PlayerControler>().enabled = false;
-        _playerRB.GetComponent<GroundCheck>().enabled = false;
 
         _cameraControler.SetCameraTaret(_cameraTarget);
         _cameraControler.EnableCameraEffect(false);
@@ -53,21 +50,17 @@ public class MenuSetup : MonoBehaviour
 
     public void LeaveMenu()
     {
-        _mainMenuCanvas.gameObject.SetActive(false);
-
         AudioManager.instance.SetMusic(AudioManager.instance._inGameMusic);
         AudioManager.instance.PlaySFX(AudioManager.instance.StartGameSound);
-        
+        _mainMenuCanvas.gameObject.SetActive(false);
+
         _cameraControler.LerpCameraToPlayer(_cameraTarget, () =>
         {
-            GameManager.instance.SetPlayerControleAbility(true);
             CanvasManager.instance.SetPauseMenu(true);
-
             _cameraControler.EnableCameraEffect(true);
-            _playerRB.GetComponent<PlayerControler>().enabled = true;
-            _playerRB.GetComponent<GroundCheck>().enabled = true;
-
             _isInMenu = false;
+
+            GameManager.instance.StartGame();
         });
     }
 }

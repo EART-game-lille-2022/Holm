@@ -27,25 +27,25 @@ MonoBehaviour:
     pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
     text: "Mais rien de bien compliqu\xE9 rassure toi !"
   - mood: 1
-    pnj: {fileID: 0}
+    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
     text: "On va commencer simple, tu vas trouver un colis qui a \xE9t\xE9 perdu
       sur cette \xEEle."
   - mood: 1
-    pnj: {fileID: 0}
+    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
     text: "La boussole de ton \xE9quipement t'indique ou chercher."
   - mood: 1
-    pnj: {fileID: 0}
+    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
     text: "Une fois le colis r\xE9cup\xE9rer, la boussole indiquera l\xE0 o\xF9 tu
       doit l'amener.\nC'est s\xFBr l'\xEEle du phare !"
   - mood: 1
-    pnj: {fileID: 0}
+    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
     text: "Si tu a oublier comment t'envoler, utilise le panneau d'affichage \xE0
       c\xF4t\xE9 de celui des qu\xEAtes.\_"
   - mood: 1
-    pnj: {fileID: 0}
+    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
     text: "Quand tu as fini, pas la peine de revenir vers moi, prend juste une nouvelle
       qu\xEAte sur le tableau !"
   - mood: 1
-    pnj: {fileID: 0}
+    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
     text: "Les informations concernant la qu\xEAte en cours son dans ton journal
       de bord !"
