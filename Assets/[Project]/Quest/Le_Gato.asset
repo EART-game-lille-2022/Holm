@@ -16,3 +16,4 @@ MonoBehaviour:
   title: "F\xE9 le Gato"
   description: Maim maim j'ai faim
   QUEST_ID: GATO
+  isQuestDone: 0

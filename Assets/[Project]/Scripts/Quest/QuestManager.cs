@@ -8,6 +8,7 @@ public class QuestManager : MonoBehaviour
     [SerializeField] private ScriptableQuest _currentQuest;
     [SerializeField] private List<Collectible> _collectibleList;
     [SerializeField] private List<QuestTarget> _targetList;
+    [SerializeField] private string _popupMessageQuestAlreadyDone;
 
     //! OnQuestStart est call dans OnQuestStartEvent() quand une quete commence
     //! il renvois la list des collectible lié a la quete en cours
@@ -61,6 +62,12 @@ public class QuestManager : MonoBehaviour
 
     public void SelectQuest(ScriptableQuest quest)
     {
+        if(quest.isQuestDone)
+        {
+            CanvasManager.instance.PrintPopup(_popupMessageQuestAlreadyDone);
+            return;
+        }
+
         _currentQuest = quest;
         CanvasManager.instance.SetQuestInformation(quest);
         TurnOnCollectible();
@@ -121,6 +128,7 @@ public class QuestManager : MonoBehaviour
     {
         print("Quete Fini : " + _currentQuest.name);
 
+        _currentQuest.isQuestDone = true;
 
         if (data.dialogue)
         {

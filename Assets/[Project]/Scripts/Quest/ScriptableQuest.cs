@@ -10,4 +10,5 @@ public class ScriptableQuest : ScriptableObject
     public string description;
     [Space]
     public string QUEST_ID;
+    public bool isQuestDone = false;
 }
