@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
         if(DEBUG_MenuOnStart)
         {
             _menuSetup.SetMenu();
-            FadeoutScreen.instance.FadeScreen(1, 0, 10);
+            FadeoutScreen.instance.CloudFade(false, 5);
         }
     }
 
