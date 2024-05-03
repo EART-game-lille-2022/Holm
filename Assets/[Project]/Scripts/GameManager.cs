@@ -66,12 +66,22 @@ public class GameManager : MonoBehaviour
         });
     }
 
+    public void InstantReset()
+    {
+        FadeoutScreen.instance.CloudFade(true, 5f, () =>
+        {
+            QuestManager.instance.ResetAllQuest();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        });
+    }
+
     public void SetPlayerControleAbility(bool value)
     {
         _canPlayerMove = value;
         _player.GetComponent<PlayerInput>().enabled = value;
         _player.GetComponent<PlayerControler>().enabled = value;
         _player.GetComponent<GroundCheck>().enabled = value;
+        _player.GetComponent<Rigidbody>().isKinematic = !value;
     }
 
     private void OnPauseGame(InputValue inputValue)

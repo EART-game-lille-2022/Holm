@@ -44,7 +44,7 @@ public class QuestManager : MonoBehaviour
         {
             foreach (var questData in item.DataList)
             {
-                if(questData.ID == questID)
+                if (questData.ID == questID)
                 {
                     targetToSend = item;
                     break;
@@ -70,7 +70,7 @@ public class QuestManager : MonoBehaviour
 
     public void SelectQuest(ScriptableQuest quest)
     {
-        if(quest.isQuestDone)
+        if (quest.isQuestDone)
         {
             CanvasManager.instance.PrintPopup(_popupMessageQuestAlreadyDone);
             return;
@@ -137,6 +137,7 @@ public class QuestManager : MonoBehaviour
         print("Quete Fini : " + _currentQuest.name);
 
         _currentQuest.isQuestDone = true;
+        CanvasManager.instance.EndQuestAnimation(_currentQuest);
 
         if (data.dialogue)
         {
@@ -149,21 +150,19 @@ public class QuestManager : MonoBehaviour
                 }
                 else
                 {
-                    CanvasManager.instance.EndQuestAnimation(_currentQuest);
                     _currentQuest = null;
                 }
             });
         }
         else
         {
-            CanvasManager.instance.EndQuestAnimation(_currentQuest);
             _currentQuest = null;
         }
 
         CanvasManager.instance.ClearQuestInformation();
         OnQuestEnd.Invoke();
 
-        if(IsAllQuestDone())
+        if (IsAllQuestDone())
             StartCoroutine(GameManager.instance.EndGame());
     }
 
@@ -176,9 +175,9 @@ public class QuestManager : MonoBehaviour
     public bool IsAllQuestDone()
     {
         foreach (var item in _questList)
-            if(!item.isQuestDone)
+            if (!item.isQuestDone)
                 return false;
-    
+
         return true;
     }
 

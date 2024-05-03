@@ -135,7 +135,6 @@ public class CameraControler : MonoBehaviour
 
         DOTween.To((time) =>
         {
-            print("YAAAAAAAAAAAA");
             _dynamicCameraTarget.position = Vector3.Lerp(menuTrarget.position, _inGameCameraTarget.position, time);
             _dynamicCameraTarget.rotation = Quaternion.Lerp(menuTrarget.rotation, _inGameCameraTarget.rotation, time);
         }, 0, 1, 5)

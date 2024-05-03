@@ -8,7 +8,7 @@ public class GroundCheck : MonoBehaviour
     [SerializeField] private float _groundCheckDistance;
     [SerializeField] private float _jumpGroundCheckDistance;
     [SerializeField] private LayerMask _groundLayer;
-    [SerializeField] private float _timeToUnground;
+    [SerializeField] private float _timeToUnground; 
     private float _timer;
     RaycastHit _checkHit;
     PlayerControler _playerControler;
@@ -64,12 +64,12 @@ public class GroundCheck : MonoBehaviour
                         , _groundCheckDistance
                         , _groundLayer);
 
-        // print(_checkHit.collider ? "Hit" : "No Hit");
+        print(_checkHit.collider ? "Hit " + _checkHit.collider.name : "No Hit");
         Debug.DrawRay(transform.position, Vector3.down * _groundCheckDistance, Color.red);
 
         _hisGrounded = _checkHit.collider;
         
-        _animation.SetJump(_checkHit.collider);
+        _animation.SetJump(!_checkHit.collider);
 
         return _checkHit.collider;
     }

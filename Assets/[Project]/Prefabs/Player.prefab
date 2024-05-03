@@ -562,7 +562,7 @@ MonoBehaviour:
   - {fileID: 9117934673041188178}
   - {fileID: 7382596236033825845}
   _meshTransform: {fileID: 5298963008047108386}
-  _groundMoveSpeed: 40
+  _groundMoveSpeed: 3
   _jumpForce: 15
   _fallingForce: 30
   _groundCenterOfMass: {x: 0, y: -0.5, z: 0}
@@ -578,6 +578,7 @@ MonoBehaviour:
   _minAngleRatioMultiplier: -1
   _maxAngleRatioMultiplier: 10
   _flyPhysicMaterial: {fileID: 13400000, guid: 9cc2bab43b542bc44b4aa477128c2d1b, type: 2}
+  _currentState: 0
   _stallingMagnitudeThresold: 5
   _xAngle: 0
 --- !u!54 &972718206229623464

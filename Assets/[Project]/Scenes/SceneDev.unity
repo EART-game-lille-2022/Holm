@@ -63787,17 +63787,6 @@ PrefabInstance:
       objectReference: {fileID: 1287624330}
     - target: {fileID: 2235659876538438426, guid: 1d953390bbb40654f8af17b36ceebaf1,
         type: 3}
-      propertyPath: _questList.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2235659876538438426, guid: 1d953390bbb40654f8af17b36ceebaf1,
-        type: 3}
-      propertyPath: _questList.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: d1e5113d42fc4f14f83a553f33e8db91,
-        type: 2}
-    - target: {fileID: 2235659876538438426, guid: 1d953390bbb40654f8af17b36ceebaf1,
-        type: 3}
       propertyPath: _questList.Array.data[3]
       value: 
       objectReference: {fileID: 0}
@@ -63822,17 +63811,6 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1287624330}
-    - target: {fileID: 6367771841291907899, guid: 1d953390bbb40654f8af17b36ceebaf1,
-        type: 3}
-      propertyPath: _endGameDialogue
-      value: 
-      objectReference: {fileID: 11400000, guid: 27e8f3b8fadcf4740a32bb8a8cfea0ff,
-        type: 2}
-    - target: {fileID: 6367771841291907899, guid: 1d953390bbb40654f8af17b36ceebaf1,
-        type: 3}
-      propertyPath: DEBUG_StartGameEvent
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7029362161299898268, guid: 1d953390bbb40654f8af17b36ceebaf1,
         type: 3}
       propertyPath: m_AnchorMax.y

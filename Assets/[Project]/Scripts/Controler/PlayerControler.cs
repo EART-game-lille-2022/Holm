@@ -49,6 +49,7 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] private float _minAngleRatioMultiplier = -1;
     [SerializeField] private float _maxAngleRatioMultiplier = 5;
     [SerializeField] private PhysicMaterial _flyPhysicMaterial;
+    public PlayerState _currentState = PlayerState.None;
 
     private Vector3 _flyCenterOfMass = Vector3.zero;
     public float _stallingMagnitudeThresold;
@@ -61,7 +62,6 @@ public class PlayerControler : MonoBehaviour
     private GroundCheck _groundCheck;
     private Vector3 _groundOrientationDirection;
     private Vector3 _playerTopHeadPos;
-    private PlayerState _currentState = PlayerState.None;
     private Rigidbody _rigidbody;
     private Transform _orientation;
     private Collider _collider;
@@ -76,6 +76,8 @@ public class PlayerControler : MonoBehaviour
         _orientation = GameObject.FindGameObjectWithTag("Orientation").transform;
         _collider = GetComponent<Collider>();
         _animation = transform.parent.GetComponentInChildren<PlayerAnimation>();
+
+        // ChangeState(PlayerState.Grounded);
     }
 
     void FixedUpdate()
@@ -107,7 +109,7 @@ public class PlayerControler : MonoBehaviour
 
             _groundOrientationDirection = transform.position + Vector3.up - _playerTopHeadPos;
             // print(_groundOrientationDirection.magnitude);
-            _rigidbody.AddForceAtPosition(_groundOrientationDirection * 10, transform.position + Vector3.up, ForceMode.Acceleration);
+            _rigidbody.AddForceAtPosition(_groundOrientationDirection * 20, transform.position + Vector3.up, ForceMode.Acceleration);
         }
     }
 
@@ -176,19 +178,21 @@ public class PlayerControler : MonoBehaviour
             // _rigidbody.AddForce(transform.forward * _groundMoveSpeed, ForceMode.Acceleration);
         }
 
-        _rigidbody.AddForce(moveDireciton, ForceMode.Acceleration);
-        _rigidbody.AddForce(Vector3.down * _fallingForce, ForceMode.Acceleration);
+        transform.Translate(Vector3.forward * _groundMoveSpeed * moveDireciton.magnitude * Time.fixedDeltaTime);
 
-        //! Slow down the player on ground
-        if (_playerInput.magnitude == 0)
-        {
-            float velValue = Mathf.InverseLerp(0, 10, _rigidbody.velocity.magnitude);
-            // print(velValue);
+        // _rigidbody.AddForce(moveDireciton, ForceMode.Acceleration);
+        // _rigidbody.AddForce(Vector3.down * _fallingForce, ForceMode.Acceleration);
 
-            Vector3 velOutY = _rigidbody.velocity;
-            velOutY.y = 0;
-            _rigidbody.AddForce(-velOutY * 5, ForceMode.Acceleration);
-        }
+        // //! Slow down the player on ground
+        // if (_playerInput.magnitude == 0)
+        // {
+        //     float velValue = Mathf.InverseLerp(0, 10, _rigidbody.velocity.magnitude);
+        //     // print(velValue);
+
+        //     Vector3 velOutY = _rigidbody.velocity;
+        //     velOutY.y = 0;
+        //     _rigidbody.AddForce(-velOutY * 5, ForceMode.Acceleration);
+        // }
     }
 
     private void FlyControler()
