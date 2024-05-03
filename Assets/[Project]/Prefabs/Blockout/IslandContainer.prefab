@@ -176,7 +176,9 @@ PrefabInstance:
       value: CityIsland01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3399364614382171743, guid: 52e2fed74e444fe4ca01259ef72868fc, type: 3}
+    - {fileID: 7254520430674966803, guid: 52e2fed74e444fe4ca01259ef72868fc, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52e2fed74e444fe4ca01259ef72868fc, type: 3}
