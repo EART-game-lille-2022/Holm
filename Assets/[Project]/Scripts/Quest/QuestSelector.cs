@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class QuestSelector : MonoBehaviour
@@ -11,6 +12,9 @@ public class QuestSelector : MonoBehaviour
 
     void Start()
     {
+        if(!_quest)
+            return;
+            
         _text = GetComponentInChildren<TextMeshPro>();
         _text.text = _quest.title;
     }
