@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PointAt : MonoBehaviour
 {
     public List<Collectible> targetList; // La liste des cibles
+    public Transform pnjTransform;
     public GameObject arrowObject; // L'objet de la flèche
     public float rotationSpeed = 5f; // Vitesse de rotation de la flèche
 
@@ -17,6 +19,7 @@ public class PointAt : MonoBehaviour
     public void GetTarget(List<Collectible> targets, QuestTarget questTarget)
     {
         targetList = targets;
+        pnjTransform = questTarget.transform;
         print("Targets updated");
 
         // Activer la flèche si la liste de cibles n'est pas vide
@@ -37,44 +40,28 @@ public class PointAt : MonoBehaviour
 
     void Update()
     {
-        if (targetList != null && targetList.Count > 0)
+        if(targetList.Count == 0)
+            return;
+
+        // Trouver la cible la plus proche qui n'a pas été prise
+        Collectible nearestTarget = FindNearestTarget();
+        if (!nearestTarget)
         {
-            bool allInactive = true; // Variable pour vérifier si tous les collectibles sont inactifs
-
-            // Trouver la cible la plus proche qui n'a pas été prise
-            Collectible nearestTarget = FindNearestTarget();
-
-            if (nearestTarget != null)
-            {
-                // Vérifier si le collectible le plus proche est actif
-                if (nearestTarget.gameObject.activeSelf)
-                {
-                    allInactive = false; // Au moins un collectible est actif
-
-                    // Calculer la direction vers la cible la plus proche
-                    Vector3 directionToTarget = nearestTarget.transform.position - transform.position;
-
-                    // Calculer la rotation nécessaire pour pointer la flèche vers la cible
-                    Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
-
-                    // Rotation progressive de la flèche vers la rotation cible
-                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-                }
-            }
-
-            // Si tous les collectibles sont inactifs, désactiver la flèche
-            if (allInactive)
-            {
-                arrowObject.SetActive(false);
-                Debug.LogWarning("Tous les collectibles sont inactifs !");
-            }
+            Vector3 directionToPNJ = pnjTransform.position - transform.position;
+            // Calculer la rotation nécessaire pour pointer la flèche vers la cible
+            Quaternion targetRotationToPNJ = Quaternion.LookRotation(directionToPNJ);
+            // Rotation progressive de la flèche vers la rotation cible
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotationToPNJ, rotationSpeed * Time.deltaTime);
+            return;
         }
-        else
-        {
-            // Désactiver la flèche si la liste de cibles est vide
-            arrowObject.SetActive(false);
-            Debug.LogWarning("Aucune cible disponible !");
-        }
+
+
+        // Calculer la direction vers la cible la plus proche
+        Vector3 directionToTarget = nearestTarget.transform.position - transform.position;
+        // Calculer la rotation nécessaire pour pointer la flèche vers la cible
+        Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+        // Rotation progressive de la flèche vers la rotation cible
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 
     // Méthode pour trouver la cible la plus proche qui n'a pas été prise
@@ -97,6 +84,9 @@ public class PointAt : MonoBehaviour
             }
         }
 
-        return nearestTarget;
+        if(!nearestTarget)
+            return null;
+
+        return !nearestTarget.hasBeenTaken ? nearestTarget : null;
     }
 }
