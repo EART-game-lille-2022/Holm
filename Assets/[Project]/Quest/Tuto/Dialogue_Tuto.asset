@@ -23,9 +23,6 @@ MonoBehaviour:
   - mood: 4
     pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
     text: "Mais rien de bien compliqu\xE9 rassure toi !"
-  - mood: 4
-    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
-    text: "Mais rien de bien compliqu\xE9 rassure toi !"
   - mood: 1
     pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
     text: "On va commencer simple, tu vas trouver un colis qui a \xE9t\xE9 perdu
