@@ -59,7 +59,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -176,11 +176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _questList:
-  - {fileID: 11400000, guid: 6cb3c3be5a5b4cf4c930bee7a21af9e4, type: 2}
-  - {fileID: 11400000, guid: 21ca2e10e53294446a3402bf2b30d164, type: 2}
-  - {fileID: 11400000, guid: 97c10dbcc6b5b21499200f0625980989, type: 2}
-  - {fileID: 11400000, guid: f5ab440833768dc49915e7d4f565becc, type: 2}
-  - {fileID: 11400000, guid: a04327fe9ebd27946ab43eecb69600f9, type: 2}
+  - {fileID: 11400000, guid: d1e5113d42fc4f14f83a553f33e8db91, type: 2}
   _currentQuest: {fileID: 0}
   _collectibleList: []
   _targetList: []
@@ -414,7 +410,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -907,7 +903,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1150,7 +1146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
