@@ -90,10 +90,35 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5759331670270068157, guid: 827d75db38192884f8a55cdb753c8370,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4539556284672016114, guid: 827d75db38192884f8a55cdb753c8370,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 827d75db38192884f8a55cdb753c8370,
         type: 3}
       propertyPath: m_Name
       value: IleMaisons
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 827d75db38192884f8a55cdb753c8370,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4716488835119807752, guid: 827d75db38192884f8a55cdb753c8370,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7675753187832772681, guid: 827d75db38192884f8a55cdb753c8370,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

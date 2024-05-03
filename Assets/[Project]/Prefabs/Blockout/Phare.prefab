@@ -90,10 +90,35 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -1725483761128490459, guid: fdc6b88f245b1b0438b76104c1fb9537,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: fdc6b88f245b1b0438b76104c1fb9537,
         type: 3}
       propertyPath: m_Name
       value: Phare
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fdc6b88f245b1b0438b76104c1fb9537,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5146246856371412444, guid: fdc6b88f245b1b0438b76104c1fb9537,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8550214531984087369, guid: fdc6b88f245b1b0438b76104c1fb9537,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8700540754929024972, guid: fdc6b88f245b1b0438b76104c1fb9537,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
