@@ -64,7 +64,7 @@ public class GroundCheck : MonoBehaviour
                         , _groundCheckDistance
                         , _groundLayer);
 
-        print(_checkHit.collider ? "Hit " + _checkHit.collider.name : "No Hit");
+        // print(_checkHit.collider ? "Hit " + _checkHit.collider.name : "No Hit");
         Debug.DrawRay(transform.position, Vector3.down * _groundCheckDistance, Color.red);
 
         _hisGrounded = _checkHit.collider;
@@ -79,12 +79,13 @@ public class GroundCheck : MonoBehaviour
         // print(other.gameObject.layer);
         if (other.collider.gameObject.layer == 10)
         {
-            // print(other.collider.gameObject.layer);
+            print("Collide with : " + other.collider.name);
 
             RaycastHit hit;
             Physics.Raycast(transform.position, Vector3.down, out hit, _groundCheckDistance, _groundLayer);
-            if (hit.collider && hit.normal == Vector3.up)
+            if (hit.collider && hit.normal.y > /* Vector3.up */ .5f)
             {
+                print("Normal check pass with : " + other.collider.name); 
                 _hasGrounded = true;
                 _playerControler.ChangeState(PlayerState.Grounded);
             }

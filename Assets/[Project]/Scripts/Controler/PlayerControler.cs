@@ -76,8 +76,6 @@ public class PlayerControler : MonoBehaviour
         _orientation = GameObject.FindGameObjectWithTag("Orientation").transform;
         _collider = GetComponent<Collider>();
         _animation = transform.parent.GetComponentInChildren<PlayerAnimation>();
-
-        // ChangeState(PlayerState.Grounded);
     }
 
     void FixedUpdate()
