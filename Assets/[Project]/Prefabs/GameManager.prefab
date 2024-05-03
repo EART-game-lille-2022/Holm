@@ -162,7 +162,7 @@ MonoBehaviour:
   _menuSetup: {fileID: 0}
   _questOnGameStart: {fileID: 11400000, guid: 97c10dbcc6b5b21499200f0625980989, type: 2}
   _dialogueOnStart: {fileID: 11400000, guid: 7161d95297a37fb48b9cb479fbaea575, type: 2}
-  _endGameDialogue: {fileID: 0}
+  _endGameDialogue: {fileID: 11400000, guid: 27e8f3b8fadcf4740a32bb8a8cfea0ff, type: 2}
 --- !u!114 &5403116691465939464
 MonoBehaviour:
   m_ObjectHideFlags: 0
