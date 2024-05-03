@@ -5,6 +5,7 @@ using UnityEngine;
 public class PointAt : MonoBehaviour
 {
     public List<Collectible> targetList; // La liste des cibles
+    public GameObject arrowObject; // L'objet de la flèche
     public float rotationSpeed = 5f; // Vitesse de rotation de la flèche
 
     void Start()
@@ -17,40 +18,66 @@ public class PointAt : MonoBehaviour
     {
         targetList = targets;
         print("Targets updated");
+
+        // Activer la flèche si la liste de cibles n'est pas vide
+        if (targetList.Count > 0)
+        {
+            arrowObject.SetActive(true);
+        }
     }
 
     public void ClearTargets()
     {
         targetList.Clear();
         print("Targets cleared");
+
+        // Désactiver la flèche lorsque la liste est vidée
+        arrowObject.SetActive(false);
     }
 
     void Update()
     {
         if (targetList != null && targetList.Count > 0)
         {
-            // Trouver la cible la plus proche
+            bool allInactive = true; // Variable pour vérifier si tous les collectibles sont inactifs
+
+            // Trouver la cible la plus proche qui n'a pas été prise
             Collectible nearestTarget = FindNearestTarget();
 
             if (nearestTarget != null)
             {
-                // Calculer la direction vers la cible la plus proche
-                Vector3 directionToTarget = nearestTarget.transform.position - transform.position;
+                // Vérifier si le collectible le plus proche est actif
+                if (nearestTarget.gameObject.activeSelf)
+                {
+                    allInactive = false; // Au moins un collectible est actif
 
-                // Calculer la rotation nécessaire pour pointer la flèche vers la cible
-                Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+                    // Calculer la direction vers la cible la plus proche
+                    Vector3 directionToTarget = nearestTarget.transform.position - transform.position;
 
-                // Rotation progressive de la flèche vers la rotation cible
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+                    // Calculer la rotation nécessaire pour pointer la flèche vers la cible
+                    Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+
+                    // Rotation progressive de la flèche vers la rotation cible
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+                }
+            }
+
+            // Si tous les collectibles sont inactifs, désactiver la flèche
+            if (allInactive)
+            {
+                arrowObject.SetActive(false);
+                Debug.LogWarning("Tous les collectibles sont inactifs !");
             }
         }
         else
         {
+            // Désactiver la flèche si la liste de cibles est vide
+            arrowObject.SetActive(false);
             Debug.LogWarning("Aucune cible disponible !");
         }
     }
 
-    // Méthode pour trouver la cible la plus proche
+    // Méthode pour trouver la cible la plus proche qui n'a pas été prise
     private Collectible FindNearestTarget()
     {
         Collectible nearestTarget = null;
@@ -58,11 +85,15 @@ public class PointAt : MonoBehaviour
 
         foreach (Collectible target in targetList)
         {
-            float distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
-            if (distanceToTarget < shortestDistance)
+            // Vérifier si le collectible a été pris
+            if (!target.hasBeenTaken)
             {
-                shortestDistance = distanceToTarget;
-                nearestTarget = target;
+                float distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
+                if (distanceToTarget < shortestDistance)
+                {
+                    shortestDistance = distanceToTarget;
+                    nearestTarget = target;
+                }
             }
         }
 
