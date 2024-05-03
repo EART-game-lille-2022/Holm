@@ -5,6 +5,7 @@ using UnityEngine.Events;
 public class QuestManager : MonoBehaviour
 {
     public static QuestManager instance;
+    [SerializeField] private List<ScriptableQuest> _questList;
     [SerializeField] private ScriptableQuest _currentQuest;
     [SerializeField] private List<Collectible> _collectibleList;
     [SerializeField] private List<QuestTarget> _targetList;
@@ -20,6 +21,11 @@ public class QuestManager : MonoBehaviour
     void Awake()
     {
         instance = this;
+    }
+
+    void Start()
+    {
+        ResetAllQuest();
     }
 
     private void OnQuestStartEvent(string questID)
@@ -155,8 +161,25 @@ public class QuestManager : MonoBehaviour
         }
 
         CanvasManager.instance.ClearQuestInformation();
-
         OnQuestEnd.Invoke();
+
+        if(IsAllQuestDone())
+            StartCoroutine(GameManager.instance.EndGame());
+    }
+
+    public void ResetAllQuest()
+    {
+        foreach (var item in _questList)
+            item.isQuestDone = false;
+    }
+
+    public bool IsAllQuestDone()
+    {
+        foreach (var item in _questList)
+            if(!item.isQuestDone)
+                return false;
+    
+        return true;
     }
 
     public bool HasCurrentQuest()

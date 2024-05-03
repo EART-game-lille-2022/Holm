@@ -1,5 +1,7 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -48,6 +50,19 @@ public class GameManager : MonoBehaviour
         {
             QuestManager.instance.SelectQuest(_questOnGameStart);
             SetPlayerControleAbility(true);
+        });
+    }
+
+    public IEnumerator EndGame()
+    {
+        yield return new WaitForSeconds(10f);
+        DialogueManager.instance.PlayDialogue(_endGameDialogue, () =>
+        {
+            FadeoutScreen.instance.CloudFade(true, 5f, () =>
+            {
+                QuestManager.instance.ResetAllQuest();
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            });
         });
     }
 
