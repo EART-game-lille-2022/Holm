@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: Livrer une lettre
   title: Epistolaire 1
-  description: "\"Depuis que la r\xE9gion est sous occupation de l'arm\xE9e Rodanienne,
-    les gens envoies beaucoup de lettre ! Beaucoup de personne ont du commencer des
-    relation \xE0 distance.\""
+  description: "Depuis que la r\xE9gion est sous occupation de l'arm\xE9e Rodanienne,
+    les gens envoient beaucoup de lettres ! Beaucoup de personnes ont d\xFB commencer
+    des relations \xE0 distance."
   QUEST_ID: LOVE1
+  isQuestDone: 0

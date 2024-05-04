@@ -15,7 +15,7 @@ MonoBehaviour:
   stateList:
   - mood: 3
     pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
-    text: Plusieurs personne se plaigne de la poste depuis l'occupation...
+    text: Plusieurs personnes se plaignent de la poste depuis l'occupation...
   - mood: 1
     pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
     text: "Force est de constat\xE9 qu'ils n'y a jamais eu de probl\xE8me avec nous
@@ -25,8 +25,8 @@ MonoBehaviour:
     text: Il faut croire qu'il n'y a pas de cas de conscience dans vos rangs.
   - mood: 5
     pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
-    text: "Il s'agit tout de m\xEAme de ravitaill\xE9 ceux qui font la guerre \xE0
-      votre nation"
+    text: "Il s'agit tout de m\xEAme de ravitailler ceux qui font la guerre \xE0
+      votre nation."
   - mood: 3
     pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
     text: "N'oubliez jamais que d\xE9sormais cette r\xE9gion fait partie de l'empire
