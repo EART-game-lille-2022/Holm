@@ -134,7 +134,7 @@ Transform:
   m_GameObject: {fileID: 8143607129300312597}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -17.8, y: 6.5299997, z: 41.6}
+  m_LocalPosition: {x: -8.9, y: 5.5299997, z: 18.8}
   m_LocalScale: {x: 4999, y: 4999, z: 4999}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -215,7 +215,7 @@ MonoBehaviour:
   presetNight: {fileID: 0}
   timeOfDay: 0
   categoryFog: 0
-  fogIntensity: 0.868
+  fogIntensity: 0.984
   fogAxisMode: 1
   fogLayersMode: 10
   fogColorStart: {r: 0.5, g: 0.75, b: 1, a: 1}
