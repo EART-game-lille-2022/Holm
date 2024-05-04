@@ -44,4 +44,16 @@ public class Buttons : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
         Debug.Log("Return_Menu!");
     }
+
+    public void Playmode()
+    {
+        SceneManager.LoadScene("Integration");
+        Debug.Log("Play_Mode!");
+    }
+
+    public void Debugmode()
+    {
+        SceneManager.LoadScene("Debug");
+        Debug.Log("Debug_Mode!");
+    }
 }

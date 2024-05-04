@@ -14,6 +14,7 @@ public class PointAt : MonoBehaviour
     {
         QuestManager.instance.OnQuestStart.AddListener(GetTarget);
         QuestManager.instance.OnQuestEnd.AddListener(ClearTargets);
+        arrowObject.SetActive(false);
     }
 
     public void GetTarget(List<Collectible> targets, QuestTarget questTarget)
@@ -40,7 +41,7 @@ public class PointAt : MonoBehaviour
 
     void Update()
     {
-        if(targetList.Count == 0)
+        if (targetList.Count == 0)
             return;
 
         // Trouver la cible la plus proche qui n'a pas été prise
@@ -84,7 +85,7 @@ public class PointAt : MonoBehaviour
             }
         }
 
-        if(!nearestTarget)
+        if (!nearestTarget)
             return null;
 
         return !nearestTarget.hasBeenTaken ? nearestTarget : null;

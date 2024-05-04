@@ -6,6 +6,7 @@ using DG.Tweening;
 using UnityEngine.InputSystem;
 using UnityEngine.PlayerLoop;
 using System;
+using UnityEngine.Events;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -18,7 +19,8 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private ScriptableDialogue _currentDialogue;
     [SerializeField] private int _stateIndex = 0;
     private bool _isCurrentStateFinish = true;
-    private Action _onEndDialogue;
+    public Action _onEndDialogue;
+    public UnityEvent onEnd;
 
     private void Awake()
     {
@@ -27,6 +29,7 @@ public class DialogueManager : MonoBehaviour
 
     private void Start()
     {
+        onEnd.RemoveAllListeners();
         QuitDialogue();
     }
 
@@ -120,6 +123,8 @@ public class DialogueManager : MonoBehaviour
             _onEndDialogue.Invoke();
         _onEndDialogue = null;
 
+        onEnd.Invoke();
+
         // if(_currentDialogue)
         //     _currentDialogue.hasBeenPlayed = true;
         _currentDialogue = null;
@@ -127,5 +132,10 @@ public class DialogueManager : MonoBehaviour
 
         GameManager.instance.SetPlayerControleAbility(true);
         InteractibleManager.instance.SetInteractibleCapability(true);
+    }
+
+    public bool IsOnDialogue()
+    {
+        return _currentDialogue;
     }
 }

@@ -76,7 +76,7 @@ public class InteractibleManager : MonoBehaviour
             _lastFramSelected?.OnUnselected();
         }
 
-        DebugInteractibleSelection(_selected);
+        // DebugInteractibleSelection(_selected);
         _lastFramSelected = _selected;
     }
 

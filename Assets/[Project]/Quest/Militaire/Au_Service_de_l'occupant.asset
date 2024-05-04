@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: Colis perdus
   title: Au service de l'occupant
-  description: "\"Je dois retrouver des caisse de ravitaillement et les ramener \xE0
-    un grad\xE9 de l'arm\xE9e...M\xEAme si il prennent dans nos ressources au moins
-    ils sont sympa avec nous.\""
+  description: "Je dois retrouver des caisses de ravitaillement et les ramener \xE0
+    un grad\xE9 de l'arm\xE9e... M\xEAme s'ils puisent dans nos ressources, au moins
+    ils sont sympas avec nous."
   QUEST_ID: RATIONS
+  isQuestDone: 0

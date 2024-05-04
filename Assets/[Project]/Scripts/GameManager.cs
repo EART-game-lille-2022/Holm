@@ -40,8 +40,23 @@ public class GameManager : MonoBehaviour
         if (DEBUG_StartGameEvent)
         {
             _menuSetup.SetMenu();
-            FadeoutScreen.instance.CloudFade(false, 5);
+            FadeoutScreen.instance.CloudDirectHide();
+            FadeoutScreen.instance.FadeScreen(1, 0, 2, () =>
+            {
+                FadeoutScreen.instance.CloudFade(false, 3);
+            });
         }
+    }
+
+    public void GoOnDebugScene()
+    {
+        FadeoutScreen.instance.CloudFade(true, 2, () =>
+        {
+            FadeoutScreen.instance.FadeScreen(0, 1, 2, () =>
+            {
+                SceneManager.LoadScene(2);
+            });
+        });
     }
 
     public void StartGame()
