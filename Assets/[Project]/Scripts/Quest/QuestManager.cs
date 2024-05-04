@@ -163,7 +163,19 @@ public class QuestManager : MonoBehaviour
         OnQuestEnd.Invoke();
 
         if (IsAllQuestDone())
-            StartCoroutine(GameManager.instance.EndGame());
+        {
+            if(DialogueManager.instance.IsOnDialogue())
+            {
+                DialogueManager.instance.onEnd.AddListener(EndGame);
+            }
+            
+            EndGame();
+        }
+    }
+
+    public void EndGame()
+    {
+        StartCoroutine(GameManager.instance.EndGame());
     }
 
     public void ResetAllQuest()
