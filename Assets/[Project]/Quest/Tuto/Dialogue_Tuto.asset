@@ -14,21 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateList:
   - mood: 1
-    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
+    pnj: {fileID: 11400000, guid: 5988d08a8d38b8e4aa7d9d483d20afb7, type: 2}
     text: "Salut salut ! Pr\xEAte pour ton premier jour ?"
   - mood: 1
-    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
+    pnj: {fileID: 11400000, guid: 5988d08a8d38b8e4aa7d9d483d20afb7, type: 2}
     text: "Depuis que les d\xE9placements entre \xEEles sont limit\xE9s, nos services
       postaux ont \xE9t\xE9 affect\xE9s."
   - mood: 4
-    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
+    pnj: {fileID: 11400000, guid: 5988d08a8d38b8e4aa7d9d483d20afb7, type: 2}
     text: "Mais rien de bien compliqu\xE9 rassure toi !"
   - mood: 1
-    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
+    pnj: {fileID: 11400000, guid: 5988d08a8d38b8e4aa7d9d483d20afb7, type: 2}
     text: "On va commencer simplement. Tu vas trouver un colis qui a \xE9t\xE9 perdu
       sur cette \xEEle.."
   - mood: 1
-    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
+    pnj: {fileID: 11400000, guid: 5988d08a8d38b8e4aa7d9d483d20afb7, type: 2}
     text: "La boussole de ton \xE9quipement t'indique o\xF9 chercher."
   - mood: 1
     pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}

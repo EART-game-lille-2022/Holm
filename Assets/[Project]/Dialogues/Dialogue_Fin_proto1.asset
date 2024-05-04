@@ -14,16 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateList:
   - mood: 4
-    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
+    pnj: {fileID: 11400000, guid: 5988d08a8d38b8e4aa7d9d483d20afb7, type: 2}
     text: "Wow ! Tu as fais une sacr\xE9 journ\xE9e !"
   - mood: 1
-    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
+    pnj: {fileID: 11400000, guid: 5988d08a8d38b8e4aa7d9d483d20afb7, type: 2}
     text: "\xC7a parait peut \xEAtre peu, mais au vue de l'\xE9tat de nos services
       c'est d\xE9j\xE0 pas mal."
   - mood: 1
-    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
+    pnj: {fileID: 11400000, guid: 5988d08a8d38b8e4aa7d9d483d20afb7, type: 2}
     text: "Repose-toi pour le moment. Pour un premier jour, c'est d\xE9j\xE0 du bon
       boulot."
   - mood: 1
-    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
+    pnj: {fileID: 11400000, guid: 5988d08a8d38b8e4aa7d9d483d20afb7, type: 2}
     text: "Merci de ton travail de qualit\xE9 !"
