@@ -18,6 +18,18 @@ public class FadeoutScreen : MonoBehaviour
         instance = this;
         _cloudLeft.gameObject.SetActive(false);
         _cloudRight.gameObject.SetActive(false);
+        _cloudBot.gameObject.SetActive(false);
+    }
+
+    public void CloudDirectHide()
+    {
+        _cloudLeft.gameObject.SetActive(true);
+        _cloudRight.gameObject.SetActive(true);
+        _cloudBot.gameObject.SetActive(true);
+
+        _cloudLeft.anchoredPosition = Vector3.zero;
+        _cloudRight.anchoredPosition = Vector3.zero;
+        _cloudBot.anchoredPosition = Vector3.zero;
     }
 
     public void CloudFade(bool startOpen, float duration, Action todoAfter = null)
@@ -28,14 +40,11 @@ public class FadeoutScreen : MonoBehaviour
 
         Vector3 startPos = Vector3.zero;
         Vector3 endPos = Vector3.zero;
-
         startPos.x = startOpen ? Camera.main.pixelWidth : 0;
         endPos.x = !startOpen ? Camera.main.pixelWidth : 0;
 
-
         Vector3 botStart = Vector3.zero;
         Vector3 botEnd = Vector3.zero;
-
         botStart.y = startOpen ? -Camera.main.pixelWidth : 0;
         botEnd.y = !startOpen ? Camera.main.pixelWidth : 0;
 
