@@ -138,6 +138,7 @@ public class QuestManager : MonoBehaviour
 
         _currentQuest.isQuestDone = true;
         CanvasManager.instance.EndQuestAnimation(_currentQuest);
+        CanvasManager.instance.ClearQuestInformation();
 
         if (data.dialogue)
         {
@@ -159,7 +160,6 @@ public class QuestManager : MonoBehaviour
             _currentQuest = null;
         }
 
-        CanvasManager.instance.ClearQuestInformation();
         OnQuestEnd.Invoke();
 
         if (IsAllQuestDone())
