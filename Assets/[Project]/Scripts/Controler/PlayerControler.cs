@@ -312,23 +312,23 @@ public class PlayerControler : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(_positionToAddForce, .5f);
+        // Gizmos.color = Color.yellow;
+        // Gizmos.DrawSphere(_positionToAddForce, .5f);
 
-        // Gizmos.color = Color.magenta;
-        // Gizmos.DrawSphere(transform.TransformPoint(Vector3.up), .5f);
+        // // Gizmos.color = Color.magenta;
+        // // Gizmos.DrawSphere(transform.TransformPoint(Vector3.up), .5f);
 
-        // Gizmos.color = Color.red;
-        // Gizmos.DrawSphere(_center, .1f);
+        // // Gizmos.color = Color.red;
+        // // Gizmos.DrawSphere(_center, .1f);
 
-        // Gizmos.color = Color.blue;
-        // Gizmos.DrawSphere(_hat, .1f);
+        // // Gizmos.color = Color.blue;
+        // // Gizmos.DrawSphere(_hat, .1f);
     }
 
     private void OnGUI()
     {
-        GUI.skin.label.fontSize = Screen.width / 40;
+        // GUI.skin.label.fontSize = Screen.width / 40;
 
-        GUILayout.Label("Velocity Mag: " + _rigidbody.velocity.magnitude);
+        // GUILayout.Label("Velocity Mag: " + _rigidbody.velocity.magnitude);
     }
 }

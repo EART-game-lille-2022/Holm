@@ -15,7 +15,7 @@ MonoBehaviour:
   stateList:
   - mood: 1
     pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
-    text: "C'est du bon travail ! On va pouvoir r\xE9attribuer le colis !"
+    text: "C'est un bon travail ! Nous allons pouvoir r\xE9attribuer le colis !"
   - mood: 2
     pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
     text: Enfin...si on trouve quelqu'un pour le faire...

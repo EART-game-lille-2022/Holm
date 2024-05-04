@@ -5,16 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/[Project]/Scenes/MainMenu.unity
-    guid: 5acc1c8e34d97c749ae31c7ef11e7cb2
-  - enabled: 0
-    path: Assets/[Project]/Scenes/SceneDev.unity
-    guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 0
-    path: Assets/[Project]/Characterloic/LevelDesign.unity
-    guid: b84913da69aa8514caec5d3d1fbd8974
   - enabled: 1
-    path: "Assets/[Project]/Scenes/QuestInt\xE9.unity"
-    guid: 9d02cc1f142cde941af0d7100dbf2fe2
+    path: Assets/[Project]/Scenes/Manette.unity
+    guid: 464be5eda6bb1b84ab4f5b3b5848054c
+  - enabled: 1
+    path: Assets/[Project]/Scenes/Integration.unity
+    guid: a3e685dc736cd0241941e06c5174ca0a
+  - enabled: 1
+    path: Assets/[Project]/Scenes/Debug.unity
+    guid: 573cbfd88c89ec94392e68ecd111ba62
   m_configObjects: {}
