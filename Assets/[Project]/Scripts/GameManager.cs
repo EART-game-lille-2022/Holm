@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 1;
         // Cursor.visible = false;
         // Cursor.lockState = CursorLockMode.Locked;
 
