@@ -457,10 +457,10 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4071169186644827181}
   - {fileID: 6501248305449129889}
   - {fileID: 782597304650076751}
   - {fileID: 7012014260480918554}
+  - {fileID: 4071169186644827181}
   m_Father: {fileID: 78244336963756656}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1087,6 +1087,9 @@ MonoBehaviour:
   _pnjImage: {fileID: 3452406720221371423}
   _currentDialogue: {fileID: 0}
   _stateIndex: 0
+  onEnd:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &9023567970513032200
 GameObject:
   m_ObjectHideFlags: 0
