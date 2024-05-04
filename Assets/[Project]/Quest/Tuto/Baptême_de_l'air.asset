@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: "R\xE9cup\xE9ration de colis"
   title: "Bapt\xEAme de l'air"
-  description: "\"Le dernier stagiaire a perdu son colis quelque part sur cette \xEEle.
-    Je dois finir son travail et livrer le colis sur l'\xEEle du phare.\""
+  description: "Le dernier stagiaire a perdu son colis quelque part sur cette \xEEle.
+    Je dois terminer son travail et livrer le colis sur l'\xEEle du phare."
   QUEST_ID: TUTO
+  isQuestDone: 0

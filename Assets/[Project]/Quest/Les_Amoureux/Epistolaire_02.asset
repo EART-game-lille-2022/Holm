@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: Livrer une lettre
   title: 'Epistolaire 2 '
-  description: "\"Pas s\xFBr que cette mani\xE8re de faire soit approuv\xE9 par le
-    bureau mais au moins on rend service. \""
+  description: "\"Je ne suis pas s\xFBr que cette m\xE9thode soit approuv\xE9e par
+    le bureau, mais au moins on rends service.\""
   QUEST_ID: LOVE2
+  isQuestDone: 0
