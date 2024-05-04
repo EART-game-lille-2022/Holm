@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 1;
         // Cursor.visible = false;
         // Cursor.lockState = CursorLockMode.Locked;
 
@@ -70,7 +71,8 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator EndGame()
     {
-        yield return new WaitForSeconds(10f);
+        //TODO BUG : Se lance meme si le dernier dialogue n'est pas fini
+        yield return new WaitForSeconds(30f);
         DialogueManager.instance.PlayDialogue(_endGameDialogue, () =>
         {
             FadeoutScreen.instance.CloudFade(true, 5f, () =>
@@ -85,8 +87,11 @@ public class GameManager : MonoBehaviour
     {
         FadeoutScreen.instance.CloudFade(true, 5f, () =>
         {
-            QuestManager.instance.ResetAllQuest();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            FadeoutScreen.instance.FadeScreen(0, 1, 2, () =>
+            {
+                QuestManager.instance.ResetAllQuest();
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            });
         });
     }
 
