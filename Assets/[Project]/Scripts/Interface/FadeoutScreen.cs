@@ -55,6 +55,7 @@ public class FadeoutScreen : MonoBehaviour
             _cloudBot.anchoredPosition = Vector3.Lerp(botStart, -botEnd, time);
 
         }, 0, 1, duration)
+        .SetUpdate(true)
         .OnComplete(() =>
         {
             _cloudLeft.gameObject.SetActive(false);
@@ -77,6 +78,7 @@ public class FadeoutScreen : MonoBehaviour
         {
             _image.color = Color.Lerp(startColor, targetColor, time);
         }, 0, 1, duration)
+        .SetUpdate(true)
         .OnComplete(() =>
         {
             if (todoAfter != null)

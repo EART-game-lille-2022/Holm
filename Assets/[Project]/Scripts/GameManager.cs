@@ -86,8 +86,11 @@ public class GameManager : MonoBehaviour
     {
         FadeoutScreen.instance.CloudFade(true, 5f, () =>
         {
-            QuestManager.instance.ResetAllQuest();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            FadeoutScreen.instance.FadeScreen(0, 1, 2, () =>
+            {
+                QuestManager.instance.ResetAllQuest();
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            });
         });
     }
 
