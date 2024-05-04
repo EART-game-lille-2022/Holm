@@ -14,35 +14,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateList:
   - mood: 1
-    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
+    pnj: {fileID: 11400000, guid: 5988d08a8d38b8e4aa7d9d483d20afb7, type: 2}
     text: "Salut salut ! Pr\xEAte pour ton premier jour ?"
   - mood: 1
-    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
-    text: "Depuis que les d\xE9placement entre \xEEle sont limit\xE9, nos service
-      postal ce sont varier."
+    pnj: {fileID: 11400000, guid: 5988d08a8d38b8e4aa7d9d483d20afb7, type: 2}
+    text: "Depuis que les d\xE9placements entre \xEEles sont limit\xE9s, nos services
+      postaux ont \xE9t\xE9 affect\xE9s."
   - mood: 4
-    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
+    pnj: {fileID: 11400000, guid: 5988d08a8d38b8e4aa7d9d483d20afb7, type: 2}
     text: "Mais rien de bien compliqu\xE9 rassure toi !"
   - mood: 1
-    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
-    text: "On va commencer simple, tu vas trouver un colis qui a \xE9t\xE9 perdu
-      sur cette \xEEle."
+    pnj: {fileID: 11400000, guid: 5988d08a8d38b8e4aa7d9d483d20afb7, type: 2}
+    text: "On va commencer simplement. Tu vas trouver un colis qui a \xE9t\xE9 perdu
+      sur cette \xEEle.."
   - mood: 1
-    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
-    text: "La boussole de ton \xE9quipement t'indique ou chercher."
+    pnj: {fileID: 11400000, guid: 5988d08a8d38b8e4aa7d9d483d20afb7, type: 2}
+    text: "La boussole de ton \xE9quipement t'indique o\xF9 chercher."
   - mood: 1
-    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
+    pnj: {fileID: 11400000, guid: 5988d08a8d38b8e4aa7d9d483d20afb7, type: 2}
     text: "Une fois le colis r\xE9cup\xE9rer, la boussole indiquera l\xE0 o\xF9 tu
       doit l'amener.\nC'est s\xFBr l'\xEEle du phare !"
   - mood: 1
-    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
-    text: "Si tu a oublier comment t'envoler, utilise le panneau d'affichage \xE0
-      c\xF4t\xE9 de celui des qu\xEAtes.\_"
+    pnj: {fileID: 11400000, guid: 5988d08a8d38b8e4aa7d9d483d20afb7, type: 2}
+    text: Si tu a oublier comment t'envoler, ouvre ton journal de bord avec "start".
   - mood: 1
-    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
-    text: "Quand tu as fini, pas la peine de revenir vers moi, prend juste une nouvelle
-      qu\xEAte sur le tableau !"
+    pnj: {fileID: 11400000, guid: 5988d08a8d38b8e4aa7d9d483d20afb7, type: 2}
+    text: "Quand tu as fini, pas besoin de revenir vers moi, prends juste une nouvelle
+      qu\xEAte sur le tableau "
   - mood: 1
-    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
-    text: "Les informations concernant la qu\xEAte en cours son dans ton journal
+    pnj: {fileID: 11400000, guid: 5988d08a8d38b8e4aa7d9d483d20afb7, type: 2}
+    text: "Les informations concernant la qu\xEAte en cours sont dans ton journal
       de bord !"
