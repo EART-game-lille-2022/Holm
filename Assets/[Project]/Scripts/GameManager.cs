@@ -70,7 +70,8 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator EndGame()
     {
-        yield return new WaitForSeconds(10f);
+        //TODO BUG : Se lance meme si le dernier dialogue n'est pas fini
+        yield return new WaitForSeconds(30f);
         DialogueManager.instance.PlayDialogue(_endGameDialogue, () =>
         {
             FadeoutScreen.instance.CloudFade(true, 5f, () =>
