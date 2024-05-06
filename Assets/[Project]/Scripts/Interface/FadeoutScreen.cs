@@ -19,6 +19,7 @@ public class FadeoutScreen : MonoBehaviour
         _cloudLeft.gameObject.SetActive(false);
         _cloudRight.gameObject.SetActive(false);
         _cloudBot.gameObject.SetActive(false);
+        _image.gameObject.SetActive(false);
     }
 
     public void CloudDirectHide()
@@ -68,6 +69,7 @@ public class FadeoutScreen : MonoBehaviour
 
     public void FadeScreen(float startAlpha, float endAlpha, float duration, Action todoAfter = null)
     {
+        _image.gameObject.SetActive(true);
         Color startColor = _image.color;
         startColor.a = startAlpha;
 
@@ -81,6 +83,7 @@ public class FadeoutScreen : MonoBehaviour
         .SetUpdate(true)
         .OnComplete(() =>
         {
+            _image.gameObject.SetActive(false);
             if (todoAfter != null)
                 todoAfter();
         });
