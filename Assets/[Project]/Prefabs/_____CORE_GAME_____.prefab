@@ -713,6 +713,11 @@ PrefabInstance:
       propertyPath: _dynamicCameraTarget
       value: 
       objectReference: {fileID: 7064945959190800705}
+    - target: {fileID: 972718206229623464, guid: 905878ca2c40e4549a3b7dacf0c69c87,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3021578784585044347, guid: 905878ca2c40e4549a3b7dacf0c69c87,
         type: 3}
       propertyPath: m_LocalPosition.x
