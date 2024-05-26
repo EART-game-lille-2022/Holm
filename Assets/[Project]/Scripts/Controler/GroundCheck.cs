@@ -63,8 +63,8 @@ public class GroundCheck : MonoBehaviour
                         , Quaternion.identity
                         , _groundCheckDistance
                         , _groundLayer);
-
         // Physics.OverlapBox
+
 
         // print(_checkHit.collider ? "Hit " + _checkHit.collider.name : "No Hit");
         Debug.DrawRay(transform.position, Vector3.down * _groundCheckDistance, Color.red);
