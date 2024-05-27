@@ -34,6 +34,7 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] private float _upForce = 30;
     [SerializeField] private float _liftForce = 3;
     [SerializeField] private float _yLiftMultiplier = 3;
+    [SerializeField] private float _passiveYawMult = 1;
     [SerializeField] private float _velocityConcervationRate = 2;
     [Space]
     [SerializeField] private float _stallingVelocityThresold = 5;
@@ -173,6 +174,8 @@ public class PlayerControler : MonoBehaviour
             // _rigidbody.AddForce(transform.forward * _groundMoveSpeed, ForceMode.Acceleration);
         }
 
+        _rigidbody.MovePosition(transform.position + moveDireciton);
+
         transform.Translate(Vector3.forward * _groundMoveSpeed * moveDireciton.magnitude * Time.fixedDeltaTime);
 
         // _rigidbody.AddForce(moveDireciton, ForceMode.Acceleration);
@@ -202,15 +205,15 @@ public class PlayerControler : MonoBehaviour
 
         PassiveYawPushRotate();
         FallingNose();
-        // Stalling();
+        Stalling();
         PushForward();
     }
 
     //! nouveau controler en vol
     private void PushOritation()
     {
-        Vector3 posToAddForce = transform.TransformPoint(transform.up + Vector3.up);
-        _rigidbody.AddForceAtPosition(_playerInput, posToAddForce);
+        Vector3 posToAddForce = transform.TransformPoint(Vector3.up);
+        _rigidbody.AddForceAtPosition(_playerInput * 1000, posToAddForce);
     }
 
     private void PushForward()
@@ -240,13 +243,14 @@ public class PlayerControler : MonoBehaviour
     {
         //! force sur le yaw en fonction du roll
         float yawForce = Mathf.Lerp(0, 3, Mathf.InverseLerp(0, 90, Mathf.Abs(_yAngle)));
-        _rigidbody.AddForceAtPosition((_yAngle > 0 ? -_orientation.right : _orientation.right) * yawForce
+        _rigidbody.AddForceAtPosition((_yAngle > 0 ? -_orientation.right : _orientation.right) * yawForce * _passiveYawMult
                                     , transform.TransformPoint(Vector3.up)
                                     , ForceMode.Acceleration);
     }
 
     private void InputPushRotate()
     {
+        //! en avion de chasse ou bien ?!
         if (_isStalling)
             return;
 
@@ -333,8 +337,7 @@ public class PlayerControler : MonoBehaviour
 
     private void OnGUI()
     {
-        // GUI.skin.label.fontSize = Screen.width / 40;
-
-        // GUILayout.Label("Velocity Mag: " + _rigidbody.velocity.magnitude);
+        GUI.skin.label.fontSize = Screen.width / 40;
+        GUILayout.Label("Velocity Mag: " + _rigidbody.velocity.magnitude);
     }
 }
