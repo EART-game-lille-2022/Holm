@@ -123,6 +123,8 @@ public class PlayerControler : MonoBehaviour
                 _rigidbody.drag = _groundDrag;
                 _rigidbody.velocity = Vector3.zero;
                 _rigidbody.centerOfMass = _groundCenterOfMass;
+                _rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+
                 _collider.material = _groundPhysicMaterial;
                 transform.up = Vector3.up;
 
@@ -137,6 +139,9 @@ public class PlayerControler : MonoBehaviour
 
                 _rigidbody.drag = _flyDrag;
                 _rigidbody.centerOfMass = _flyCenterOfMass;
+                _rigidbody.constraints = RigidbodyConstraints.None;
+
+
                 _collider.material = _flyPhysicMaterial;
 
                 if (_trailList.Count != 0)
@@ -168,29 +173,9 @@ public class PlayerControler : MonoBehaviour
         moveDireciton *= _groundMoveSpeed;
 
         if (moveDireciton != Vector3.zero)
-        {
             transform.forward = Vector3.Slerp(transform.forward, moveDireciton, Time.fixedDeltaTime * 10);
-            // transform.Translate(Vector3.forward * _groundMoveSpeed * Time.fixedDeltaTime * _playerInput.magnitude);
-            // _rigidbody.AddForce(transform.forward * _groundMoveSpeed, ForceMode.Acceleration);
-        }
 
-        _rigidbody.MovePosition(transform.position + moveDireciton);
-
-        transform.Translate(Vector3.forward * _groundMoveSpeed * moveDireciton.magnitude * Time.fixedDeltaTime);
-
-        // _rigidbody.AddForce(moveDireciton, ForceMode.Acceleration);
-        // _rigidbody.AddForce(Vector3.down * _fallingForce, ForceMode.Acceleration);
-
-        // //! Slow down the player on ground
-        // if (_playerInput.magnitude == 0)
-        // {
-        //     float velValue = Mathf.InverseLerp(0, 10, _rigidbody.velocity.magnitude);
-        //     // print(velValue);
-
-        //     Vector3 velOutY = _rigidbody.velocity;
-        //     velOutY.y = 0;
-        //     _rigidbody.AddForce(-velOutY * 5, ForceMode.Acceleration);
-        // }
+        _rigidbody.MovePosition(transform.position + moveDireciton * Time.fixedDeltaTime);
     }
 
     private void FlyControler()
