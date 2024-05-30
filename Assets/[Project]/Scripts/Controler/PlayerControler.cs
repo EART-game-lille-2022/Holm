@@ -10,19 +10,12 @@ public enum PlayerState
     None,
     Grounded,
     Flying,
+    Falling,
 }
 
 public class PlayerControler : MonoBehaviour
 {
-    //TODO RETOUR CHRIS : on peut remonter trop fascilement en restant vers le haut
-    //TODO RETOUR CHRIS : TROP de perte de vitesse donc on peut pas remonter avec notre gain de vitesse apres une "chute"
     //TODO RETOUR CHRIS : super flight : plus t'es rapide plus controle son sensible
-
-    //TODO drag en fonction de l'angle
-    //TODO du coup mettre un velocity cap
-    //TODO ajouté la cappacité de ralentir avec B en vol
-
-    //TODO timer pour le stall
 
     [Header("Reference :")]
     [SerializeField] private CameraControler _cameraControler;
@@ -32,14 +25,16 @@ public class PlayerControler : MonoBehaviour
     [Header("Ground Parametre :")]
     [SerializeField] private float _groundMoveSpeed = 40;
     [SerializeField] private float _jumpForce = 20;
-    [SerializeField] private float _fallingForce = 60;
+    [SerializeField] private float _groundDrag = 0;
     [SerializeField] private Vector3 _groundCenterOfMass = new Vector3(0, -.5f, 0);
     [SerializeField] private PhysicMaterial _groundPhysicMaterial;
 
     [Header("Fly Parametre :")]
+    [SerializeField] private float _flyDrag = 3;
     [SerializeField] private float _upForce = 30;
     [SerializeField] private float _liftForce = 3;
     [SerializeField] private float _yLiftMultiplier = 3;
+    [SerializeField] private float _passiveYawMult = 1;
     [SerializeField] private float _velocityConcervationRate = 2;
     [Space]
     [SerializeField] private float _stallingVelocityThresold = 5;
@@ -125,8 +120,11 @@ public class PlayerControler : MonoBehaviour
             case PlayerState.Grounded:
                 _cameraControler.SetCameraParameter(_currentState);
 
+                _rigidbody.drag = _groundDrag;
                 _rigidbody.velocity = Vector3.zero;
                 _rigidbody.centerOfMass = _groundCenterOfMass;
+                _rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+
                 _collider.material = _groundPhysicMaterial;
                 transform.up = Vector3.up;
 
@@ -138,15 +136,20 @@ public class PlayerControler : MonoBehaviour
                 break;
 
             case PlayerState.Flying:
-                Quaternion startOrientation = transform.rotation;
-                Quaternion targetOrientation = Quaternion.LookRotation(-Vector3.up, transform.forward);
 
+                _rigidbody.drag = _flyDrag;
                 _rigidbody.centerOfMass = _flyCenterOfMass;
+                _rigidbody.constraints = RigidbodyConstraints.None;
+
+
                 _collider.material = _flyPhysicMaterial;
 
                 if (_trailList.Count != 0)
                     foreach (var item in _trailList)
                         item.gameObject.SetActive(true);
+
+                Quaternion startOrientation = transform.rotation;
+                Quaternion targetOrientation = Quaternion.LookRotation(-Vector3.up, transform.forward);
 
                 DOTween.To((time) =>
                 {
@@ -170,27 +173,9 @@ public class PlayerControler : MonoBehaviour
         moveDireciton *= _groundMoveSpeed;
 
         if (moveDireciton != Vector3.zero)
-        {
             transform.forward = Vector3.Slerp(transform.forward, moveDireciton, Time.fixedDeltaTime * 10);
-            // transform.Translate(Vector3.forward * _groundMoveSpeed * Time.fixedDeltaTime * _playerInput.magnitude);
-            // _rigidbody.AddForce(transform.forward * _groundMoveSpeed, ForceMode.Acceleration);
-        }
 
-        transform.Translate(Vector3.forward * _groundMoveSpeed * moveDireciton.magnitude * Time.fixedDeltaTime);
-
-        // _rigidbody.AddForce(moveDireciton, ForceMode.Acceleration);
-        // _rigidbody.AddForce(Vector3.down * _fallingForce, ForceMode.Acceleration);
-
-        // //! Slow down the player on ground
-        // if (_playerInput.magnitude == 0)
-        // {
-        //     float velValue = Mathf.InverseLerp(0, 10, _rigidbody.velocity.magnitude);
-        //     // print(velValue);
-
-        //     Vector3 velOutY = _rigidbody.velocity;
-        //     velOutY.y = 0;
-        //     _rigidbody.AddForce(-velOutY * 5, ForceMode.Acceleration);
-        // }
+        _rigidbody.MovePosition(transform.position + moveDireciton * Time.fixedDeltaTime);
     }
 
     private void FlyControler()
@@ -201,13 +186,22 @@ public class PlayerControler : MonoBehaviour
         velocityXZ.y = 0;
 
         InputPushRotate();
+        // PushOritation();
+
         PassiveYawPushRotate();
         FallingNose();
         Stalling();
-        MovePushUp();
+        PushForward();
     }
 
-    private void MovePushUp()
+    //! nouveau controler en vol
+    private void PushOritation()
+    {
+        Vector3 posToAddForce = transform.TransformPoint(Vector3.up);
+        _rigidbody.AddForceAtPosition(_playerInput * 1000, posToAddForce);
+    }
+
+    private void PushForward()
     {
         //! Convertie l'angle en un multiplicateur en fonction de l'incilinaison
 
@@ -234,13 +228,14 @@ public class PlayerControler : MonoBehaviour
     {
         //! force sur le yaw en fonction du roll
         float yawForce = Mathf.Lerp(0, 3, Mathf.InverseLerp(0, 90, Mathf.Abs(_yAngle)));
-        _rigidbody.AddForceAtPosition((_yAngle > 0 ? -_orientation.right : _orientation.right) * yawForce
+        _rigidbody.AddForceAtPosition((_yAngle > 0 ? -_orientation.right : _orientation.right) * yawForce * _passiveYawMult
                                     , transform.TransformPoint(Vector3.up)
                                     , ForceMode.Acceleration);
     }
 
     private void InputPushRotate()
     {
+        //! en avion de chasse ou bien ?!
         if (_isStalling)
             return;
 
@@ -327,8 +322,7 @@ public class PlayerControler : MonoBehaviour
 
     private void OnGUI()
     {
-        // GUI.skin.label.fontSize = Screen.width / 40;
-
-        // GUILayout.Label("Velocity Mag: " + _rigidbody.velocity.magnitude);
+        GUI.skin.label.fontSize = Screen.width / 40;
+        GUILayout.Label("Velocity Mag: " + _rigidbody.velocity.magnitude);
     }
 }

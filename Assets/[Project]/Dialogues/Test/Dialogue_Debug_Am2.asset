@@ -10,32 +10,31 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1ea06d6ca7f8b484b8a5ac86b6ba859b, type: 3}
-  m_Name: Dialogue_Debug
+  m_Name: Dialogue_Debug_Am2
   m_EditorClassIdentifier: 
-  hasBeenPlayed: 0
   stateList:
   - mood: 1
-    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
+    pnj: {fileID: 11400000, guid: 6d4577676caca6642ad8e5333c8e54f1, type: 2}
     text: 'Happy
 
       Debug'
   - mood: 2
-    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
+    pnj: {fileID: 11400000, guid: 6d4577676caca6642ad8e5333c8e54f1, type: 2}
     text: 'Sad
 
       Debug'
   - mood: 3
-    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
+    pnj: {fileID: 11400000, guid: 6d4577676caca6642ad8e5333c8e54f1, type: 2}
     text: 'Angry
 
       Debug'
   - mood: 4
-    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
+    pnj: {fileID: 11400000, guid: 6d4577676caca6642ad8e5333c8e54f1, type: 2}
     text: 'Surprised
 
       Debug'
   - mood: 5
-    pnj: {fileID: 11400000, guid: 030a82dfb29ca5d48afe72002c712b4b, type: 2}
+    pnj: {fileID: 11400000, guid: 6d4577676caca6642ad8e5333c8e54f1, type: 2}
     text: 'Hmmm
 
       Debug'
