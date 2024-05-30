@@ -8,6 +8,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject _firstSelectedButton;
     [Space]
     [SerializeField] private GameObject _firstSelectedPauseMenu;
+    [SerializeField] private GameObject _nullButton;
     public GameObject FirstPauseButton => _firstSelectedPauseMenu;
 
     void Awake()
@@ -23,6 +24,8 @@ public class MenuManager : MonoBehaviour
 
     public void SetFirstSelectedObject(GameObject toSet)
     {
+        if(!toSet)
+             EventSystem.current.SetSelectedGameObject(_nullButton);
         EventSystem.current.SetSelectedGameObject(toSet);
     }
 }

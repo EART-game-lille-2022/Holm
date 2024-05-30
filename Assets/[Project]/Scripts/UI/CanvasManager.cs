@@ -44,7 +44,7 @@ public class CanvasManager : MonoBehaviour
 
     void Start()
     {
-        if(GameManager.instance.DEBUG_StartGameEvent)
+        if (GameManager.instance.DEBUG_StartGameEvent)
             SetPauseMenu(false);
         _pauseMenuStartPosition = _pauseMenuBackground.anchoredPosition;
 
@@ -125,6 +125,11 @@ public class CanvasManager : MonoBehaviour
 
     public void SetPauseGame(bool value, bool playSound = true)
     {
+        if (!value)
+            MenuManager.instance.SetFirstSelectedObject(null);
+        else
+            MenuManager.instance.SetFirstSelectedObject(MenuManager.instance.FirstPauseButton);
+
         _pauseMenuButton.SetActive(true);
         _pauseMenuOptionPanel.SetActive(false);
 

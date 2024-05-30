@@ -1,19 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using Unity.VisualScripting;
 using UnityEngine;
-
-[Serializable]
-public enum PnjMood
-{
-    None,
-    Happy,
-    Sad,
-    Angry,
-    Surprised,
-    Hmmm,
-}
 
 [Serializable]
 public class DialogueState
@@ -28,21 +15,21 @@ public class DialogueState
         switch (mood)
         {
             case PnjMood.Happy :
-                return pnj.happy != null ? pnj.happy : null;
+                return pnj.happy;
 
             case PnjMood.Sad :
-                return pnj.sad != null ? pnj.sad : null;
+                return pnj.sad;
 
             case PnjMood.Surprised :
-                return pnj.surprised != null ? pnj.surprised : null;
+                return pnj.surprised;
             
             case PnjMood.Angry :
-                return pnj.angry != null ? pnj.angry : null;
+                return pnj.angry;
 
             case PnjMood.Hmmm :
-                return pnj.hmmm != null ? pnj.hmmm : null;
+                return pnj.hmmm;
         }
-        // Debug.LogWarning("PNJ mood not set !!!");
+
         return null;
     }
 }

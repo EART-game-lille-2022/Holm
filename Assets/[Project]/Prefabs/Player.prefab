@@ -545,6 +545,8 @@ MonoBehaviour:
     m_Bits: 1024
   _timeToUnground: 0.3
   _hisGrounded: 0
+  overlapRaduis: 0.44
+  overlapPoin1: 5
 --- !u!114 &7443354334764024420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -552,7 +554,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4287142795877056434}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c9a1e42d83c07c419385a713c3d7983, type: 3}
   m_Name: 
@@ -562,18 +564,20 @@ MonoBehaviour:
   - {fileID: 9117934673041188178}
   - {fileID: 7382596236033825845}
   _meshTransform: {fileID: 5298963008047108386}
-  _groundMoveSpeed: 3
-  _jumpForce: 15
-  _fallingForce: 30
+  _groundMoveSpeed: 8.12
+  _jumpForce: 6
+  _groundDrag: 0
   _groundCenterOfMass: {x: 0, y: -0.5, z: 0}
   _groundPhysicMaterial: {fileID: 13400000, guid: 28758832965e7f541bb0f8ca56c4682d,
     type: 2}
-  _upForce: 20
-  _liftForce: 2.6
-  _yLiftMultiplier: 3
+  _flyDrag: 3
+  _upForce: 12.1
+  _liftForce: 1.5
+  _yLiftMultiplier: 1.5
+  _passiveYawMult: 0.5
   _velocityConcervationRate: 2
   _stallingVelocityThresold: 8
-  _noseFallingForce: 1
+  _noseFallingForce: 0.58
   _flyTimeBeforeCanStall: 2
   _minAngleRatioMultiplier: -1
   _maxAngleRatioMultiplier: 10
@@ -605,7 +609,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 1
+  m_Interpolate: 2
   m_Constraints: 0
   m_CollisionDetection: 1
 --- !u!136 &814622514819536819
@@ -627,10 +631,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 3
+  m_Radius: 0.38265967
+  m_Height: 1.8915741
   m_Direction: 1
-  m_Center: {x: 0, y: 0.4, z: 0}
+  m_Center: {x: 0, y: -0.15421283, z: 0}
 --- !u!114 &2627670266063608803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1261,17 +1265,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 086365c0295b5394abae90d1afd4363b,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.6481968
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 086365c0295b5394abae90d1afd4363b,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.6481968
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 086365c0295b5394abae90d1afd4363b,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.6481968
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 086365c0295b5394abae90d1afd4363b,
         type: 3}
