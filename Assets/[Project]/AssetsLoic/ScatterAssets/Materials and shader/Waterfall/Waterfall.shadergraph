@@ -26,6 +26,12 @@
         },
         {
             "m_Id": "1cea04f087ca4f7e8a03c79c309c7b42"
+        },
+        {
+            "m_Id": "ba50bf33c47d42cdaf343d6f12d87ca2"
+        },
+        {
+            "m_Id": "ac276dd41c1f4cec9c919d496502a9b8"
         }
     ],
     "m_Keywords": [],
@@ -170,6 +176,12 @@
         },
         {
             "m_Id": "e50dc30cb6ac479cb9417a704355b739"
+        },
+        {
+            "m_Id": "ece3ef3c88d54539932efbe879c768a1"
+        },
+        {
+            "m_Id": "7a7017eec0e7430f9b8876232e07cb5b"
         }
     ],
     "m_GroupDatas": [],
@@ -227,6 +239,20 @@
             "m_InputSlot": {
                 "m_Node": {
                     "m_Id": "8838f2c1f5ca43398141d446c131ed0e"
+                },
+                "m_SlotId": 1
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "12809cf9c1bb4fdf9a662c5f1226fc69"
+                },
+                "m_SlotId": 2
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "cbb4654e0ff94c7ea2f5c121553298e3"
                 },
                 "m_SlotId": 1
             }
@@ -444,6 +470,20 @@
         {
             "m_OutputSlot": {
                 "m_Node": {
+                    "m_Id": "7a7017eec0e7430f9b8876232e07cb5b"
+                },
+                "m_SlotId": 0
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "63e13cc3dbe74c00b2add588a585b7d1"
+                },
+                "m_SlotId": 1
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
                     "m_Id": "83a37a1ef059466bb75ff2397bf6957e"
                 },
                 "m_SlotId": 2
@@ -493,20 +533,6 @@
             "m_InputSlot": {
                 "m_Node": {
                     "m_Id": "e5cba4857e804be485a073635b2e0b79"
-                },
-                "m_SlotId": 1
-            }
-        },
-        {
-            "m_OutputSlot": {
-                "m_Node": {
-                    "m_Id": "8838f2c1f5ca43398141d446c131ed0e"
-                },
-                "m_SlotId": 2
-            },
-            "m_InputSlot": {
-                "m_Node": {
-                    "m_Id": "cbb4654e0ff94c7ea2f5c121553298e3"
                 },
                 "m_SlotId": 1
             }
@@ -747,6 +773,20 @@
                     "m_Id": "83a37a1ef059466bb75ff2397bf6957e"
                 },
                 "m_SlotId": 1
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "ece3ef3c88d54539932efbe879c768a1"
+                },
+                "m_SlotId": 0
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "cbb4654e0ff94c7ea2f5c121553298e3"
+                },
+                "m_SlotId": 2
             }
         },
         {
@@ -1252,6 +1292,12 @@
         },
         {
             "m_Id": "1cea04f087ca4f7e8a03c79c309c7b42"
+        },
+        {
+            "m_Id": "ba50bf33c47d42cdaf343d6f12d87ca2"
+        },
+        {
+            "m_Id": "ac276dd41c1f4cec9c919d496502a9b8"
         }
     ]
 }
@@ -1292,8 +1338,8 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 1417.0,
-            "y": -145.99998474121095,
+            "x": 1358.0,
+            "y": -159.99996948242188,
             "width": 208.0,
             "height": 302.0
         }
@@ -1335,8 +1381,8 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 710.0,
-            "y": -1046.0,
+            "x": 711.0,
+            "y": -1124.0,
             "width": 208.0,
             "height": 127.0
         }
@@ -1358,10 +1404,10 @@
     },
     "m_Color": {
         "color": {
-            "r": 0.4554111957550049,
-            "g": 0.8113207817077637,
-            "b": 0.7124305963516235,
-            "a": 0.0
+            "r": 0.4549019932746887,
+            "g": 0.8117647767066956,
+            "b": 0.7137255072593689,
+            "a": 1.0
         },
         "mode": 0
     }
@@ -2159,7 +2205,7 @@
     "m_Hidden": false,
     "m_ShaderOutputName": "X",
     "m_StageCapability": 3,
-    "m_Value": 10.670000076293946,
+    "m_Value": 10.369999885559082,
     "m_DefaultValue": 0.0,
     "m_Labels": []
 }
@@ -2173,6 +2219,21 @@
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "B",
+    "m_StageCapability": 3,
+    "m_Value": 0.0,
+    "m_DefaultValue": 0.0,
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "48ffe4b8836c4685b33939d652cadba3",
+    "m_Id": 0,
+    "m_DisplayName": "WaterDepthMix",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Out",
     "m_StageCapability": 3,
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
@@ -2340,6 +2401,21 @@
         "e32": 0.0,
         "e33": 1.0
     }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "4d1fa81d33e14828b3d35fad890e121f",
+    "m_Id": 0,
+    "m_DisplayName": "WaterDepth",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Out",
+    "m_StageCapability": 3,
+    "m_Value": 0.0,
+    "m_DefaultValue": 0.0,
+    "m_Labels": []
 }
 
 {
@@ -3261,6 +3337,42 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
+    "m_ObjectId": "7a7017eec0e7430f9b8876232e07cb5b",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "Property",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": 74.1020736694336,
+            "y": -688.846923828125,
+            "width": 0.0,
+            "height": 0.0
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "4d1fa81d33e14828b3d35fad890e121f"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_DismissedVersion": 0,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_Property": {
+        "m_Id": "ac276dd41c1f4cec9c919d496502a9b8"
+    }
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "7ea142eca0ab44a291fb85aa1890f6c1",
     "m_Id": 0,
@@ -3522,10 +3634,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 1653.9998779296875,
-            "y": -278.9999694824219,
-            "width": 130.0001220703125,
-            "height": 117.99998474121094
+            "x": 1593.0,
+            "y": -316.9999694824219,
+            "width": 130.0,
+            "height": 118.00007629394531
         }
     },
     "m_Slots": [
@@ -3881,10 +3993,10 @@
     },
     "m_Color": {
         "color": {
-            "r": 0.3116767704486847,
-            "g": 0.6013946533203125,
-            "b": 0.6415094137191773,
-            "a": 0.0
+            "r": 0.30980393290519717,
+            "g": 0.6000000238418579,
+            "b": 0.6431372761726379,
+            "a": 1.0
         },
         "mode": 0
     }
@@ -4291,6 +4403,34 @@
 }
 
 {
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
+    "m_ObjectId": "ac276dd41c1f4cec9c919d496502a9b8",
+    "m_Guid": {
+        "m_GuidSerialized": "6b40a4a9-f72a-42a7-82ee-6d1f1946ed65"
+    },
+    "m_Name": "WaterDepth",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "WaterDepth",
+    "m_DefaultReferenceName": "_WaterDepth",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_DismissedVersion": 0,
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": 0.0,
+    "m_FloatType": 0,
+    "m_RangeValues": {
+        "x": 0.0,
+        "y": 1.0
+    }
+}
+
+{
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.DynamicValueMaterialSlot",
     "m_ObjectId": "ace499d3f6a14c5d9030bc69a4439d20",
@@ -4659,6 +4799,34 @@
 }
 
 {
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
+    "m_ObjectId": "ba50bf33c47d42cdaf343d6f12d87ca2",
+    "m_Guid": {
+        "m_GuidSerialized": "38a262e1-ea12-4d30-bdb6-357ba005a2b1"
+    },
+    "m_Name": "WaterDepthMix",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "WaterDepthMix",
+    "m_DefaultReferenceName": "_WaterDepthMix",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_DismissedVersion": 0,
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": 1.0,
+    "m_FloatType": 0,
+    "m_RangeValues": {
+        "x": 0.0,
+        "y": 1.0
+    }
+}
+
+{
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.DynamicValueMaterialSlot",
     "m_ObjectId": "bc18b68bf6994cc5838241f23b22a297",
@@ -4829,10 +4997,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 1927.0,
-            "y": -492.9999694824219,
+            "x": 1922.0,
+            "y": -399.9999084472656,
             "width": 208.0,
-            "height": 326.0
+            "height": 325.99993896484377
         }
     },
     "m_Slots": [
@@ -5340,6 +5508,42 @@
         "w": 0.0
     },
     "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
+    "m_ObjectId": "ece3ef3c88d54539932efbe879c768a1",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "Property",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": 1620.0,
+            "y": -382.9999694824219,
+            "width": 157.0,
+            "height": 34.0
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "48ffe4b8836c4685b33939d652cadba3"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_DismissedVersion": 0,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_Property": {
+        "m_Id": "ba50bf33c47d42cdaf343d6f12d87ca2"
+    }
 }
 
 {

@@ -99,7 +99,7 @@ Material:
     - _AlphaToMask: 0
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
-    - _BottomStrength: 1.19
+    - _BottomStrength: 9.58
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
@@ -119,24 +119,27 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _RipplesAmount: 1.52
+    - _RipplesAmount: 0.94
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
-    - _TopStrength: -1.39
+    - _TopStrength: -0.15
     - _VoronoiScale: 30
     - _VoronoiSpeed: 0.8
+    - _WaterDepth: 3.82
+    - _WaterDepthMix: 0.48
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _RipplesColor: {r: 0.049706575, g: 0.20507877, b: 0.3967553, a: 1}
+    - _RipplesColor: {r: 0.07227186, g: 0.19806935, b: 0.4072403, a: 1}
     - _RipplesSpeed: {r: 0, g: 0.11, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _UVTilling: {r: 7.2, g: 0.8, b: 0, a: 0}
+    - _WaterDepthMix: {r: 1, g: 1, b: 1, a: 3.52}
   m_BuildTextureStacks: []
