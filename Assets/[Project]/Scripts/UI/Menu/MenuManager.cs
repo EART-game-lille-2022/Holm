@@ -22,7 +22,7 @@ public class MenuManager : MonoBehaviour
             EventSystem.current.SetSelectedGameObject(_firstSelectedButton);
     }
 
-    public void SetFirstSelectedObject(GameObject toSet)
+    public void SetFirstSelectedObject(GameObject toSet) 
     {
         if (!toSet)
         {
