@@ -563,7 +563,6 @@ MonoBehaviour:
   _trailList:
   - {fileID: 9117934673041188178}
   - {fileID: 7382596236033825845}
-  _meshTransform: {fileID: 5298963008047108386}
   _groundMoveSpeed: 8.12
   _jumpForce: 6
   _groundDrag: 0
@@ -571,20 +570,32 @@ MonoBehaviour:
   _groundPhysicMaterial: {fileID: 13400000, guid: 28758832965e7f541bb0f8ca56c4682d,
     type: 2}
   _flyDrag: 3
-  _upForce: 12.1
-  _liftForce: 1.5
-  _yLiftMultiplier: 1.5
-  _passiveYawMult: 0.5
-  _velocityConcervationRate: 2
-  _stallingVelocityThresold: 8
-  _noseFallingForce: 0.58
-  _flyTimeBeforeCanStall: 2
-  _minAngleRatioMultiplier: -1
-  _maxAngleRatioMultiplier: 10
+  _orientationRecoverySpeed: 0.35
+  _basicControler:
+    upForce: 30
+    liftForce: 3
+    yLiftMultiplier: 3
+    passiveYawMult: 1
+    velocityConcervationRate: 2
+    stallingVelocityThresold: 5
+    noseFallingForce: 1
+    stallingFallingForce: 1
+    flyTimeBeforeCanStall: 3
+    minAngleRatioMultiplier: -1
+    maxAngleRatioMultiplier: 5
+  _advancedControler:
+    upForce: 30
+    liftForce: 3
+    yLiftMultiplier: 3
+    passiveYawMult: 1
+    velocityConcervationRate: 2
+    stallingVelocityThresold: 5
+    noseFallingForce: 1
+    stallingFallingForce: 1
+    flyTimeBeforeCanStall: 3
+    minAngleRatioMultiplier: -1
+    maxAngleRatioMultiplier: 5
   _flyPhysicMaterial: {fileID: 13400000, guid: 9cc2bab43b542bc44b4aa477128c2d1b, type: 2}
-  _currentState: 0
-  _stallingMagnitudeThresold: 5
-  _xAngle: 0
 --- !u!54 &972718206229623464
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1300,17 +1311,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 086365c0295b5394abae90d1afd4363b,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 086365c0295b5394abae90d1afd4363b,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 086365c0295b5394abae90d1afd4363b,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 086365c0295b5394abae90d1afd4363b,
         type: 3}
