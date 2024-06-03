@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70d3d28f5a86b9e4f867aa417a384053, type: 3}
   m_Name: Amoureux2
   m_EditorClassIdentifier: 
-  happy: {fileID: 0}
-  sad: {fileID: 0}
-  surprised: {fileID: 0}
-  angry: {fileID: 0}
-  hmmm: {fileID: 0}
+  happy: {fileID: 21300000, guid: 6c853e2619d031a4a818c1ed764ada04, type: 3}
+  sad: {fileID: 21300000, guid: ae53e9f43b257884eb6438fbbe559613, type: 3}
+  surprised: {fileID: 21300000, guid: 965443d64f43d5a4a839d6b55fd97fe9, type: 3}
+  angry: {fileID: 21300000, guid: 7385b825d2821e148b28762748e8693b, type: 3}
+  hmmm: {fileID: 21300000, guid: 1de2c751ded604d43960bbb0affd3594, type: 3}

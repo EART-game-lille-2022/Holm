@@ -115,6 +115,5 @@ public class GameManager : MonoBehaviour
         Time.timeScale = _isGamePause ? 0 : 1;
 
         CanvasManager.instance.SetPauseGame(_isGamePause);
-        MenuManager.instance.SetFirstSelectedObject(MenuManager.instance.FirstPauseButton);
     }
 }

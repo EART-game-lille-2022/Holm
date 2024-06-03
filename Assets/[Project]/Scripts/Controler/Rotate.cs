@@ -16,6 +16,6 @@ public class Rotate : MonoBehaviour
 
     void Update()
     {
-        transform.Rotate(_axisToRotate * _speed * randomeSpeed);
+        transform.Rotate(_axisToRotate * _speed * randomeSpeed * Time.deltaTime);
     }
 }

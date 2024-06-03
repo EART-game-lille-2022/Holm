@@ -103,17 +103,15 @@ public class QuestManager : MonoBehaviour
         if (!_currentQuest)
             return;
 
-        {
-            int collectibleNumber = 0;
-            foreach (var item in _collectibleList)
-                if (item.QUEST_ID == data.ID)
-                    collectibleNumber++;
+        int collectibleNumber = 0;
+        foreach (var item in _collectibleList)
+            if (item.QUEST_ID == data.ID)
+                collectibleNumber++;
 
-            if (collectibleNumber == 0)
-            {
-                print("THE QUEST WITH ID : | " + data.ID + " | DOES NOT HAVE COLLECTIBLE IN SCENE !");
-                return;
-            }
+        if (collectibleNumber == 0)
+        {
+            print("THE QUEST WITH ID : | " + data.ID + " | DOES NOT HAVE COLLECTIBLE IN SCENE !");
+            return;
         }
 
         foreach (var item in _collectibleList)
@@ -164,11 +162,11 @@ public class QuestManager : MonoBehaviour
 
         if (IsAllQuestDone())
         {
-            if(DialogueManager.instance.IsOnDialogue())
+            if (DialogueManager.instance.IsOnDialogue())
             {
                 DialogueManager.instance.onEnd.AddListener(EndGame);
             }
-            
+
             EndGame();
         }
     }
