@@ -75,13 +75,12 @@ public class GroundCheck : MonoBehaviour
             if (overlapCollider[i].gameObject.layer == 10)
             {
                 // print("Overlap ground ! ");
-                _animation.SetJump(true);
                 _hisGrounded = overlapCollider[i];
                 return overlapCollider[i];
             }
         }
 
-        _animation.SetJump(false);
+        // _animation.SetJump(false);
         // print("Don't Overlap ground !");
         _hisGrounded = false;
         return false;
