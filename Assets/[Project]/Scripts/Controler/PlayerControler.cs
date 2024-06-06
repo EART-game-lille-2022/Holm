@@ -34,7 +34,7 @@ public class FlyControlerParameter
 public class PlayerControler : MonoBehaviour
 {
     //TODO RETOUR CHRIS : super flight : plus t'es rapide plus controle son sensible
-    public static bool IS_BASIC_CTRL = false;
+    public bool IS_BASIC_CTRL = true;
     [Space]
     [Header("Reference :")]
     [SerializeField] private CameraControler _cameraControler;
