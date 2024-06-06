@@ -559,11 +559,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c9a1e42d83c07c419385a713c3d7983, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IS_BASIC_CTRL: 1
   _cameraControler: {fileID: 57155973486830570}
-  _trailList:
-  - {fileID: 9117934673041188178}
-  - {fileID: 7382596236033825845}
-  _groundMoveSpeed: 8.12
+  _trailList: []
+  _groundMoveSpeed: 64.4
   _jumpForce: 6
   _groundDrag: 0
   _groundCenterOfMass: {x: 0, y: -0.5, z: 0}
@@ -584,7 +583,7 @@ MonoBehaviour:
     minAngleRatioMultiplier: -1
     maxAngleRatioMultiplier: 5
   _advancedControler:
-    upForce: 30
+    upForce: 151
     liftForce: 3
     yLiftMultiplier: 3
     passiveYawMult: 1
