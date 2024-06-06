@@ -99,7 +99,6 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator EndGame()
     {
-        //TODO BUG : Se lance meme si le dernier dialogue n'est pas fini
         yield return new WaitForSeconds(30f);
         DialogueManager.instance.PlayDialogue(_endGameDialogue, () =>
         {

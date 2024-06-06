@@ -33,7 +33,6 @@ public class FlyControlerParameter
 
 public class PlayerControler : MonoBehaviour
 {
-    //TODO RETOUR CHRIS : super flight : plus t'es rapide plus controle son sensible
     [SerializeField] private bool _isBasicControler = true;
     [Space]
     [Header("Reference :")]
@@ -321,7 +320,6 @@ public class PlayerControler : MonoBehaviour
 
         if (_isStalling)
         {
-            //TODO mettre en stalling seulement en fonction de la vitesse du joueur !
             _rigidbody.AddForceAtPosition(Vector3.down * flyCtrl.stallingFallingForce, transform.TransformPoint(Vector3.up), ForceMode.Acceleration);
             if (_xAngle < -80)
                 _isStalling = false;

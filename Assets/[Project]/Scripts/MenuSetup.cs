@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class MenuSetup : MonoBehaviour
 {
-    //TODO fondu en noire au start
-
     [SerializeField] private Canvas _mainMenuCanvas;
     [Space]
     [SerializeField] private Transform _cameraTarget;
