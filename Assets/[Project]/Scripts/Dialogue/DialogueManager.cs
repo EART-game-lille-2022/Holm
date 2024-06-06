@@ -119,11 +119,7 @@ public class DialogueManager : MonoBehaviour
         _textBloc.text = " ";
         _pnjImage.sprite = null;
 
-        if(_onEndDialogue != null)
-            _onEndDialogue.Invoke();
-        _onEndDialogue = null;
 
-        onEnd.Invoke();
 
         // if(_currentDialogue)
         //     _currentDialogue.hasBeenPlayed = true;
@@ -132,6 +128,12 @@ public class DialogueManager : MonoBehaviour
 
         GameManager.instance.SetPlayerControleAbility(true);
         InteractibleManager.instance.SetInteractibleCapability(true);
+
+        if(_onEndDialogue != null)
+            _onEndDialogue.Invoke();
+        _onEndDialogue = null;
+
+        onEnd.Invoke();
     }
 
     public bool IsOnDialogue()

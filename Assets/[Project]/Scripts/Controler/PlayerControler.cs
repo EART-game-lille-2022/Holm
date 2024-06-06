@@ -34,7 +34,7 @@ public class FlyControlerParameter
 public class PlayerControler : MonoBehaviour
 {
     //TODO RETOUR CHRIS : super flight : plus t'es rapide plus controle son sensible
-    public bool IS_BASIC_CTRL = true;
+    [SerializeField] private bool _isBasicControler = true;
     [Space]
     [Header("Reference :")]
     [SerializeField] private CameraControler _cameraControler;
@@ -52,9 +52,8 @@ public class PlayerControler : MonoBehaviour
     [Space]
     [SerializeField] private float _orientationRecoverySpeed = 2;
     [SerializeField] private FlyControlerParameter _basicControler;
-    [Space]
     [SerializeField] private FlyControlerParameter _advancedControler;
-
+    [Space]
     [SerializeField] private PhysicMaterial _flyPhysicMaterial;
 
     private PlayerState _currentState = PlayerState.None;
@@ -206,7 +205,7 @@ public class PlayerControler : MonoBehaviour
 
         _orientationFactor = Vector3.Dot(Vector3.up, transform.up);
 
-        if (IS_BASIC_CTRL)
+        if (_isBasicControler)
         {
             BasicControler(_basicControler);
             PushResetOrientation();
@@ -218,11 +217,11 @@ public class PlayerControler : MonoBehaviour
         }
 
 
-        FallingNose(IS_BASIC_CTRL ? _basicControler : _advancedControler);
-        PushForward(IS_BASIC_CTRL ? _basicControler : _advancedControler);
+        FallingNose(_isBasicControler ? _basicControler : _advancedControler);
+        PushForward(_isBasicControler ? _basicControler : _advancedControler);
 
         if (_orientationFactor > -.9f & _orientationFactor < .9f)
-            PassiveYawPushRotate(IS_BASIC_CTRL ? _basicControler : _advancedControler);
+            PassiveYawPushRotate(_isBasicControler ? _basicControler : _advancedControler);
     }
 
     private void PushResetOrientation()
@@ -329,6 +328,15 @@ public class PlayerControler : MonoBehaviour
         }
     }
 
+    public void SetControlerBasic()
+    {
+        _isBasicControler = true;
+    }
+
+    public void SetControlerAdvanced()
+    {
+        _isBasicControler = false;
+    }
 
     //! Input
     private void OnMove(InputValue value)
