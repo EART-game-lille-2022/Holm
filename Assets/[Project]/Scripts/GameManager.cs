@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _controleTypePanel;
     [SerializeField] private GameObject _controleTypeButtonFirst;
 
-    [Header("On Game Start End Element :")]
+    [Header("On Game End Element :")]
     [SerializeField] private ScriptableDialogue _endGameDialogue;
 
     public bool CanPlayerMove => _canPlayerMove;
