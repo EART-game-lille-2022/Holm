@@ -68,20 +68,21 @@ public class GroundCheck : MonoBehaviour
                                                           , transform.TransformPoint(Vector3.down * overlapPoin1)
                                                           , overlapRaduis);
 
-        print("Collider overlap : " + overlapCollider.Length);
+        // print("Collider overlap : " + overlapCollider.Length);
         for (int i = 0; i < overlapCollider.Length; i++)
         {
-            print(overlapCollider[i].name + " : " + overlapCollider[i].gameObject.layer);
+            // print(overlapCollider[i].name + " : " + overlapCollider[i].gameObject.layer);
             if (overlapCollider[i].gameObject.layer == 10)
             {
-                print("Overlap ground ! ");
-                _animation.SetJump(true);
+                // print("Overlap ground ! ");
+                _hisGrounded = overlapCollider[i];
                 return overlapCollider[i];
             }
         }
 
-        _animation.SetJump(false);
-        print("Don't Overlap ground !");
+        // _animation.SetJump(false);
+        // print("Don't Overlap ground !");
+        _hisGrounded = false;
         return false;
 
         // print(_checkHit.collider ? "Hit " + _checkHit.collider.name : "No Hit");
