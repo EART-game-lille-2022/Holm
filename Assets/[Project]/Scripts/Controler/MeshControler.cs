@@ -36,24 +36,24 @@ public class MeshControler : MonoBehaviour
         _playerRigidbody = transform.parent.GetComponentInChildren<Rigidbody>();
         _playerControler = transform.parent.GetComponentInChildren<PlayerControler>();
 
-        foreach (var item in _rigArmsList)
-            item.StartPoint = item.rigTarget.localPosition;
-        foreach (var item in _rigLegsList)
-            item.StartPoint = item.rigTarget.localPosition;
+        // foreach (var item in _rigArmsList)
+        //     item.StartPoint = item.rigTarget.localPosition;
+        // foreach (var item in _rigLegsList)
+        //     item.StartPoint = item.rigTarget.localPosition;
     }
 
     //! min = 25, / max = 55
     void Update()
     {
         FollowControler();
-        SetRigWeight();
+        // SetRigWeight();
 
-        _inputDirection = _playerControler.GetPlayerInput();
-        foreach (var item in _rigArmsList)
-            ArmsAnimation(item);
+        // _inputDirection = _playerControler.GetPlayerInput();
+        // foreach (var item in _rigArmsList)
+        //     ArmsAnimation(item);
 
-        foreach (var item in _rigLegsList)
-            LegsAnimation(item);
+        // foreach (var item in _rigLegsList)
+        //     LegsAnimation(item);
     }
 
     private void SetRigWeight()
@@ -103,8 +103,9 @@ public class MeshControler : MonoBehaviour
 
     private void FollowControler()
     {
-        transform.position = _controlerTransform.position + _meshPositionOffset;
-        transform.rotation = _controlerTransform.rotation;
+        //TODO ajustter l'offset en fonction du stat du joueur
+        transform.localPosition = _controlerTransform.localPosition + _meshPositionOffset;
+        transform.localRotation = _controlerTransform.localRotation;
     }
 
     void OnValidate()
