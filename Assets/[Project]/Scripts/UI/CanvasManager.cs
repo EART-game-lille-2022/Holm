@@ -55,7 +55,6 @@ public class CanvasManager : MonoBehaviour
 
     public void PrintPopup(string toSay)
     {
-        //TODO ajouter une liste de string et lacher les popup dans un par un
         GameObject newPop = Instantiate(_popup, _canvasInGame.transform);
         newPop.GetComponent<TextMeshProUGUI>().text = toSay;
     }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b2db86121404754db890f4c8dfe81b2, type: 3}
   m_Name: Bloom
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   skipIterations:
     m_OverrideState: 0
     m_Value: 1
@@ -93,7 +93,7 @@ MonoBehaviour:
     m_Value: 1
   qualityLevel:
     m_OverrideState: 1
-    m_Value: 4
+    m_Value: 0
   depthInteractionMode:
     m_OverrideState: 0
     m_Value: 1
@@ -102,13 +102,13 @@ MonoBehaviour:
     m_Value: 0
   sampleCount:
     m_OverrideState: 1
-    m_Value: 48
+    m_Value: 24
   animateSamplePosition:
     m_OverrideState: 0
     m_Value: 0
   selfShadowingEnabled:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0
   maximumSelfShadowingOctaves:
     m_OverrideState: 0
     m_Value: 1
@@ -217,7 +217,7 @@ MonoBehaviour:
       gain: 0.35
       seed: 0
       noiseType: 2
-      noiseQuality: 2
+      noiseQuality: 0
       invert: 0
       userTexture: {fileID: 0}
 --- !u!114 &11400000

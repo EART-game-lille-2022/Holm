@@ -1,7 +1,9 @@
 using System.Collections;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,8 +14,11 @@ public class GameManager : MonoBehaviour
     [Header("On Game Start Element :")]
     [SerializeField] private ScriptableQuest _questOnGameStart;
     [SerializeField] private ScriptableDialogue _dialogueOnStart;
+    [Space]
+    [SerializeField] private GameObject _controleTypePanel;
+    [SerializeField] private GameObject _controleTypeButtonFirst;
 
-    [Header("On Game Start End Element :")]
+    [Header("On Game End Element :")]
     [SerializeField] private ScriptableDialogue _endGameDialogue;
 
     public bool CanPlayerMove => _canPlayerMove;
@@ -23,7 +28,6 @@ public class GameManager : MonoBehaviour
     private bool _isGamePause = false;
     private GameObject _player;
     private CameraControler _cameraControler;
-
 
     void Awake()
     {
@@ -64,14 +68,37 @@ public class GameManager : MonoBehaviour
     {
         DialogueManager.instance.PlayDialogue(_dialogueOnStart, () =>
         {
-            QuestManager.instance.SelectQuest(_questOnGameStart);
-            SetPlayerControleAbility(true);
+            //! pop du controler type choice panel
+            _controleTypePanel.SetActive(true);
+            MenuManager.instance.SetFirstSelectedObject(_controleTypeButtonFirst);
+            SetPlayerControleAbility(false);
         });
+    }
+
+    //! Call by controler type choice panel
+    public void StartGameEndSequence()
+    {
+        _controleTypePanel.SetActive(false);
+        MenuManager.instance.SetFirstSelectedObject(null);
+
+        QuestManager.instance.SelectQuest(_questOnGameStart);
+        SetPlayerControleAbility(true);
+    }
+
+    //! Set depuis le game manager pour que les event soit set dans le prefba du GM
+    //! true = advanced
+    //! false = basic
+    public void SetControlerType(bool type)
+    {
+        if (type)
+            PlayerInstance.instance.GetComponent<PlayerControler>().SetControlerAdvanced();
+        else
+            PlayerInstance.instance.GetComponent<PlayerControler>().SetControlerBasic();
+        StartGameEndSequence();
     }
 
     public IEnumerator EndGame()
     {
-        //TODO BUG : Se lance meme si le dernier dialogue n'est pas fini
         yield return new WaitForSeconds(30f);
         DialogueManager.instance.PlayDialogue(_endGameDialogue, () =>
         {
@@ -97,6 +124,7 @@ public class GameManager : MonoBehaviour
 
     public void SetPlayerControleAbility(bool value)
     {
+        // print("Set player controler !!!!!!! " + value);
         _canPlayerMove = value;
         _player.GetComponent<PlayerInput>().enabled = value;
         _player.GetComponent<PlayerControler>().enabled = value;
