@@ -29,7 +29,7 @@ public class MenuManager : MonoBehaviour
             EventSystem.current.SetSelectedGameObject(_nullButton);
             return;
         }
-        print("Set first : " + toSet.name);
+        // print("Set first : " + toSet.name);
         EventSystem.current.SetSelectedGameObject(toSet);
     }
 }
