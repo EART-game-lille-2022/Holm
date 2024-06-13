@@ -7,16 +7,17 @@ using UnityEngine.UI;
 
 public class Manette : MonoBehaviour
 {
-    [SerializeField] RectTransform _rect;
+    [SerializeField] RectTransform _hidePanelRect;
+    [SerializeField] RectTransform _controlerImageRect;
 
     void Start()
     {
-        _rect.localScale = Vector3.zero;
-        _rect.DOScale(1f, .2f);
-        _rect.DOShakeAnchorPos(1f, 20, 55)
+        _controlerImageRect.localScale = Vector3.zero;
+        _controlerImageRect.DOScale(1f, .2f);
+        _controlerImageRect.DOShakeAnchorPos(1f, 20, 55)
         .OnComplete(() =>
         {
-            _rect.GetComponent<Image>().DOColor(new Color(1, 1, 1, 0), 1)
+            _hidePanelRect.GetComponent<Image>().DOColor(new Color(0, 0, 0, 1), 2)
             .OnComplete(() => StartCoroutine(SceneSwitch()));
         });
     }

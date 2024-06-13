@@ -17,15 +17,19 @@ public class MenuManager : MonoBehaviour
     }
 
     void Start()
-    { 
+    {
         if (_firstSelectedButton)
             EventSystem.current.SetSelectedGameObject(_firstSelectedButton);
     }
 
-    public void SetFirstSelectedObject(GameObject toSet)
+    public void SetFirstSelectedObject(GameObject toSet) 
     {
-        if(!toSet)
-             EventSystem.current.SetSelectedGameObject(_nullButton);
+        if (!toSet)
+        {
+            EventSystem.current.SetSelectedGameObject(_nullButton);
+            return;
+        }
+        // print("Set first : " + toSet.name);
         EventSystem.current.SetSelectedGameObject(toSet);
     }
 }
