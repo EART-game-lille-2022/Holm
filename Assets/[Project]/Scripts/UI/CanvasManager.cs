@@ -16,9 +16,12 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private GameObject _popup;
 
     [Header("Pause Menu : ")]
-    [SerializeField] RectTransform _pauseMenuBackground;
-    [SerializeField] GameObject _pauseMenuButton;
-    [SerializeField] GameObject _pauseMenuOptionPanel;
+    [SerializeField] private RectTransform _pauseMenuBackground;
+    [SerializeField] private GameObject _pauseMenuButton;
+    [SerializeField] private GameObject _pauseMenuOptionPanel;
+    [Space]
+    [SerializeField] private TextMeshProUGUI _lostPackageText;
+    [SerializeField] private Image _lostPackageFillImage;
 
     [Header("Quest Info Pause Menu Reference : ")]
     [SerializeField] private TextMeshProUGUI _questTitle;
@@ -51,11 +54,13 @@ public class CanvasManager : MonoBehaviour
         _endQuestPanelStartPosition = _endQuestPanel.anchoredPosition;
         SetPauseGame(false, false);
         ClearQuestInformation();
+
+        _lostPackageText.text = "Lost Package : " + 0 + " / " + LostPackage.LostPackageList.Count;
+        _lostPackageFillImage.fillAmount = 0;
     }
 
     public void PrintPopup(string toSay)
     {
-        //TODO ajouter une liste de string et lacher les popup dans un par un
         GameObject newPop = Instantiate(_popup, _canvasInGame.transform);
         newPop.GetComponent<TextMeshProUGUI>().text = toSay;
     }
@@ -151,5 +156,11 @@ public class CanvasManager : MonoBehaviour
     public void SetPauseMenu(bool value)
     {
         _pauseMenuBackground.gameObject.SetActive(value);
+    }
+
+    public void SetLostPackageFill(float ratio, int disablePackage)
+    {
+        _lostPackageText.text = "Lost Package : " + disablePackage + " / " + LostPackage.LostPackageList.Count;
+        _lostPackageFillImage.fillAmount = ratio;
     }
 }

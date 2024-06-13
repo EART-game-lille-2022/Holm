@@ -103,7 +103,7 @@ public class MeshControler : MonoBehaviour
 
     private void FollowControler()
     {
-        //TODO ajustter l'offset en fonction du stat du joueur
+        //TODO ajustter l'offset en fonction du controler stat du joueur
         transform.localPosition = _controlerTransform.localPosition + _meshPositionOffset;
         transform.localRotation = _controlerTransform.localRotation;
     }
