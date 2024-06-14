@@ -1711,6 +1711,8 @@ MonoBehaviour:
   _pauseMenuBackground: {fileID: 4789507254992098299}
   _pauseMenuButton: {fileID: 3994869413974445474}
   _pauseMenuOptionPanel: {fileID: 5642201288402779742}
+  _lostPackageText: {fileID: 4225771121955601580}
+  _lostPackageFillImage: {fileID: 8716924673163603605}
   _questTitle: {fileID: 5150979087591270464}
   _questType: {fileID: 4884388368452027189}
   _questDescription: {fileID: 1711333756131977545}
@@ -2355,6 +2357,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2903205874293512081}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4225771121955601580 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1364228046316628797, guid: 623352d4b8c8c224db019a6449bddf2d,
+    type: 3}
+  m_PrefabInstance: {fileID: 2903205874293512081}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &4789507254992098299 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7655553275510539370, guid: 623352d4b8c8c224db019a6449bddf2d,
@@ -2397,6 +2411,18 @@ Canvas:
     type: 3}
   m_PrefabInstance: {fileID: 2903205874293512081}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8716924673163603605 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5814989972089256196, guid: 623352d4b8c8c224db019a6449bddf2d,
+    type: 3}
+  m_PrefabInstance: {fileID: 2903205874293512081}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4959928432412626020
 PrefabInstance:
   m_ObjectHideFlags: 0
