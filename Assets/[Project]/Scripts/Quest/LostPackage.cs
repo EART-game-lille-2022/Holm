@@ -8,6 +8,11 @@ public class LostPackage : MonoBehaviour
 
     void Awake()
     {
+        LostPackageList.Clear();
+    }
+
+    void Start()
+    {
         LostPackageList.Add(this);
     }
 
@@ -15,17 +20,20 @@ public class LostPackage : MonoBehaviour
     {
         gameObject.SetActive(false);
         CanvasManager.instance.SetLostPackageFill(PackagePickUpRatio(out int disablePackage), disablePackage);
+        Map.instance.AddPackagePin(transform.position);
     }
 
     private float PackagePickUpRatio(out int disablePackage)
     {
         disablePackage = 0;
         foreach (var item in LostPackageList)
+        {
             disablePackage += item.gameObject.activeSelf ? 0 : 1;
+        }
 
-        print("AP : " + disablePackage);
-        print("LP count : " + LostPackageList.Count);
-        print("RA : " + Mathf.InverseLerp(0, LostPackageList.Count, disablePackage));
+        // print("AP : " + disablePackage);
+        // print("LP count : " + LostPackageList.Count);
+        // print("RA : " + Mathf.InverseLerp(0, LostPackageList.Count, disablePackage));
 
         return Mathf.InverseLerp(0, LostPackageList.Count, disablePackage);
     }
