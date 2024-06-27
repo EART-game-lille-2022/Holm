@@ -134,7 +134,7 @@ public class GameManager : MonoBehaviour
 
     private void OnPauseGame(InputValue inputValue)
     {
-        if (_menuSetup._isInMenu)
+        if (_menuSetup._isInMenu || DialogueManager.instance.IsOnDialogue())
             return;
 
         _isGamePause = !_isGamePause;

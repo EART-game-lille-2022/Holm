@@ -9,7 +9,7 @@ public class DialogueState
     public ScriptablePNJ pnj;
     [TextArea] public string text;
 
-    public Sprite GetImage(out PnjMood currentMood)
+    public Sprite GetPnjImage(out PnjMood currentMood)
     {
         currentMood = mood;
         switch (mood)

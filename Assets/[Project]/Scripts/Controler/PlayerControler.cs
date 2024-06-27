@@ -217,10 +217,10 @@ public class PlayerControler : MonoBehaviour
 
 
         FallingNose(_isBasicControler ? _basicControler : _advancedControler);
-        PushForward(_isBasicControler ? _basicControler : _advancedControler);
+        FlyPush(_isBasicControler ? _basicControler : _advancedControler);
 
-        if (_orientationFactor > -.9f & _orientationFactor < .9f)
-            PassiveYawPushRotate(_isBasicControler ? _basicControler : _advancedControler);
+        // if (_orientationFactor > -.9f & _orientationFactor < .9f)
+        //     PassiveYawPush(_isBasicControler ? _basicControler : _advancedControler);
     }
 
     private void PushResetOrientation()
@@ -257,27 +257,32 @@ public class PlayerControler : MonoBehaviour
 
     private void AdvancedControler(FlyControlerParameter flyCtrl)
     {
-        //! en avion de chasse ou bien ?!
         if (_isStalling)
             return;
 
-        _positionToAddForce = transform.TransformPoint(new Vector3(_playerInput.x, _playerInput.y * flyCtrl.yLiftMultiplier, 0));
+        Vector3 newPoint = new Vector3(_playerInput.x, _playerInput.y * flyCtrl.yLiftMultiplier, 0);
+        _positionToAddForce = transform.TransformPoint(newPoint);
+
         _rigidbody.AddForceAtPosition(-transform.forward * flyCtrl.liftForce * -_playerInput.magnitude, _positionToAddForce
                                     , ForceMode.Acceleration);
     }
 
-    private void PushForward(FlyControlerParameter flyCtrl)
+    private void FlyPush(FlyControlerParameter flyCtrl)
     {
-        //! Convertie l'angle en un multiplicateur en fonction de l'incilinaison
+        //! Convertie l'angle en un multiplicateur
+        float multiplierOnXAngle = Mathf.Lerp(flyCtrl.maxAngleRatioMultiplier
+                                            , flyCtrl.minAngleRatioMultiplier
+                                            , Mathf.InverseLerp(-90, 90, _xAngle));
 
-        float _velocityConcervationRate = (_xAngle > 0 && _rigidbody.velocity.magnitude > 20f) ? .5f : 1;
+        //! Definit la quantiter de velociter concerver
+        float velocityConcervationRate = (_xAngle > 0 && _rigidbody.velocity.magnitude > 20f) ? .5f : 1;
 
-        _angleRatioMultiplier = Mathf.Lerp(_angleRatioMultiplier,
-        Mathf.Lerp(flyCtrl.maxAngleRatioMultiplier, flyCtrl.minAngleRatioMultiplier, Mathf.InverseLerp(-90, 90, _xAngle))
-        , Time.fixedDeltaTime * _velocityConcervationRate);
+        //! Calcule la force de poussée en fonction de la concervation de velocité
+        _angleRatioMultiplier = Mathf.Lerp(_angleRatioMultiplier
+                                         , multiplierOnXAngle
+                                         , Time.fixedDeltaTime * velocityConcervationRate);
 
-        // angleRatioMultiplier = Mathf.Lerp(_maxAngleRatioMultiplier, _minAngleRatioMultiplier, Mathf.InverseLerp(-90, 90, _xAngle));
-        _rigidbody.AddForce(transform.up * ((flyCtrl.upForce * _angleRatioMultiplier) + 0), ForceMode.Acceleration);
+        _rigidbody.AddForce(transform.up * (flyCtrl.upForce * _angleRatioMultiplier), ForceMode.Acceleration);
     }
 
     private void FallingNose(FlyControlerParameter flyCtrl)
@@ -289,12 +294,16 @@ public class PlayerControler : MonoBehaviour
             _rigidbody.AddForceAtPosition(Vector3.down * flyCtrl.noseFallingForce * .2f, transform.TransformPoint(Vector3.up), ForceMode.Acceleration);
     }
 
-    private void PassiveYawPushRotate(FlyControlerParameter flyCtrl)
+    private void PassiveYawPush(FlyControlerParameter flyCtrl)
     {
-        // print("origjoritrgjroitj");
-        //! force sur le yaw en fonction du roll
+        //! Calcule la force de poussé
         float yawForce = Mathf.Lerp(0, 3, Mathf.InverseLerp(0, 90, Mathf.Abs(_yAngle)));
-        _rigidbody.AddForceAtPosition((_yAngle > 0 ? -_orientation.right : _orientation.right) * yawForce * flyCtrl.passiveYawMult
+
+        //! Definit la direction par rapport a l'angle en y
+        Vector3 pushDirection = _yAngle > 0 ? -_orientation.right : _orientation.right;
+
+        //! pousse le joueur 
+        _rigidbody.AddForceAtPosition(pushDirection * yawForce * flyCtrl.passiveYawMult
                                     , transform.TransformPoint(Vector3.up)
                                     , ForceMode.Acceleration);
     }

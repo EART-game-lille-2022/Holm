@@ -35,18 +35,16 @@ public class DialogueManager : MonoBehaviour
 
     public void PlayDialogue(ScriptableDialogue toPlay, Action toDoAfter = null)
     {
-        if(_currentDialogue == toPlay)
-            return;
-
-        // if(toPlay.hasBeenPlayed)
-        //     return;
-    
-        if(toDoAfter != null)
+        if (toDoAfter != null)
             _onEndDialogue = toDoAfter;
 
         //* Get la ref du descriptor pour reset le conditionel des interactions
 
+        // if(toPlay.hasBeenPlayed)
+        //     return;
 
+        if (_currentDialogue == toPlay)
+            return;
         _dialogueCanvas.gameObject.SetActive(true);
         GameManager.instance.SetPlayerControleAbility(false);
         InteractibleManager.instance.SetInteractibleCapability(false);
@@ -95,10 +93,11 @@ public class DialogueManager : MonoBehaviour
     {
         _isCurrentStateFinish = false;
         PnjMood pnjMood;
-        _pnjImage.sprite = _currentDialogue.stateList[index].GetImage(out pnjMood);
-        // print("Mood : " + pnjMood + " at index : " + _stateIndex);
-        if(pnjMood == PnjMood.Surprised)
+        _pnjImage.sprite = _currentDialogue.stateList[index].GetPnjImage(out pnjMood);
+
+        if (pnjMood == PnjMood.Surprised)
             _pnjImage.transform.DOShakePosition(1, 20, 20, 90);
+
         StartCoroutine(PrintTexte(_currentDialogue.stateList[index].text));
     }
 
@@ -129,7 +128,7 @@ public class DialogueManager : MonoBehaviour
         GameManager.instance.SetPlayerControleAbility(true);
         InteractibleManager.instance.SetInteractibleCapability(true);
 
-        if(_onEndDialogue != null)
+        if (_onEndDialogue != null)
             _onEndDialogue.Invoke();
         _onEndDialogue = null;
 
