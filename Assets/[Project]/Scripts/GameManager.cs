@@ -69,9 +69,8 @@ public class GameManager : MonoBehaviour
         DialogueManager.instance.PlayDialogue(_dialogueOnStart, () =>
         {
             //! pop du controler type choice panel
-            _controleTypePanel.SetActive(true);
-            MenuManager.instance.SetFirstSelectedObject(_controleTypeButtonFirst);
-            SetPlayerControleAbility(false);
+            // _controleTypePanel.SetActive(true);
+            StartGameEndSequence();
         });
     }
 
@@ -94,7 +93,6 @@ public class GameManager : MonoBehaviour
             PlayerInstance.instance.GetComponent<PlayerControler>().SetControlerAdvanced();
         else
             PlayerInstance.instance.GetComponent<PlayerControler>().SetControlerBasic();
-        StartGameEndSequence();
     }
 
     public IEnumerator EndGame()

@@ -219,8 +219,8 @@ public class PlayerControler : MonoBehaviour
         FallingNose(_isBasicControler ? _basicControler : _advancedControler);
         FlyPush(_isBasicControler ? _basicControler : _advancedControler);
 
-        // if (_orientationFactor > -.9f & _orientationFactor < .9f)
-        //     PassiveYawPush(_isBasicControler ? _basicControler : _advancedControler);
+        if (_orientationFactor > -.9f & _orientationFactor < .9f)
+            PassiveYawPush(_isBasicControler ? _basicControler : _advancedControler);
     }
 
     private void PushResetOrientation()

@@ -82,11 +82,12 @@ public class InteractibleManager : MonoBehaviour
 
     private void OnInteract()
     {
-        if(GameManager.instance.IsGamePause)
+        if (GameManager.instance.IsGamePause)
             return;
 
         if (_selected && _canPlayerInteract)
         {
+            print("ioushiuhrg");
             _selected.Interact();
         }
     }

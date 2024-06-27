@@ -212,7 +212,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetList: []
-  arrowObject: {fileID: 0}
+  pnjTransform: {fileID: 0}
+  arrowObject: {fileID: 6523114228901585079}
   rotationSpeed: 10
 --- !u!1 &5656177394442489957
 GameObject:

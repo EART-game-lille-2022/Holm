@@ -11,7 +11,10 @@ public class FollowStuff : MonoBehaviour
     void Start()
     {
         if(_followPlayer)
+        {
             _target = GameObject.FindGameObjectWithTag("Player").transform;
+            transform.rotation = _target.rotation;
+        }
     }
 
     void OnValidate()

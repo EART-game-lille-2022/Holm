@@ -1,8 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Cinemachine.Utility;
-using TreeEditor;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Map : MonoBehaviour
