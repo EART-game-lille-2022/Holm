@@ -664,6 +664,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 134499625675489453, guid: 1d953390bbb40654f8af17b36ceebaf1,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 134499625675489453, guid: 1d953390bbb40654f8af17b36ceebaf1,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 187737935219932322, guid: 1d953390bbb40654f8af17b36ceebaf1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -724,6 +734,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -170
       objectReference: {fileID: 0}
+    - target: {fileID: 1349570465592342007, guid: 1d953390bbb40654f8af17b36ceebaf1,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -139.9
+      objectReference: {fileID: 0}
     - target: {fileID: 1430107504896892551, guid: 1d953390bbb40654f8af17b36ceebaf1,
         type: 3}
       propertyPath: m_Type
@@ -740,15 +755,20 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 710555658}
+    - target: {fileID: 3749058418446440896, guid: 1d953390bbb40654f8af17b36ceebaf1,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -180
+      objectReference: {fileID: 0}
     - target: {fileID: 3798213522998213748, guid: 1d953390bbb40654f8af17b36ceebaf1,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 187
+      value: 177
       objectReference: {fileID: 0}
     - target: {fileID: 3798213522998213748, guid: 1d953390bbb40654f8af17b36ceebaf1,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 40
+      value: 46
       objectReference: {fileID: 0}
     - target: {fileID: 3898593816818512634, guid: 1d953390bbb40654f8af17b36ceebaf1,
         type: 3}
@@ -769,6 +789,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4330366918757832541, guid: 1d953390bbb40654f8af17b36ceebaf1,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 600
       objectReference: {fileID: 0}
     - target: {fileID: 4428728619667963596, guid: 1d953390bbb40654f8af17b36ceebaf1,
         type: 3}
@@ -800,6 +825,11 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 710555658}
+    - target: {fileID: 5248844629382423269, guid: 1d953390bbb40654f8af17b36ceebaf1,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -97
+      objectReference: {fileID: 0}
     - target: {fileID: 5602936435961959977, guid: 1d953390bbb40654f8af17b36ceebaf1,
         type: 3}
       propertyPath: m_Type
